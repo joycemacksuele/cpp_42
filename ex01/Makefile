@@ -6,11 +6,11 @@
 #    By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/24 15:35:00 by jfreitas          #+#    #+#              #
-#    Updated: 2021/10/25 20:24:30 by jfreitas         ###   ########.fr        #
+#    Updated: 2021/11/23 07:34:36 by jfreitas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = crappy_phonebook
+NAME = phonebook
 
 ##### COLORS #####
 WHITE = \033[1;37m
@@ -30,7 +30,7 @@ SRCPATH = ./srcs
 OBJPATH = $(SRCPATH)/objs
 
 ##### SOURCES #####
-SRCS = $(addprefix $(SRCPATH)/, main.cpp phonebook.cpp)
+SRCS = $(addprefix $(SRCPATH)/, main.cpp ClassPhonebook.cpp)
 
 ##### OBJECTS #####
 OBJS = $(SRCS:$(SRCPATH)/%.c=$(OBJPATH)/%.o)
