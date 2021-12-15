@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/24 15:35:00 by jfreitas          #+#    #+#              #
-#    Updated: 2021/11/23 07:34:36 by jfreitas         ###   ########.fr        #
+#    Updated: 2021/12/10 11:30:18 by whoami           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ mk_objdir:
 #$@ = $(NAME)
 #$^ = $(OBJS)
 $(NAME): $(OBJS)
-	$(CC) $(FLAGS) -o $(NAME) $(OBJS)
+	@$(CC) $(FLAGS) -o $(NAME) $(OBJS)
 	@echo "\n$(END)$(GREEN)$(NAME) is built\n$(END)"
 
 ### CLEAN ###
