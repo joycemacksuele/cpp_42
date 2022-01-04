@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ClassPhonebook.hpp                                 :+:      :+:    :+:   */
+/*   Zombie.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/17 13:38:26 by jfreitas          #+#    #+#             */
-/*   Updated: 2021/12/17 14:19:30 by jfreitas         ###   ########.fr       */
+/*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
+/*   Updated: 2022/01/04 22:47:22 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLASS_PHONEBOOK_HPP
-# define CLASS_PHONEBOOK_HPP
+#ifndef ZOMBIE_HPP
+# define ZOMBIE_HPP
 
-#include <iostream>
 #include <string>
-#include <iomanip>
-#include <cstdlib>
+#include <iostream>
+#include <new>
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
@@ -24,24 +23,28 @@
 #define YELLOW  "\033[33m"
 #define BLUE    "\033[34m"
 
-class Contact {
+class Zombie {
 
 	public:
-		Contact( void );
-		~Contact( void );
+		Zombie( void );
+		~Zombie( void );
 
-		void	add( void);
-		void	displayChosenContact( void );
-		void	displayContactsList( int index );
+		bool wasAllocated;
+		bool		getWasAllocated() const;
+		void		setWasAllocated( bool allocated );
 
+		std::string	getName() const ;
+		void		setName( std::string name );
+
+		void		announce( void );
 
 	/* _varNmae -> convention to remember that this variable is private */
 	private:
-		std::string _firstName;
-		std::string _lastName;
-		std::string _nickName;
-		std::string _phoneNumber;
-		std::string _darkestSecret;
+		std::string _ZombieName;
+
 };
 
-#endif /* __CLASS_PHONEBOOK_HPP__ */
+Zombie* newZombie( std::string name );
+void randomChump( std::string name );
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 18:55:34 by jfreitas          #+#    #+#             */
-/*   Updated: 2021/12/15 20:57:52 by whoami           ###   ########.fr       */
+/*   Updated: 2021/12/17 14:44:35 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	addContact(std::string input, Contact instance[8], int contact) {
 	return contact;
 }
 
-int		main( void ) {
+int		main(void) {
 	Contact		instance[8];
 	std::string	input;
 	int			contact = 1;
@@ -119,5 +119,5 @@ int		main( void ) {
 			std::cout << "Wrong command!!!" << RESET << std::endl;
 		}
 	}
-	return (0);
+	return 0;
 }
