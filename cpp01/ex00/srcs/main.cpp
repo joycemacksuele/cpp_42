@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:42:17 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/04 23:03:21 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/01/06 12:18:17 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		main(void) {
 	std::cout << RESET << "Your heap Zombie announcement: ";
 	heapZombie->announce();
 	if (heapZombie->getWasAllocated() == 1){
-		delete heapZombie;
+		delete heapZombie; // delete call the destructor
 	}
 
 	name = userInput();
