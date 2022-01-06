@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/24 15:35:00 by jfreitas          #+#    #+#              #
-#    Updated: 2022/01/05 21:57:24 by jfreitas         ###   ########.fr        #
+#    Updated: 2022/01/06 22:35:52 by jfreitas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ $(NAME): $(OBJS)
 
 leaks: mk_objdir
 	@$(CC) $(FLAGS) -o $(NAME) $(OBJS)
-	@leaks -atExit -- ./braiiiiiiinnnzzzZ
+	@leaks -atExit -- ./$(NAME)
 
 ### CLEAN ###
 .PHONY: clean fclean re leaks

@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/06 11:31:14 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/01/06 22:27:12 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <string>
 #include <iostream>
 #include <new>
+#include <unistd.h>
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
