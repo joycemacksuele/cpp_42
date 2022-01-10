@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:42:17 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/06 23:28:22 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/01/07 11:58:50 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,43 @@
  *     by a reference is used as in &obj + 5).
  */
 int		main(void) {
-	std::string	original;
-	std::string	*stringPTR;
-	std::string	&stringREF = original; // has to be initialized on the same line
+	std::string		original;
+	std::string*	stringPTR;
+	std::string&	stringREF = original; // has to be initialized on the same line
 
 	original = "HI THIS IS BRAIN";
 	stringPTR = &original;
-
 	std::cout << std::endl;
-	std::cout << "Address of the string:                    ";
+
+	// & is used to show the address of a variable.
+	std::cout << "Address of the string:                            ";
 	std::cout << GREEN << &original << std::endl << RESET;
-	std::cout << "Address of the string by using stringPTR: ";
+
+	// stringPTR is a pointer so it contains the address of the variable original.
+	std::cout << "Address of the string by using  stringPTR:        ";
 	std::cout << GREEN << stringPTR << std::endl << RESET;
-	std::cout << "Address of the string by using stringREF: ";
+
+	// & is used to show the address of a variable.
+	std::cout << "Address of the string by using &stringREF:        ";
 	std::cout << GREEN << &stringREF << std::endl << RESET;
+
 	std::cout << std::endl;
 
-	std::cout << "Display the string using the pointer:     ";
+	// uses the * to display the value inside the address that stringPTR is pointing to.
+	std::cout << "Display the string using the pointer stringPTR:   ";
 	std::cout << GREEN << *stringPTR << std::endl << RESET;
-	std::cout << "Display the string using the reference:   ";
+
+	// the stringREF is an alias for the variable original, it has the same value and address.
+	std::cout << "Display the string using the reference stringREF: ";
 	std::cout << GREEN << stringREF << std::endl << RESET;
+
+	std::cout  << std::endl;
+
+	// display the address of the pointer variable, this address can hold only
+	// other address, it can't be initialized to a value.
+	std::cout << "bonus -> Address of the pointer stringPTR:        ";
+	std::cout << GREEN << &stringPTR << std::endl << RESET;
 	std::cout << std::endl;
+
 	return 0;
 }
