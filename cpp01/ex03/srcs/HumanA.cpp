@@ -11,9 +11,10 @@
 #include "../includes/HumanA.hpp"
 #include "../includes/Weapon.hpp"
 
-// While HumanA takes the Weapon in its constructor.
-HumanA::HumanA( std::string type) {
-	weaponA.setType(type);
+// HumanA takes the Weapon in its constructor.
+HumanA::HumanA( std::string Aname, Weapon *weapon) {
+	this->weaponA = weapon;
+	this->name = Aname;
 	return ;
 }
 
@@ -22,5 +23,5 @@ HumanA::~HumanA(void) {
 }
 
 void	HumanA::attack() {
-	std::cout << GREEN << this->name << RESET << " attacks with " << YELLOW << weaponA.getType() << std::endl;
+	std::cout << GREEN << this->name << RESET << " attacks with " << YELLOW << weaponA->getType() << std::endl;
 }

@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:42:17 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/10 23:55:31 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/01/15 16:49:08 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	isDigit(std::string amount) {
 	}
 	return true;
 }
-
+/*
 void	fight(std::string Aname, std::string Bname, HumanA *A, HumanB *B) {
 	std::string	input;
 
@@ -48,11 +48,11 @@ void	fight(std::string Aname, std::string Bname, HumanA *A, HumanB *B) {
 	}
 
 	std::cout << std::endl;
-	std::cout << Bname << RESET << " = " << B->weaponB.weaponXP << YELLOW << " vs ";
-	std::cout << GREEN << Aname << RESET << " = " << A->weaponA.weaponXP << std::endl;
-	if (A->weaponA.weaponXP == B->weaponB.weaponXP) 
+	std::cout << Bname << RESET << " = " << B->weaponB.weaponRank << YELLOW << " vs ";
+	std::cout << GREEN << Aname << RESET << " = " << A->weaponA.weaponRank << std::endl;
+	if (A->weaponA.weaponRank == B->weaponB.weaponRank) 
 		std::cout << "It's a tie!" << std::endl;
-	else if (A->weaponA.weaponXP > B->weaponB.weaponXP)
+	else if (A->weaponA.weaponRank > B->weaponB.weaponRank)
 		std::cout << GREEN << Aname << RESET << " wins!" << std::endl;
 	else
 		std::cout << GREEN << Bname << RESET << " wins!" << std::endl;
@@ -74,7 +74,7 @@ std::string	chooseXP(std::string name) {
 	}
 }
 
-void	humanaAinit_and_fight(HumanB *B, std::string Bname) {
+ioid	humanaAinit_and_fight(HumanB *B, std::string Bname) {
 	std::string	Aname;
 	std::string	weaponA;
 	std::string	xp;
@@ -89,7 +89,7 @@ void	humanaAinit_and_fight(HumanB *B, std::string Bname) {
 	HumanA	A(weaponA);
 	A.name = Aname;
 	xp = chooseXP(Aname);
-	A.weaponA.weaponXP = std::stoi(xp);
+	A.weaponA.weaponRank = std::stoi(xp);
 	fight(Aname, Bname, &A, B);
 }
 
@@ -109,21 +109,53 @@ std::string	humanBinit(HumanB *B) {
 	std::getline(std::cin, input);
 	if (std::strcmp(input.c_str(), "yes") == 0) {
 		xp = chooseXP(Bname);
-		B->weaponB.weaponXP = std::stoi(xp);
+		B->weaponB.weaponRank = std::stoi(xp);
 		B->weaponB.setType(weaponB);
 	}
 	return Bname;
 }
-
+*/
 /*
  * HumanB may not always have a Weapon, but HumanA will ALWAYS be armed.
+ *
+ * - Pointer:
+ *   - has its own memory address and size on the stack.
+ *   - can be assigned NULL directly.
+ *   - pointers to pointers is ok.
+ *   - pointers arithmetic is ok.
+ * - Reference:
+ *   - shares the same memory address (with the original variable).
+ *   - also takes up some space on the stack.
+ *   - can not be assigned NULL directly.
+ *   - reference to reference in not ok (references only offer one level of
+ *     indirection).
+ *   - reference Arithmetic is not ok (unless the address of an object pointed
+ *     by a reference is used as in &obj + 5).
  */
 int		main(void) {
-	HumanB		B;
 	std::string	Aname;
 	std::string	Bname;
 
-	Bname = humanBinit(&B);
-	humanaAinit_and_fight(&B, Bname);
+	//Bname = humanBinit(&B);
+	//humanaAinit_and_fight(&B, Bname);
+
+	Weapon	clubA = Weapon("crude spiked club");
+	std::cout << std::endl << RESET << "Chose a name for the first human: " << GREEN;
+	std::getline(std::cin, Aname);
+	HumanA	A(Aname, &clubA);
+	A.attack();
+	clubA.setType("some other type of club");
+	A.attack();
+
+	Weapon	clubB = Weapon("crude spiked club");
+	std::cout << std::endl << RESET << "Chose a name for the second  human: " << GREEN;
+	std::getline(std::cin, Bname);
+	HumanB	B(Bname);
+	B.setWeapon(&clubB);
+	B.attack();
+	clubB.setType("some other type of club");
+	B.attack();
+
+	std::cout << std::endl;
 	return 0;
 }
