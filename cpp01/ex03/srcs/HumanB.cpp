@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:35:11 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/15 16:52:42 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/01/15 17:53:47 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ HumanB::~HumanB(void) {
 	return ;
 }
 
-void	HumanB::setWeapon(Weapon *weapon) {
-	this->weaponB = weapon;
+void	HumanB::setWeapon(Weapon &weapon) {
+	this->weaponB = &weapon;
 }
 
 void	HumanB::attack() {

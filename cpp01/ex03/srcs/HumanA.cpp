@@ -12,8 +12,8 @@
 #include "../includes/Weapon.hpp"
 
 // HumanA takes the Weapon in its constructor.
-HumanA::HumanA( std::string Aname, Weapon *weapon) {
-	this->weaponA = weapon;
+HumanA::HumanA( std::string Aname, Weapon weapon) {
+	this->weaponA = &weapon;
 	this->name = Aname;
 	return ;
 }

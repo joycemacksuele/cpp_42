@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:35:11 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/04 23:02:15 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/01/15 21:04:43 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ Zombie::Zombie(void) {
 
 // Also, add a debugging message in the destructor including the name of the Zombie.
 Zombie::~Zombie(void) {
-	std::string zombieName = getName();
 	std::cout << std::endl << "Destructor -> ";
 	if (getWasAllocated() == 0) {
 		std::cout << "Zombie " << GREEN << this->_ZombieName;

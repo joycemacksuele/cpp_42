@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:42:17 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/15 16:49:08 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/01/15 20:15:31 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,28 +133,32 @@ std::string	humanBinit(HumanB *B) {
  *     by a reference is used as in &obj + 5).
  */
 int		main(void) {
-	std::string	Aname;
-	std::string	Bname;
-
 	//Bname = humanBinit(&B);
 	//humanaAinit_and_fight(&B, Bname);
 
-	Weapon	clubA = Weapon("crude spiked club");
-	std::cout << std::endl << RESET << "Chose a name for the first human: " << GREEN;
-	std::getline(std::cin, Aname);
-	HumanA	A(Aname, &clubA);
-	A.attack();
-	clubA.setType("some other type of club");
-	A.attack();
-
-	Weapon	clubB = Weapon("crude spiked club");
-	std::cout << std::endl << RESET << "Chose a name for the second  human: " << GREEN;
-	std::getline(std::cin, Bname);
-	HumanB	B(Bname);
-	B.setWeapon(&clubB);
-	B.attack();
-	clubB.setType("some other type of club");
-	B.attack();
+	std::cout << std::endl;
+	{
+		std::string	Aname;
+		Weapon	club = Weapon("crude spiked club");
+		std::cout  << RESET << "Chose a name for the first human: " << GREEN;
+		std::getline(std::cin, Aname);
+		HumanA	A(Aname, club);
+		A.attack();
+		club.setType("some other type of club");
+		A.attack();
+	}
+	std::cout << std::endl;
+	{
+		std::string	Bname;
+		Weapon	club = Weapon("crude spiked club");
+		std::cout << RESET << "Chose a name for the second  human: " << GREEN;
+		std::getline(std::cin, Bname);
+		HumanB	B(Bname);
+		B.setWeapon(club);
+		B.attack();
+		club.setType("some other type of club");
+		B.attack();
+	}
 
 	std::cout << std::endl;
 	return 0;
