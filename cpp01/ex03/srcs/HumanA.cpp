@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   HumanA.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/17 14:35:11 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/07 12:38:08 by jfreitas         ###   ########.fr       */
+/*   Created: 2022/01/20 11:23:00 by jfreitas          #+#    #+#             */
+/*   Updated: 2022/01/20 11:24:41 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/HumanA.hpp"
 #include "../includes/Weapon.hpp"
 
-// HumanA takes the Weapon in its constructor.
-HumanA::HumanA( std::string Aname, Weapon weapon) {
-	this->weaponA = &weapon;
+/* HumanA takes the Weapon in its constructor. */
+HumanA::HumanA( std::string Aname, Weapon& weapon): weaponA(weapon) {
+	//this->weaponA = weapon; is not possible because inicialization of reference variables can only be done with initializer list
 	this->name = Aname;
 	return ;
 }
@@ -23,5 +25,5 @@ HumanA::~HumanA(void) {
 }
 
 void	HumanA::attack() {
-	std::cout << GREEN << this->name << RESET << " attacks with " << YELLOW << weaponA->getType() << std::endl;
+	std::cout << GREEN << this->name << RESET << " attacks with " << YELLOW << weaponA.getType() << std::endl;
 }

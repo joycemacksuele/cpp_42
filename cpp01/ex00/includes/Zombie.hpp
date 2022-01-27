@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/15 21:16:03 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/01/20 12:11:54 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ class Zombie {
 		~Zombie( void );
 
 		bool		wasAllocated;
-		bool		getWasAllocated() const;
+		bool		getWasAllocated() const ;
 		void		setWasAllocated( bool allocated );
 
 		std::string	getName() const ;

@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/15 15:53:57 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/01/20 12:15:00 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ class Weapon {
 		~Weapon( void );
 
 		std::string	type;
-		int			weaponRank;
 
-		const std::string&	getType();
-		void				setType( std::string typeVar );
+		std::string&	getType();
+		void			setType( std::string typeVar );
 };
 
 #endif
