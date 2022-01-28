@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:42:17 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/27 18:14:50 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/01/28 18:16:59 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,18 @@ void	replace(std::string newFileName, std::string s1, std::string s2) {
 			if (newFile.eof())
 				break ;
 			std::getline(newFile, line);
-			size_t found = line.find(s1);
-			std::cout << "--" << found << std::endl;
-			if (found != std::string::npos) {
+			size_t linePos = line.find(s1);
+			std::cout << "--" << linePos << std::endl;
+			if (linePos != std::string::npos) {
 				i = 0;
-				while (found < line.size() && (line[found] != '\n' || line[found] != '\0')) {
+				while (linePos < line.size() && (line[linePos] != '\n' || line[linePos] != '\0')) {
 					if (s2[i]) {
-						std::cout << line[found] << "|" << s2[i] << std::endl;
-						line[found] = s2[i];
+						std::cout << line[linePos] << "|" << s2[i] << std::endl;
+						line[linePos] = s2[i];
 						newFile << line;//something wrong here
 					}
 					i++;
-					found++;
+					linePos++;
 				}
 				std::cout << line  << std::endl;
 			}
@@ -71,35 +71,41 @@ std::string	openAndCopyFile(std::string fileName, std::string s1, std::string s2
 	std::fstream	newFile;
 	std::string		newFileName;
 	std::string		line;
-	char			c;
-	int				i = 0;
+	std::string		copyLine;
+	size_t			i = 0;
+	size_t			lineSize;
 
 	file.open(fileName, std::fstream::in);// in for reading
 	if (file.is_open()) {
 		newFileName = fileName + ".replace";
-		newFile.open(newFileName, std::fstream::in | std::fstream::out);//in for reading and out for writing
+		newFile.open(newFileName, std::fstream::out);// | std::fstream::in);//in for reading and out for writing
 		if (newFile.is_open()) {
-			while (1) {
-				c = file.get();
-				//std::cout << c;
-				if (file.eof())
-					break ;
-				if (c == '\n' || c == '\0') {
-					while (1) {
-						std::getline(newFile, line);
-						size_t found = line.find(s1);
-						if (found != std::string::npos) {
+			while (std::getline(file, line)) {
+				copyLine = line;
+				lineSize = line.size();
+				size_t linePos = line.find(s1, 0);
+				size_t copyLinePos = linePos;
+				if (linePos != std::string::npos) {
+					while (linePos < lineSize) {
+						while (i < s2.size()) {
+							copyLine[linePos] = s2[i];
+							i++;
+							linePos++;
+						}
+						if ((copyLinePos < line.find(s1, copyLinePos + 1) && line.find(s1, copyLinePos + 1) != std::string::npos) || line.find(s1, copyLinePos + 1) == std::string::npos) {
+							copyLine[linePos] = line[copyLinePos + s1.size()];
+							copyLinePos++;
+							std::cout << "testinggg" << std::endl;
+						}
+						linePos++;
+						if (line.find(s1, copyLinePos) == copyLinePos) {
 							i = 0;
-							while (found < line.size()) {
-								if (s2[i]) {
-									line[found] = s2[i];
-									newFile << line;
-								}
-							}
 						}
 					}
-					newFile << c;
+					i = 0;
+					linePos = line.find(s1, linePos + 1);
 				}
+				newFile << copyLine << std::endl;
 			}
 		}
 	}

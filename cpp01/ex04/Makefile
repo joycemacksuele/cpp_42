@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/24 15:35:00 by jfreitas          #+#    #+#              #
-#    Updated: 2022/01/21 11:59:54 by jfreitas         ###   ########.fr        #
+#    Updated: 2022/01/28 16:09:28 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,3 +64,5 @@ fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all
+
+#diff newfile newfile.replace | egrep "arg2|arg3"
