@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:42:17 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/02/03 07:59:53 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/02/03 17:48:21 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,38 +85,35 @@ void	openReadCopyReplaceFile(std::string fileName, std::string s1, std::string s
 			while (std::getline(file, line)) {
 				copyLine = line;
 				//copyReplace(&line, &copyLine, s1, s2);
-				copyLinePos = line.find(s1, 0);
+				copyLinePos = 0;
 				linePos = copyLinePos;
 				i = 0;
 //
-				while (copyLinePos != std::string::npos) {
+				if (line.find(s1, copyLinePos) == std::string::npos) {
+					newFile << line << std::endl;
+					continue ;
+				}
+				while ((copyLinePos = line.find(s1, i)) != std::string::npos) {
 					if (s1.size() != s2.size() && line.size() > 0) {
 						copyLine.resize(line.size() + (s2.size() - s1.size()));
 						std::cout << YELLOW << line.size() << " and " << copyLine.size() << std::endl << RESET;
 					}
-					//while (copyLinePos < copyLine.size()) {
-					while (i < s2.size()) {
-						copyLine[copyLinePos] = s2[i];
+					while (i < copyLinePos) {
+						newFile << line[i];
 						i++;
-						copyLinePos++;
 					}
-					if ((linePos < line.find(s1, copyLinePos) && line.find(s1, copyLinePos) != std::string::npos) || line.find(s1, copyLinePos) == std::string::npos) {
-						copyLine[copyLinePos] = line[linePos + s1.size()];
-						linePos++;
-						copyLinePos++;
+					for (size_t j = 0; j < s2.size(); j++) {// putitng s2 in line
+						newFile << s2[j];
 					}
-					//copyLinePos++;
-					if (line.find(s1, linePos) != std::string::npos) {
-						i = 0;
-						copyLinePos = line.find(s1, linePos);
-					}
-					std::cout << "i: " << i << std::endl;
-				//	}
-					//i = 0;
+					i = i + s1.size();
+					//std::cout << "found: " << copyLinePos << std::endl;
+					//std::cout << "i: " << i << std::endl;
 					//copyLinePos = line.find(s1, copyLinePos);
 				}
-//
-				newFile << copyLine << std::endl;
+				while (i < line.size()) {
+					newFile << line[i];
+					i++;
+				}
 			}
 		}
 	}
