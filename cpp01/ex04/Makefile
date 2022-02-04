@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/24 15:35:00 by jfreitas          #+#    #+#              #
-#    Updated: 2022/01/28 16:09:28 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/02/04 17:15:14 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,11 +46,8 @@ mk_objdir:
 $(NAME): $(OBJS)
 	@$(CC) $(FLAGS) -o $(NAME) $(OBJS)
 	@echo "\n$(GREEN)$(NAME) is built.\n$(RESET)"
-	@echo "Run $(GREEN)make leaks $(RESET)to ckeck if memory allocated was freed.\n"
-
-leaks: mk_objdir
-	@$(CC) $(FLAGS) -o $(NAME) $(OBJS)
-	@leaks -atExit -- ./$(NAME)
+	@echo "Try this command line after runnign the replace program:"
+	@echo "$(GREEN)diff newfile newfile.replace | egrep \"arg2|arg3\"\n$(RESET)"
 
 ### CLEAN ###
 .PHONY: clean fclean re leaks
@@ -62,7 +59,7 @@ clean:
 fclean: clean
 	@echo "\n$(YELLOW)\nRemoving $(NAME) binary\n$(RESET)"
 	@rm -f $(NAME)
+	@rm newfile.replace
 
 re: fclean all
 
-#diff newfile newfile.replace | egrep "arg2|arg3"
