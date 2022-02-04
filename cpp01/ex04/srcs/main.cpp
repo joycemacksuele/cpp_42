@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:42:17 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/02/03 17:48:21 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/02/04 07:56:00 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,27 @@
  */
 
 
-void	copyReplace(std::string *line, std::string *copyLine, std::string &s1, std::string &s2) {
-	size_t	copyLinePos = line->find(s1, 0);
-	size_t	linePos = copyLinePos;
+void	copyReplace(std::fstream &newFile, std::string line, std::string s1, std::string s2) {
+	size_t	linePos = 0;
 	size_t	i = 0;
 
-	if (copyLinePos != std::string::npos) {
-		copyLine->resize(line->size() + (s2.size() - s1.size()));
-		while (copyLinePos < copyLine->size()) {
-			while (i < s2.size()) {
-				copyLine[copyLinePos] = s2[i];
-				i++;
-				copyLinePos++;
-			}
-			if ((linePos < line->find(s1, linePos + 1) && line->find(s1, linePos + 1) != std::string::npos) || line->find(s1, linePos + 1) == std::string::npos) {
-				copyLine[copyLinePos] = line[linePos + s1.size()];
-				linePos++;
-			}
-			copyLinePos++;
-			if (line->find(s1, linePos) == linePos) {
-				i = 0;
-			}
+	if (line.find(s1, linePos) == std::string::npos) {
+		newFile << line << std::endl;
+		continue ;
+	}
+	while ((linePos = line.find(s1, i)) != std::string::npos) {
+		while (i < linePos) {
+			newFile << line[i];
+			i++;
 		}
-		i = 0;
-		copyLinePos = line->find(s1, copyLinePos + 1);
+		for (size_t j = 0; j < s2.size(); j++) {// putitng s2 in line
+			newFile << s2[j];
+		}
+		i = i + s1.size();
+	}
+	while (i < line.size()) {
+		newFile << line[i];
+		i++;
 	}
 }
 
@@ -71,11 +68,6 @@ void	openReadCopyReplaceFile(std::string fileName, std::string s1, std::string s
 	std::fstream	file;
 	std::fstream	newFile;
 	std::string		line;
-	std::string		copyLine;
-
-	size_t	copyLinePos;
-	size_t	linePos;
-	size_t	i = 0;
 
 	file.open(fileName, std::fstream::in);// in for reading
 	if (file.is_open()) {
@@ -83,22 +75,16 @@ void	openReadCopyReplaceFile(std::string fileName, std::string s1, std::string s
 		newFile.open(newFileName, std::fstream::out);// out for writing
 		if (newFile.is_open()) {
 			while (std::getline(file, line)) {
-				copyLine = line;
-				//copyReplace(&line, &copyLine, s1, s2);
-				copyLinePos = 0;
-				linePos = copyLinePos;
+				copyReplace(newFile, line, s1, s2);
+
+			/*	linePos = 0;
 				i = 0;
-//
-				if (line.find(s1, copyLinePos) == std::string::npos) {
+				if (line.find(s1, linePos) == std::string::npos) {
 					newFile << line << std::endl;
 					continue ;
 				}
-				while ((copyLinePos = line.find(s1, i)) != std::string::npos) {
-					if (s1.size() != s2.size() && line.size() > 0) {
-						copyLine.resize(line.size() + (s2.size() - s1.size()));
-						std::cout << YELLOW << line.size() << " and " << copyLine.size() << std::endl << RESET;
-					}
-					while (i < copyLinePos) {
+				while ((linePos = line.find(s1, i)) != std::string::npos) {
+					while (i < linePos) {
 						newFile << line[i];
 						i++;
 					}
@@ -106,14 +92,12 @@ void	openReadCopyReplaceFile(std::string fileName, std::string s1, std::string s
 						newFile << s2[j];
 					}
 					i = i + s1.size();
-					//std::cout << "found: " << copyLinePos << std::endl;
-					//std::cout << "i: " << i << std::endl;
-					//copyLinePos = line.find(s1, copyLinePos);
 				}
 				while (i < line.size()) {
 					newFile << line[i];
 					i++;
-				}
+				}*/
+				newFile << std::endl;
 			}
 		}
 	}
@@ -121,8 +105,8 @@ void	openReadCopyReplaceFile(std::string fileName, std::string s1, std::string s
 	newFile.close();
 }
 
-bool	errorRandling(std::string s1, std::string s2) {
-	if (s1.empty() || s2.empty()) {
+bool	errorRandling(std::string fileName, std::string s1, std::string s2) {
+	if (s1.empty() || s2.empty() || fileName.empty()) {
 		std::cout << "strings can not be empty! Please try again" << std::endl;
 		return true;
 	}
@@ -131,9 +115,11 @@ bool	errorRandling(std::string s1, std::string s2) {
 
 int		main(int argc, char **argv) {
 	if (argc == 4) {
-		if (errorRandling(argv[2], argv[3]))
+		if (errorRandling(argv[1], argv[2], argv[3])) {
 			return -1;
+		}
 		openReadCopyReplaceFile(argv[1], argv[2], argv[3]);
 	}
+	std::cout << "<original file name> <s1> <s2> are needed as arguments!" << std::endl;
 	return 0;
 }
