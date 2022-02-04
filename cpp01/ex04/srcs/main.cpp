@@ -45,7 +45,7 @@ void	copyReplace(std::fstream &newFile, std::string line, std::string s1, std::s
 
 	if (line.find(s1, linePos) == std::string::npos) {
 		newFile << line << std::endl;
-		continue ;
+		return ;
 	}
 	while ((linePos = line.find(s1, i)) != std::string::npos) {
 		while (i < linePos) {
@@ -119,7 +119,8 @@ int		main(int argc, char **argv) {
 			return -1;
 		}
 		openReadCopyReplaceFile(argv[1], argv[2], argv[3]);
-	}
-	std::cout << "<original file name> <s1> <s2> are needed as arguments!" << std::endl;
+	} else {
+    	std::cout << "<original file name> <s1> <s2> are needed as arguments!" << std::endl;
+    }
 	return 0;
 }
