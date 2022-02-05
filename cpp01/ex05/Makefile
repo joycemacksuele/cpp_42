@@ -6,11 +6,11 @@
 #    By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/24 15:35:00 by jfreitas          #+#    #+#              #
-#    Updated: 2022/02/05 14:07:48 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/02/05 13:39:14 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = megaphone
+NAME = karen2
 
 ##### COLORS #####
 WHITE = \033[1;37m
@@ -19,7 +19,7 @@ RED = \033[1;31m
 GREEN = \033[1;32m
 YELLOW = \033[1;33m
 LIGHT_BLUE = \033[1;36m
-END = \033[0m
+RESET = \033[0m
 
 ##### FLAG #####
 CC = clang++
@@ -30,7 +30,7 @@ SRCPATH = ./srcs
 OBJPATH = $(SRCPATH)/objs
 
 ##### SOURCES #####
-SRCS = $(addprefix $(SRCPATH)/, megaphone.cpp)
+SRCS = $(addprefix $(SRCPATH)/, main.cpp Karen.cpp)
 
 ##### OBJECTS #####
 OBJS = $(SRCS:$(SRCPATH)/%.c=$(OBJPATH)/%.o)
@@ -45,17 +45,17 @@ mk_objdir:
 #$^ = $(OBJS)
 $(NAME): $(OBJS)
 	@$(CC) $(FLAGS) -o $(NAME) $(OBJS)
-	@echo "\n$(END)$(GREEN)$(NAME) is built\n$(END)"
+	@echo "\n$(GREEN)$(NAME) is built.\n$(RESET)"
 
 ### CLEAN ###
-.PHONY: clean fclean re
+.PHONY: clean fclean re leaks
 
 clean:
-	@echo "\n$(END)$(YELLOW)Removing $(NAME) object file\n$(END)"
+	@echo "\n$(YELLOW)Removing $(NAME) object file\n$(RESET)"
 	@rm -rf $(OBJPATH)
 
 fclean: clean
-	@echo "\n$(END)$(YELLOW)\nRemoving $(NAME) binary\n$(END)"
+	@echo "\n$(YELLOW)\nRemoving $(NAME) binary\n$(RESET)"
 	@rm -f $(NAME)
 
 re: fclean all
