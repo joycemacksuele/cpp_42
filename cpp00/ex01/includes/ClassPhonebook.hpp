@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:38:26 by jfreitas          #+#    #+#             */
-/*   Updated: 2021/12/17 14:19:30 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/02/16 17:24:51 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #define YELLOW  "\033[33m"
 #define BLUE    "\033[34m"
 
-class Contact; 
+#include "ClassContact.hpp"
 
 class Phonebook {
 
@@ -35,7 +35,6 @@ class Phonebook {
 		void	add( void);
 		void	displayChosenContact( void );
 		void	displayContactsList( int index );
-
 
 	/* _varNmae -> convention to remember that this variable is private */
 	private:

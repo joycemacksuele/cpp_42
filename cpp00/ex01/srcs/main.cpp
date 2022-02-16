@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 18:55:34 by jfreitas          #+#    #+#             */
-/*   Updated: 2021/12/17 14:44:35 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/02/16 17:26:20 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void print_search_table(Print print_enum) {
 	}
 }
 
-void	search(Phoneboook instance[8], int index, std::string input) {
+void	search(Phonebook instance[8], int index, std::string input) {
 	std::string	indexInput;
 	int			indexNbr;
 
@@ -76,7 +76,7 @@ void	search(Phoneboook instance[8], int index, std::string input) {
 	return ;
 }
 
-void	searchContact(std::string input, Phoneboook instance[8], int contact) {
+void	searchContact(std::string input, Phonebook instance[8], int contact) {
 	if (contact == 1) {
 		std::cout << std::endl << YELLOW;
 		std::cout << "PhoneBook is empty!!!" << RESET << std::endl;
@@ -85,21 +85,21 @@ void	searchContact(std::string input, Phoneboook instance[8], int contact) {
 		search(instance, contact, input);
 }
 
-int	addContact(std::string input, Phoneboook instance[8], int contact) {
+int	addContact(std::string input, Phonebook instance[8], int contact) {
 	ft_print(input);
 	if (contact > 8)
-		Contact	eachContact = instance[8]._contact;
-		instance[8].add(eachContact);
+		//Contact	eachContact = instance[8]._contact;
+		instance[8].add();
 	else {
-		Contact	eachContact = instance[contact]._contact;
-		instance[contact].add(eachContact);
+		//Contact	eachContact = instance[contact]._contact;
+		instance[contact].add();
 		contact++;
 	}
 	return contact;
 }
 
 int		main(void) {
-	Phoneboook	instance[8];
+	Phonebook	instance[8];
 	std::string	input;
 	int			contact = 1;
 

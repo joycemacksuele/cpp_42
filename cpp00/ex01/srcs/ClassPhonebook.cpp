@@ -6,45 +6,45 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 03:30:47 by jfreitas          #+#    #+#             */
-/*   Updated: 2021/12/15 20:27:33 by whoami           ###   ########.fr       */
+/*   Updated: 2022/02/16 17:28:53 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ClassPhonebook.hpp"
 
 /* Constructor */
-Contact::Phonebook(void) {
+Phonebook::Phonebook(void) {
 	return ;
 }
 
 /* Destructor */
-Contact::~Phonebook(void) {
+Phonebook::~Phonebook(void) {
 	return ;
 }
 
-void	Phonebook::add(Contact eachContact) {
+void	Phonebook::add() {
 	std::string	input;
 
 	std::cout << "\t First name . . . . . ";
 	std::getline(std::cin, input);
 	//_firstName = input;
-	eachContact.setFirstName(input);
+	this->_contact.setFirstName(input);
 	std::cout << "\t Last name  . . . . . ";
 	std::getline(std::cin, input);
 	//_lastName = input;
-	eachContact.setLastName(input);
+	this->_contact.setLastName(input);
 	std::cout << "\t Nickname . . . . . . ";
 	std::getline(std::cin, input);
 	//_nickName = input;
-	eachContact.setNickName(input);
+	this->_contact.setNickName(input);
 	std::cout << "\t Phone number . . . . ";
 	std::getline(std::cin, input);
 	//_phoneNumber = input;
-	eachContact.setPhoneNumber(input);
+	this->_contact.setPhoneNumber(input);
 	std::cout << "\t Darkest secret . . . ";
 	std::getline(std::cin, input);
 	//_darkestSecret = input;
-	eachContact.setDarkestSecret(input);
+	this->_contact.setDarkestSecret(input);
 	return ;
 }
 
@@ -63,13 +63,13 @@ void	Phonebook::displayContactsList(int index) {
 	std::cout << std::setfill(' ') << std::setw(10);
 	std::cout << index << "│";
 	std::cout << std::setfill(' ') << std::setw(10);
-	_firstName.length() > 10 ? std::cout << this->_contact.getFirstName().substr(0, 9) + '.' : std::cout << std::right << this->_contact.getFirstName();//_firstName
+	this->_contact.getFirstName().length() > 10 ? std::cout << this->_contact.getFirstName().substr(0, 9) + '.' : std::cout << std::right << this->_contact.getFirstName();//_firstName
 	std::cout << "│";
 	std::cout << std::setfill(' ') << std::setw(10);
-	_lastName.length() > 10 ? std::cout << this->_contact.getLastName().substr(0, 9) + '.' : std::cout << std::right << this->_contact.getLastName();//_lastName;
+	this->_contact.getLastName().length() > 10 ? std::cout << this->_contact.getLastName().substr(0, 9) + '.' : std::cout << std::right << this->_contact.getLastName();//_lastName;
 	std::cout << "│";
 	std::cout << std::setfill(' ') << std::setw(10);
-	_nickName.length() > 10 ? std::cout << this->_contact.getNickName().substr(0, 9) + '.' : std::cout << std::right << this->_contact.getNickName();//_nickName;
+	this->_contact.getNickName().length() > 10 ? std::cout << this->_contact.getNickName().substr(0, 9) + '.' : std::cout << std::right << this->_contact.getNickName();//_nickName;
 	std::cout << "│";
 	return ;
 }

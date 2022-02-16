@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 03:30:47 by jfreitas          #+#    #+#             */
-/*   Updated: 2021/12/15 20:27:33 by whoami           ###   ########.fr       */
+/*   Updated: 2022/02/16 17:31:12 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,47 +24,44 @@ Contact::~Contact(void) {
 }
 
 /* getters */
-std::string	Contact::geContactFirstName() const {
+std::string	Contact::getFirstName() const {
 	return this->_firstName;
 }
 
-
-std::string	Contact::geContactLastName() const {
+std::string	Contact::getLastName() const {
 	return this->_lastName;
 }
 
-std::string	Contact::geContactNickName() const {
+std::string	Contact::getNickName() const {
 	return this->_nickName;
 }
 
-std::string	Contact::geContactPhoneNumber() const {
+std::string	Contact::getPhoneNumber() const {
 	return this->_phoneNumber;
 }
 
-std::string	Contact::geContactDarkestSecret() const {
+std::string	Contact::getDarkestSecret() const {
 	return this->_darkestSecret;
 }
 
 
 /* setters */
-void	Contact::setContact(std::string firstName) {
+void	Contact::setFirstName(std::string firstName) {
 	this->_firstName = firstName;
 }
 
-void	Contact::setContact(std::string lastName) {
+void	Contact::setLastName(std::string lastName) {
 	this->_lastName = lastName;
 }
 
-void	Contact::setContact(std::string nickName) {
+void	Contact::setNickName(std::string nickName) {
 	this->_nickName = nickName;
 }
 
-void	Contact::setContact(std::string phoneNumber) {
+void	Contact::setPhoneNumber(std::string phoneNumber) {
 	this->_phoneNumber = phoneNumber;
 }
 
-void	Contact::setContact(std::string darkestSecret) {
+void	Contact::setDarkestSecret(std::string darkestSecret) {
 	this->_darkestSecret = darkestSecret;
-}
-
 }

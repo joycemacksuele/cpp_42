@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/20 11:25:33 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/02/16 17:18:12 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ class HumanB {
 		/* can not be a reference since its constructor does not have a way to
 		 * initialize it using initializer list (in this case, it does not have
 		 * a variable with the same type) */
-		Weapon		*weaponB; 
+		Weapon		*weaponB;
 		std::string	name;
 
 		/* here the parameter has to be passed by reference, if it was a
 		 * pointer, then on the main the argument would have to be &arg, and
 		 * the exercise passes a non pointer/non reference variable */
-		void	setWeapon(Weapon& weapon); 
+		void	setWeapon(Weapon& weapon);
 		void	attack();
 };
 
