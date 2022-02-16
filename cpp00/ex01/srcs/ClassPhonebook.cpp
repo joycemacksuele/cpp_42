@@ -22,29 +22,29 @@ Contact::~Phonebook(void) {
 	return ;
 }
 
-void	Phonebook::add(void) {
+void	Phonebook::add(Contact eachContact) {
 	std::string	input;
 
 	std::cout << "\t First name . . . . . ";
 	std::getline(std::cin, input);
 	//_firstName = input;
-	this->_contact.setFirstName(input);
+	eachContact.setFirstName(input);
 	std::cout << "\t Last name  . . . . . ";
 	std::getline(std::cin, input);
 	//_lastName = input;
-	this->_contact.setLastName(input);
+	eachContact.setLastName(input);
 	std::cout << "\t Nickname . . . . . . ";
 	std::getline(std::cin, input);
 	//_nickName = input;
-	this->_contact.setNickName(input);
+	eachContact.setNickName(input);
 	std::cout << "\t Phone number . . . . ";
 	std::getline(std::cin, input);
 	//_phoneNumber = input;
-	this->_contact.setPhoneNumber(input);
+	eachContact.setPhoneNumber(input);
 	std::cout << "\t Darkest secret . . . ";
 	std::getline(std::cin, input);
 	//_darkestSecret = input;
-	this->_contact.setDarkestSecret(input);
+	eachContact.setDarkestSecret(input);
 	return ;
 }
 
