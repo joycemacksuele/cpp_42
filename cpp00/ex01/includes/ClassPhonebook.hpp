@@ -24,11 +24,13 @@
 #define YELLOW  "\033[33m"
 #define BLUE    "\033[34m"
 
-class Contact {
+class Contact; 
+
+class Phonebook {
 
 	public:
-		Contact( void );
-		~Contact( void );
+		Phonebook( void );
+		~Phonebook( void );
 
 		void	add( void);
 		void	displayChosenContact( void );
@@ -37,11 +39,7 @@ class Contact {
 
 	/* _varNmae -> convention to remember that this variable is private */
 	private:
-		std::string _firstName;
-		std::string _lastName;
-		std::string _nickName;
-		std::string _phoneNumber;
-		std::string _darkestSecret;
+		Contact _contact;
 };
 
 #endif /* __CLASS_PHONEBOOK_HPP__ */
