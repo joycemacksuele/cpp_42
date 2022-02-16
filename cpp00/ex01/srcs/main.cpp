@@ -54,7 +54,7 @@ void print_search_table(Print print_enum) {
 	}
 }
 
-void	search(Contact instance[8], int index, std::string input) {
+void	search(Phoneboook instance[8], int index, std::string input) {
 	std::string	indexInput;
 	int			indexNbr;
 
@@ -76,7 +76,7 @@ void	search(Contact instance[8], int index, std::string input) {
 	return ;
 }
 
-void	searchContact(std::string input, Contact instance[8], int contact) {
+void	searchContact(std::string input, Phoneboook instance[8], int contact) {
 	if (contact == 1) {
 		std::cout << std::endl << YELLOW;
 		std::cout << "PhoneBook is empty!!!" << RESET << std::endl;
@@ -85,19 +85,21 @@ void	searchContact(std::string input, Contact instance[8], int contact) {
 		search(instance, contact, input);
 }
 
-int	addContact(std::string input, Contact instance[8], int contact) {
+int	addContact(std::string input, Phoneboook instance[8], int contact) {
 	ft_print(input);
 	if (contact > 8)
-		instance[8].add();
+		Contact	eachContact = instance[8]._contact;
+		instance[8].add(eachContact);
 	else {
-		instance[contact].add();
+		Contact	eachContact = instance[contact]._contact;
+		instance[contact].add(eachContact);
 		contact++;
 	}
 	return contact;
 }
 
 int		main(void) {
-	Contact		instance[8];
+	Phoneboook	instance[8];
 	std::string	input;
 	int			contact = 1;
 
