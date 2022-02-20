@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/24 15:35:00 by jfreitas          #+#    #+#              #
-#    Updated: 2022/01/06 22:35:52 by jfreitas         ###   ########.fr        #
+#    Updated: 2022/02/20 20:25:36 by jfreitas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,9 @@ LIGHT_BLUE = \033[1;36m
 RESET = \033[0m
 
 ##### FLAG #####
-CC = clang++
-FLAGS = -Wall -Wextra -Werror
+#CC = clang++
+CC = c++
+FLAGS = -std=c++98 -Wall -Wextra -Werror
 
 ##### SRC & OBJ PATH #####
 SRCPATH = ./srcs
