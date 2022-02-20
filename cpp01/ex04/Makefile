@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/24 15:35:00 by jfreitas          #+#    #+#              #
-#    Updated: 2022/02/04 17:15:14 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/02/20 19:41:32 by jfreitas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ mk_objdir:
 $(NAME): $(OBJS)
 	@$(CC) $(FLAGS) -o $(NAME) $(OBJS)
 	@echo "\n$(GREEN)$(NAME) is built.\n$(RESET)"
-	@echo "Try this command line after runnign the replace program:"
+	@echo "Try this command line after running the replace program:"
 	@echo "$(GREEN)diff newfile newfile.replace | egrep \"arg2|arg3\"\n$(RESET)"
 
 ### CLEAN ###
@@ -62,4 +62,3 @@ fclean: clean
 	@rm newfile.replace
 
 re: fclean all
-

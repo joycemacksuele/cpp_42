@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:42:17 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/20 11:25:01 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/02/20 19:36:45 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		main(void) {
 	{
 		std::string	Bname;
 		Weapon	club = Weapon("crude spiked club");
-		std::cout << RESET << "Chose a name for the second  human: " << GREEN;
+		std::cout << RESET << "Chose a name for the second human: " << GREEN;
 		std::getline(std::cin, Bname);
 		HumanB	B(Bname);
 		B.setWeapon(club);

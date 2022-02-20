@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:35:11 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/02/05 14:04:07 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/02/20 20:01:01 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,4 @@ void	Karen::complain(std::string level) {
 	// calling member function
 	(obj.*fptr) ();
 	std::cout << RESET << std::endl;
-
 }

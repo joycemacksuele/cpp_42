@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:35:11 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/06 22:32:47 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/02/20 18:39:25 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ void	Zombie::setName(std::string name) {
 }
 
 void	Zombie::announce(void) {
-	std::cout << GREEN << this->_ZombieName << " BraiiiiiiinnnzzzZ...";
+	std::cout << GREEN << this->_ZombieName << ": " << "BraiiiiiiinnnzzzZ...";
 	std::cout << RESET;
 }

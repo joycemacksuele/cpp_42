@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:42:17 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/02/04 15:39:32 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/02/20 19:48:55 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	openReadCopyReplaceFile(std::string fileName, std::string s1, std::string s
 				newFile << std::endl;
 			}
 		}
+	} else {
+		std::cout << YELLOW << "File " << fileName << " does not exist... Try again!" << std::endl << RESET;
 	}
 	file.close();
 	newFile.close();
@@ -85,7 +87,7 @@ int		main(int argc, char **argv) {
 		}
 		openReadCopyReplaceFile(argv[1], argv[2], argv[3]);
 	} else {
-    	std::cout << "<original file name> <s1> <s2> are needed as arguments!" << std::endl;
+    	std::cout << GREEN << "<original file name> <s1> <s2> " << YELLOW << "are needed as arguments!" << std::endl << RESET;
     }
 	return 0;
 }

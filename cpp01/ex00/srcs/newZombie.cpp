@@ -6,16 +6,16 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:32:28 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/04 23:03:05 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/02/20 18:37:57 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Zombie.hpp"
 
 /*
- * create a Zombie, name it, and return it to be used somewhere else in your 
+ * create a Zombie, name it, and return it to be used somewhere else in your
  * code 
- * On heap in this case.
+ * On heap in this case (malloc->new).
  */
 Zombie* newZombie( std::string name ) {
 	Zombie* heapZombie;

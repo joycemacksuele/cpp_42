@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/20 12:15:00 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/02/20 19:08:02 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ class Weapon {
 		Weapon( std::string typeVar );
 		~Weapon( void );
 
-		std::string	type;
+		const std::string&	getType();
+		void				setType( std::string typeVar );
 
-		std::string&	getType();
-		void			setType( std::string typeVar );
+	private:
+		std::string	_type;
 };
 
 #endif

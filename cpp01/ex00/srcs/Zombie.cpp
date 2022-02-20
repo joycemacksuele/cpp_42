@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:35:11 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/15 21:04:43 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/02/20 18:35:30 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ void	Zombie::setWasAllocated(bool allocated)  {
 }
 
 void	Zombie::announce(void) {
-	std::cout << GREEN << this->_ZombieName << " BraiiiiiiinnnzzzZ...";
+	std::cout << GREEN << this->_ZombieName << ": " << "BraiiiiiiinnnzzzZ...";
 	std::cout << RESET;
 }

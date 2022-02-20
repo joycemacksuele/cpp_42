@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:35:11 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/20 11:23:58 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/02/20 19:37:28 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ void	HumanB::setWeapon(Weapon& weapon) {
 }
 
 void	HumanB::attack() {
-	std::cout << GREEN << this->name << RESET << " attacks with " << YELLOW << weaponB->getType() << std::endl;
+	std::cout << GREEN << this->name << RESET << " attacks with " << YELLOW << weaponB->getType() << RESET << std::endl;
 }

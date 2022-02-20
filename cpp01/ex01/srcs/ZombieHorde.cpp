@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:32:28 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/06 12:13:44 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/02/20 18:39:58 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * It allocates N Zombie objects in a single allocation. Then, it should
  * initialize each Zombie by giving to each one a name.
  * It should return the pointer to the first Zombie.
- * On heap in this case.
+ * On heap in this case (malloc->new).
  */
 Zombie* zombieHorde( int N, std::string name ) {
 	Zombie	*heapZombie;

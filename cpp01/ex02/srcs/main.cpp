@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:42:17 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/07 11:58:50 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/02/20 18:57:53 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		main(void) {
 	std::cout << GREEN << &original << std::endl << RESET;
 
 	// stringPTR is a pointer so it contains the address of the variable original.
-	std::cout << "Address of the string by using  stringPTR:        ";
+	std::cout << "Address of the string by using stringPTR:         ";
 	std::cout << GREEN << stringPTR << std::endl << RESET;
 
 	// & is used to show the address of a variable.
@@ -62,6 +62,10 @@ int		main(void) {
 	std::cout << GREEN << &stringREF << std::endl << RESET;
 
 	std::cout << std::endl;
+
+	// uses the * to display the value inside the address that stringPTR is pointing to.
+	std::cout << "Display the original string:                      ";
+	std::cout << GREEN << original << std::endl << RESET;
 
 	// uses the * to display the value inside the address that stringPTR is pointing to.
 	std::cout << "Display the string using the pointer stringPTR:   ";
