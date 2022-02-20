@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 03:30:47 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/02/16 17:31:12 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/02/20 17:30:06 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 
 /* Constructor */
 Contact::Contact(void) {
+	// std::cout << RED << "constructor called!" << std::endl;
 	return ;
 }
 
 /* Destructor */
 Contact::~Contact(void) {
+	//std::cout << RED << "destructor called!" << std::endl;
 	return ;
 }
 

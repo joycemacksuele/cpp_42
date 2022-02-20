@@ -6,11 +6,11 @@
 #    By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/24 15:35:00 by jfreitas          #+#    #+#              #
-#    Updated: 2021/12/10 11:30:18 by whoami           ###   ########.fr        #
+#    Updated: 2022/02/18 11:05:07 by jfreitas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = phonebook
+NAME = awesomePhonebook
 
 ##### COLORS #####
 WHITE = \033[1;37m
@@ -30,7 +30,7 @@ SRCPATH = ./srcs
 OBJPATH = $(SRCPATH)/objs
 
 ##### SOURCES #####
-SRCS = $(addprefix $(SRCPATH)/, main.cpp ClassPhonebook.cpp)
+SRCS = $(addprefix $(SRCPATH)/, main.cpp ClassPhonebook.cpp ClassContact.cpp)
 
 ##### OBJECTS #####
 OBJS = $(SRCS:$(SRCPATH)/%.c=$(OBJPATH)/%.o)
