@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/02/27 15:59:14 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/03/03 10:27:44 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@
 class Fixed {
 
 	public:
-		Fixed( void );// Default constructor
-		//Fixed( void );// Copy constructor
-		// Copy assignment operator
-		~Fixed( void );// Destructor
+		Fixed(void);// Default constructor
+		Fixed(Fixed const &src);// Copy constructor
+		Fixed& operator=(Fixed const &src);// Copy assignment operator
+		~Fixed(void);// Destructor
 
-		int		getRawBits( void ) const;// returns the raw value of the fixed-point value.
-		void	setRawBits( int const raw );// sets the raw value of the fixed-point number.
+		int		getRawBits(void) const;// returns the raw value of the fixed-point value.
+		void	setRawBits(int const raw);// sets the raw value of the fixed-point number.
 
 	/* _varNmae -> convention to remember that this variable is private */
 	private:

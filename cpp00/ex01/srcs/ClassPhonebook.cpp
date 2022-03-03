@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 03:30:47 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/02/20 18:09:02 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/03/03 12:49:20 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,38 +25,40 @@ Phonebook::~Phonebook(void) {
 }
 
 int	Phonebook::checkIfEmpty() {
-	if (this->_contact.getFirstName().empty() && this->_contact.getLastName().empty()
-		&& this->_contact.getNickName().empty() && this->_contact.getPhoneNumber().empty()
-		&& this->_contact.getDarkestSecret().empty()) {
+	if (this->_contact.getFirstName().empty() || this->_contact.getLastName().empty()
+		|| this->_contact.getNickName().empty() || this->_contact.getPhoneNumber().empty()
+		|| this->_contact.getDarkestSecret().empty()) {
 		return -1;
 	}
 	return 0;
 }
 
 int	Phonebook::add() {
-	std::string	input;
+	std::string	firstName;
+	std::string	lastName;
+	std::string	nickName;
+	std::string	phoneNumber;
+	std::string	darkestSecret;
 
 	std::cout << "\t First name . . . . . ";
-	std::getline(std::cin, input);
-	if (!input.empty())
-		this->_contact.setFirstName(input);
+	std::getline(std::cin, firstName);
 	std::cout << "\t Last name  . . . . . ";
-	std::getline(std::cin, input);
-	if (!input.empty())
-		this->_contact.setLastName(input);
+	std::getline(std::cin, lastName);
 	std::cout << "\t Nickname . . . . . . ";
-	std::getline(std::cin, input);
-	if (!input.empty())
-		this->_contact.setNickName(input);
+	std::getline(std::cin, nickName);
 	std::cout << "\t Phone number . . . . ";
-	std::getline(std::cin, input);
-	if (!input.empty())
-		this->_contact.setPhoneNumber(input);
+	std::getline(std::cin, phoneNumber);
 	std::cout << "\t Darkest secret . . . ";
-	std::getline(std::cin, input);
-	if (!input.empty())
-		this->_contact.setDarkestSecret(input);
-	if (checkIfEmpty() == -1)
+	std::getline(std::cin, darkestSecret);
+	if (!firstName.empty() && !lastName.empty() && !nickName.empty()
+			&& !phoneNumber.empty() && !darkestSecret.empty()) {
+		this->_contact.setFirstName(firstName);
+		this->_contact.setLastName(lastName);
+		this->_contact.setNickName(nickName);
+		this->_contact.setPhoneNumber(phoneNumber);
+		this->_contact.setDarkestSecret(darkestSecret);
+	}
+	else
 		return -1;
 	return 0;
 }

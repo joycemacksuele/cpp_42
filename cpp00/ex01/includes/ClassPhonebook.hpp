@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:38:26 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/02/20 17:44:01 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/03/03 12:30:08 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ class Phonebook {
 		Phonebook( void );
 		~Phonebook( void );
 
-		int		add( void);
+		int		add( void );
 		void	displayChosenContact( void );
 		void	displayContactsList( int index );
-		int	checkIfEmpty();
+		int		checkIfEmpty();
 
 	/* _varNmae -> convention to remember that this variable is private */
 	private:
