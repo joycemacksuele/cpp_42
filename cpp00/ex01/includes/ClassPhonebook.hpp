@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:38:26 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/03/03 12:30:08 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/03/03 16:22:15 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 #include <iostream>
 #include <string>
-#include <iomanip>
-#include <cstdlib>
+#include <iomanip>// I/O manipulation flags/methods
+//#include <cstdlib>// to use exit();
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
