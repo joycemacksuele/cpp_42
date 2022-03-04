@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/24 15:35:00 by jfreitas          #+#    #+#              #
-#    Updated: 2022/02/27 15:14:13 by jfreitas         ###   ########.fr        #
+#    Updated: 2022/03/04 17:03:45 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,14 +47,9 @@ mk_objdir:
 $(NAME): $(OBJS)
 	@$(CC) $(FLAGS) -o $(NAME) $(OBJS)
 	@echo "\n$(GREEN)$(NAME) is built.\n$(RESET)"
-	@echo "Run $(GREEN)make leaks $(RESET)to ckeck if memory allocated was freed.\n"
-
-leaks: mk_objdir
-	@$(CC) $(FLAGS) -o $(NAME) $(OBJS)
-	@leaks -atExit -- ./$(NAME)
 
 ### CLEAN ###
-.PHONY: clean fclean re leaks
+.PHONY: clean fclean re
 
 clean:
 	@echo "\n$(YELLOW)Removing $(NAME) object file\n$(RESET)"

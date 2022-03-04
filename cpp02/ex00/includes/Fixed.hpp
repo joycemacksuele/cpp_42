@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/03/03 10:27:44 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/03/04 16:39:29 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ class Fixed {
 
 	/* _varNmae -> convention to remember that this variable is private */
 	private:
-		int					_number;
-		static const int	_fractionalBit = 8;
+		int					_number;// the fixed-point number value.
+		static const int	_fractionalBit = 8;// the number of fractional bits. Its value will always be the integer literal 8.
 
 };
 
