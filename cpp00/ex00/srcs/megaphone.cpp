@@ -6,33 +6,20 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 03:30:47 by jfreitas          #+#    #+#             */
-/*   Updated: 2021/10/25 20:11:42 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/03/05 13:38:07 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <string.h>
-
-int		charIsLower(char c) {
-	if (c >= 'a' && c <= 'z')
-		return (1);
-	return (0);
-}
+#include <iostream>// std::cout
+#include <string.h>// strlen <cstring>
+#include <cctype>// toupper
 
 void	toUpperIfLowerAndPrintAll(int argc, char **argv) {
-	int		i = 1;
-	size_t	j = 0;
-
-	while (i < argc) {
-		while (j < strlen(argv[i])) {
-			if (charIsLower(argv[i][j]) == 1)
-				std::cout << (argv[i][j] -= 32);
-			else
-				std::cout << argv[i][j];
-			j++;
+	for (int i = 1; i < argc; i++) {
+		std::string	arg(argv[i]);
+		for (size_t j = 0; j < strlen(arg.c_str()); j++) {
+			std::cout << (unsigned char)toupper(arg[j]);
 		}
-		i++;
-		j = 0;
 	}
 }
 
