@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:38:26 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/02/16 17:13:57 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:09:30 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ class Contact {
 		Contact( void );
 		~Contact( void );
 	
-		std::string	getFirstName() const ;
-		std::string	getLastName() const ;
-		std::string	getNickName() const ;
-		std::string	getPhoneNumber() const ;
-		std::string	getDarkestSecret() const ;
+		const std::string	getFirstName() const ;
+		const std::string	getLastName() const ;
+		const std::string	getNickName() const ;
+		const std::string	getPhoneNumber() const ;
+		const std::string	getDarkestSecret() const ;
 
-		void		setFirstName( std::string firstName );
-		void		setLastName( std::string lastName );
-		void		setNickName( std::string nickName );
-		void		setPhoneNumber( std::string phoneNumber );
-		void		setDarkestSecret( std::string darkestSecret );
+		void		setFirstName( const std::string firstName );
+		void		setLastName( const std::string lastName );
+		void		setNickName( const std::string nickName );
+		void		setPhoneNumber( const std::string phoneNumber );
+		void		setDarkestSecret( const std::string darkestSecret );
 
 	/* _varNmae -> convention to remember that this variable is private */
 	private:

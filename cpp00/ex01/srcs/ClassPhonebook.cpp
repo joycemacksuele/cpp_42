@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 03:30:47 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/03/03 12:49:20 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/03/05 12:43:24 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,40 @@
 
 /* Constructor */
 Phonebook::Phonebook(void) {
-	// std::cout << YELLOW << "constructor called!" << std::endl;
+	//std::cout << YELLOW << "Phonebook constructor called!" << RESET << std::endl;
 	return ;
 }
 
 /* Destructor */
 Phonebook::~Phonebook(void) {
-	//std::cout << YELLOW << "destructor called!" << std::endl;
+	//std::cout << YELLOW << "Phonebook destructor called!" << RESET << std::endl;
 	return ;
 }
 
-int	Phonebook::checkIfEmpty() {
-	if (this->_contact.getFirstName().empty() || this->_contact.getLastName().empty()
-		|| this->_contact.getNickName().empty() || this->_contact.getPhoneNumber().empty()
-		|| this->_contact.getDarkestSecret().empty()) {
+int	Phonebook::checkIfEmpty(int i) {
+	if (this->_contact[i].getFirstName().empty()
+			|| this->_contact[i].getLastName().empty()
+			|| this->_contact[i].getNickName().empty()
+			|| this->_contact[i].getPhoneNumber().empty()
+			|| this->_contact[i].getDarkestSecret().empty()) {
 		return -1;
 	}
 	return 0;
 }
 
-int	Phonebook::add() {
+int	Phonebook::addContact(int contactIndex) {
+	if (contactIndex == 8) {
+		this->add(7);
+	}
+	else {
+		if (this->add(contactIndex) == 0) {
+			contactIndex++;
+		}
+	}
+	return contactIndex;
+}
+
+int	Phonebook::add(int i) {
 	std::string	firstName;
 	std::string	lastName;
 	std::string	nickName;
@@ -52,13 +66,12 @@ int	Phonebook::add() {
 	std::getline(std::cin, darkestSecret);
 	if (!firstName.empty() && !lastName.empty() && !nickName.empty()
 			&& !phoneNumber.empty() && !darkestSecret.empty()) {
-		this->_contact.setFirstName(firstName);
-		this->_contact.setLastName(lastName);
-		this->_contact.setNickName(nickName);
-		this->_contact.setPhoneNumber(phoneNumber);
-		this->_contact.setDarkestSecret(darkestSecret);
-	}
-	else
+		this->_contact[i].setFirstName(firstName);
+		this->_contact[i].setLastName(lastName);
+		this->_contact[i].setNickName(nickName);
+		this->_contact[i].setPhoneNumber(phoneNumber);
+		this->_contact[i].setDarkestSecret(darkestSecret);
+	} else
 		return -1;
 	return 0;
 }
@@ -69,31 +82,42 @@ int	Phonebook::add() {
  * substr: https://www.cplusplus.com/reference/string/string/substr/
  */
 void	Phonebook::displayContactsList(int index) {
-	if (checkIfEmpty() == -1)
-		return ;
-	std::cout << std::endl << "         │";
-	std::cout << std::setfill(' ') << std::setw(10);
-	std::cout << index << "│";
-	std::cout << std::setfill(' ') << std::setw(10);
-	this->_contact.getFirstName().length() > 10 ? std::cout << this->_contact.getFirstName().substr(0, 9) + '.' : std::cout << std::right << this->_contact.getFirstName();
-	std::cout << "│";
-	std::cout << std::setfill(' ') << std::setw(10);
-	this->_contact.getLastName().length() > 10 ? std::cout << this->_contact.getLastName().substr(0, 9) + '.' : std::cout << std::right << this->_contact.getLastName();
-	std::cout << "│";
-	std::cout << std::setfill(' ') << std::setw(10);
-	this->_contact.getNickName().length() > 10 ? std::cout << this->_contact.getNickName().substr(0, 9) + '.' : std::cout << std::right << this->_contact.getNickName();
-	std::cout << "│";
-	return ;
+	//if (checkIfEmpty(index - 1) == -1)
+	//		return ;
+	for (int i = 0; i < index; i++) {
+		std::cout << std::endl << "         │";
+		std::cout << std::setfill(' ') << std::setw(10);
+		std::cout << i + 1 << "│";
+		std::cout << std::setfill(' ') << std::setw(10);
+		this->_contact[i].getFirstName().length() > 10 ?
+			std::cout << this->_contact[i].getFirstName().substr(0, 9) + '.' :
+			std::cout << std::right << this->_contact[i].getFirstName();
+		std::cout << "│";
+		std::cout << std::setfill(' ') << std::setw(10);
+		this->_contact[i].getLastName().length() > 10 ?
+			std::cout << this->_contact[i].getLastName().substr(0, 9) + '.' :
+			std::cout << std::right << this->_contact[i].getLastName();
+		std::cout << "│";
+		std::cout << std::setfill(' ') << std::setw(10);
+		this->_contact[i].getNickName().length() > 10 ?
+			std::cout << this->_contact[i].getNickName().substr(0, 9) + '.' :
+			std::cout << std::right << this->_contact[i].getNickName();
+		std::cout << "│";
+	}
 }
 
-void	Phonebook::displayChosenContact(void) {
-	if (checkIfEmpty() == -1)
-		return ;
-	std::cout << std::endl;
-	std::cout << "\t First name . . . . . " << this->_contact.getFirstName() << std::endl;
-	std::cout << "\t Last name  . . . . . " << this->_contact.getLastName() << std::endl;
-	std::cout << "\t Nickname . . . . . . " << this->_contact.getNickName() << std::endl;
-	std::cout << "\t Phone number . . . . " << this->_contact.getPhoneNumber() << std::endl;
-	std::cout << "\t Darkest secret . . . " << this->_contact.getDarkestSecret() << std::endl;
-	return ;
+void	Phonebook::displayChosenContact(int i) {
+	if (checkIfEmpty(i) == 0) {
+		std::cout << std::endl;
+		std::cout << "\t First name . . . . . ";
+		std::cout << this->_contact[i].getFirstName() << std::endl;
+		std::cout << "\t Last name  . . . . . ";
+		std::cout << this->_contact[i].getLastName() << std::endl;
+		std::cout << "\t Nickname . . . . . . ";
+		std::cout << this->_contact[i].getNickName() << std::endl;
+		std::cout << "\t Phone number . . . . ";
+		std::cout << this->_contact[i].getPhoneNumber() << std::endl;
+		std::cout << "\t Darkest secret . . . ";
+		std::cout << this->_contact[i].getDarkestSecret() << std::endl;
+	}
 }

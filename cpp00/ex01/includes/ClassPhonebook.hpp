@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:38:26 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/03/03 16:22:15 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/03/05 11:49:26 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,15 @@ class Phonebook {
 		Phonebook( void );
 		~Phonebook( void );
 
-		int		add( void );
-		void	displayChosenContact( void );
+		int		addContact( int index );
+		int		add( int index );
+		void	displayChosenContact( int index );
 		void	displayContactsList( int index );
-		int		checkIfEmpty();
+		int		checkIfEmpty( int index );
 
 	/* _varNmae -> convention to remember that this variable is private */
 	private:
-		Contact _contact;
+		Contact _contact[8];
 };
 
 #endif /* __CLASS_PHONEBOOK_HPP__ */

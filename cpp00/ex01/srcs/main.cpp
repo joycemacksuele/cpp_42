@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 18:55:34 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/03/03 11:48:38 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/03/05 12:44:13 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,23 @@ void	ft_print(std::string input) {
 		std::cout << std::endl << BLUE;
 		std::cout << "Input a contact's index number please: " << RESET;
 	}
+	else if (input.compare("EXIT") == 0) {
+		std::cout << BLUE << std::endl << "Bye Bye!" << RESET << std::endl;
+		std::cout << std::endl;
+	}
+	else if (input.compare("EMPTY") == 0) {
+		std::cout << std::endl << YELLOW;
+		std::cout << "PhoneBook is empty!!!" << RESET << std::endl;
+	}
+	else if (input.compare("INDEX") == 0) {
+		std::cout << std::endl << YELLOW;
+		std::cout << "Wrong contact index or PhoneBook is empty!!!";
+		std::cout << RESET << std::endl;
+	}
+	else if (input.compare("WRONG") == 0) {
+		std::cout << std::endl << RED;
+		std::cout << "Wrong command!!!" << RESET << std::endl;
+	}
 }
 
 void print_search_table(Print print_enum) {
@@ -54,74 +71,55 @@ void print_search_table(Print print_enum) {
 	}
 }
 
-void	search(Phonebook instance[8], int index, std::string input) {
+int	chooseContact(int contactIndex, std::string input) {
 	std::string	indexInput;
 	int			indexNbr;
 
-	print_search_table(top);
-	for (int i = 0; i < index; i++)
-		instance[i].displayContactsList(i + 1);
-	print_search_table(bottom);
 	std::cout << std::endl;
 	ft_print(input);
 	std::getline(std::cin, indexInput);
 	indexNbr = std::atoi(indexInput.c_str());
-	if ( indexNbr > 0 && indexNbr - 1 < index && indexNbr <= 8 )
-		instance[indexNbr - 1].displayChosenContact();
+	if ( indexNbr > 0 && indexNbr - 1 < contactIndex && indexNbr <= 8 )
+		return indexNbr;
 	else {
-		std::cout << std::endl << YELLOW;
-		std::cout << "Wrong contact index or PhoneBook is empty!!!";
-		std::cout << RESET << std::endl;
+		ft_print("INDEX");
 	}
-	return ;
-}
-
-void	searchContact(std::string input, Phonebook instance[8], int contact) {
-	if (contact == 0) {
-		std::cout << std::endl << YELLOW;
-		std::cout << "PhoneBook is empty!!!" << RESET << std::endl;
-	}
-	else {
-		search(instance, contact, input);
-	}
-}
-
-int	addContact(std::string input, Phonebook instance[8], int contact) {
-	ft_print(input);
-	if (contact == 8) {
-		instance[7].add();
-	}
-	else {
-		if (instance[contact].add() == 0) {
-			contact++;
-		}
-	}
-	return contact;
+	return 0;
 }
 
 int		main(void) {
-	Phonebook	instance[8];
+	Phonebook	instance;
 	std::string	input;
-	int			contact = 0;
+	int			contactIndex = 0;
+	int			indexNbr = 0;
 
 	ft_print("START");
 	while (1) {
 		ft_print("LOOP");
+		//std::cin >> input;
 		std::getline(std::cin, input);
-		if (std::cin.eof() || input.compare("EXIT") == 0) {
-			std::cout << BLUE << std::endl << "Bye Bye!" << RESET << std::endl;
-			std::cout << std::endl;
-			return 0;
-			//exit(EXIT_SUCCESS); -> No destructors are called if program exits
+		if (std::cin.eof() || input.compare("EXIT") == 0) {// input == "EXIT" also works (operator overload)
+			ft_print("EXIT");
+			return 0;// exit(EXIT_SUCCESS); -> No destructors are called if program exits
 		}
-		if (input.compare("ADD") == 0)
-			contact = addContact(input, instance, contact);
-		else if (input.compare("SEARCH") == 0)
-			searchContact(input, instance, contact);
-		else {
-			std::cout << std::endl << RED;
-			std::cout << "Wrong command!!!" << RESET << std::endl;
+		if (input.compare("ADD") == 0) {
+			ft_print(input);
+			contactIndex = instance.addContact(contactIndex);
 		}
+		else if (input.compare("SEARCH") == 0)  {
+			if (contactIndex == 0) {
+				ft_print("EMPTY");
+			} else {
+				print_search_table(top);
+				instance.displayContactsList(contactIndex);
+				print_search_table(bottom);
+				indexNbr = chooseContact(contactIndex, input);
+				if (indexNbr != 0)
+					instance.displayChosenContact(indexNbr - 1);
+			}
+		}
+		else
+			ft_print("WRONG");
 	}
 	return 0;
 }
