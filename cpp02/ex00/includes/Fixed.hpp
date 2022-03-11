@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/03/10 11:56:10 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/03/11 15:32:41 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 
 // Copy constructor:
 // When objects are copied, cpp must create a new object from an existing object.
-// Objectd can be copied by being passed as a paremeter or being returned from a function (by value),
-// or by being constructed based on another object of the same class.
-// cpp provides a compiler-defined copy constructor if you don't.
+// - Objects can be copied by being passed as a paremeter or being returned from a,
+// funtion (by value) or by being constructed based on another object of the same class.
+// - Cpp provides a compiler-defined copy constructor if you don't.
 // It is most useful to have a copy constructor if your class has raw pointer, since
-// the compiler-generated copy constructor won't copy the value/data that the pointer is point to,
-// it will copy only the pointer.
-// 
+// the compiler-generated copy constructor won't copy the value/data that the pointer
+// is point to, it will copy only the pointer.
+//
 class Fixed {
 
 	public:

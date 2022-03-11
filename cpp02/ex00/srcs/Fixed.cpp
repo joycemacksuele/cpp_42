@@ -6,14 +6,14 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 16:36:11 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/03/10 12:30:46 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/03/11 16:32:10 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Fixed.hpp"
 
 // Default constructor that initializes the fixed-point number value to 0.
-Fixed::Fixed(void) 
+Fixed::Fixed(void)
 	: _number(0) {
 	// Using initialization list so the var is initialized right when the object is created.
 	// Before the body of the constructor is executed (besides being assigned to a value inside of it).
@@ -22,14 +22,19 @@ Fixed::Fixed(void)
 }
 
 // Copy constructor
+// When objects are copied, cpp must create a new object from an existing object.
+// - Objects can be copied by being passed as a paremeter or being returned from a,
+// funtion (by value) or by being constructed based on another object of the same class.
 //
 // Shallow copy -  Only the pointer is copied (not what it's pointing to), so both
-// objects points to the same memory (so if memery is allocated and freed, the
+// objects points to the same memory (so if memory is allocated and freed, the
 // copy object will be pointing to a freed memory space).
 // Better to use when not dealing with raw pointers.
+// - Cpp provides a compiler-defined (shallow) copy constructor if you don't.
 // EX:
 //   Fixed::Fixed(const Fixed &src) : this(src) {} ?
 //   Fixed::Fixed(const Fixed &src) : _number(src._number) {}
+// 
 //
 // Deep copy - What the pointer is pointing to is copied, so each copy will have
 // its own address (each object will have a unique pointer).
@@ -39,12 +44,17 @@ Fixed::Fixed(void)
 //       this = new Fixed;
 //       *this = src;
 //   }
+//
+// Conclusion: It is most useful to have a copy constructor if your class has raw
+// pointer, since the compiler-generated copy constructor won't copy the value/data
+// that the pointer is point to, it will copy only the pointer.
 Fixed::Fixed(const Fixed &src) {
 	std::cout << "Copy constructor called (shallow copy)" << std::endl;
 	*this = src;
 }
 
 // Copy assignment operator
+// Used to assign one value to another.
 Fixed& Fixed::operator=(const Fixed &src) {
 	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &src) {
