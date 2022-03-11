@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/24 15:35:00 by jfreitas          #+#    #+#              #
-#    Updated: 2022/02/20 20:21:02 by jfreitas         ###   ########.fr        #
+#    Updated: 2022/03/11 18:56:37 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,44 +19,77 @@ RED = \033[1;31m
 GREEN = \033[1;32m
 YELLOW = \033[1;33m
 LIGHT_BLUE = \033[1;36m
-END = \033[0m
+RESET = \033[0m
 
-##### FLAG #####
+##### FLAGS #####
 #CC = clang++
 CC = c++
 FLAGS = -std=c++98 -Wall -Wextra -Werror
 
-##### SRC & OBJ PATH #####
-SRCPATH = ./srcs
-OBJPATH = $(SRCPATH)/objs
+##### INCLUDES #####
+INC = ./includes
+
+##### INCLUDES DEPENDENCIES ####
+# Any modify to a .hpp file will alert Makefile to recompile
+INC_DEP = $(INC)/*.hpp
 
 ##### SOURCES #####
-SRCS = $(addprefix $(SRCPATH)/, main.cpp ClassPhonebook.cpp ClassContact.cpp)
+SRCPATH = ./srcs
+# addprefix = Adds the $(SRCPATH) "prefix" to each argument after the comma.
+# '%' matches any nonempty string, and the other characters match themselves.
+SRCS = $(addprefix $(SRCPATH)/, main.cpp ClassPhonebook.cpp ClassContact.cpp) #\ if more lines are needed
 
 ##### OBJECTS #####
-OBJS = $(SRCS:$(SRCPATH)/%.c=$(OBJPATH)/%.o)
+OBJPATH = $(SRCPATH)/objs
+# OBJS = The path to each .o file
+OBJS = $(SRCS:$(SRCPATH)/%.cpp=$(OBJPATH)/%.o)
 
-#### RULES ####
+#################################### RULES ####################################
+
 all: mk_objdir $(NAME)
 
 mk_objdir:
 	@if [ ! -d $(OBJPATH) ]; then mkdir $(OBJPATH); fi
 
-#$@ = $(NAME)
-#$^ = $(OBJS)
-$(NAME): $(OBJS)
-	@$(CC) $(FLAGS) -o $(NAME) $(OBJS)
-	@echo "\n$(END)$(GREEN)$(NAME) is built\n$(END)"
+# $@ = The target of the rule -> $(NAME)
+# $< = The first prerequisite
+# $^ = All prerequisites
+# $? = All prerequisites NEWER than the target
+# https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
+$(NAME): $(OBJS) $(INC_DEP)
+	@echo "\n$(RESET)$(GREEN)Building the executable from the object files$(RESET)"
+	$(CC) $(FLAGS) -o $@ $<
+	@echo "\n$(RESET)$(LIGHT_BLUE)$(NAME)$(GREEN) is built\n$(RESET)"
 
-### CLEAN ###
-.PHONY: clean fclean re
+# -c = Compile or assemble the source files ($<)
+#      $< for the $(SRCPATH)/%.c part (the first prerequisite)
+# generating an .o object file (with the use of -o) for each source file given.
+#      $@ for the $(OBJPATH)/%.o part (the target).
+$(OBJPATH)/%.o: $(SRCPATH)/%.cpp $(INC_DEP)
+	@echo "\n$(RESET)$(GREEN)Generating .o objects$(RESET)"
+	$(CC) $(FLAGS) -c $< -o $@
+# add -I $(INC) before -c if includes/.hpp exists
+
+#################################### CLEAN ####################################
+
+# PHONY = Prevents make from confusing the phony target with a file name.
+.PHONY: clean fclean re print
 
 clean:
-	@echo "\n$(END)$(YELLOW)Removing $(NAME) object file\n$(END)"
-	@rm -rf $(OBJPATH)
+	@echo "\n$(RESET)$(YELLOW)Removing object directory$(RESET)"
+	rm -rf $(OBJPATH)
+	@echo "\n\c"
 
-fclean: clean
-	@echo "\n$(END)$(YELLOW)\nRemoving $(NAME) binary\n$(END)"
-	@rm -f $(NAME)
+fclean: clean print
+	@echo "\n$(RESET)$(YELLOW)\nRemoving $(NAME) binary$(RESET)"
+	rm -f $(NAME)
+	@echo "\n\c"
 
-re: fclean all
+re: fclean print2 all
+
+#Shit I don't need, why not?
+print:
+	@echo "---\c"
+
+print2:
+	@echo "---"

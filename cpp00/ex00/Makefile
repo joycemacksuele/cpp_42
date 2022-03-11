@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/24 15:35:00 by jfreitas          #+#    #+#              #
-#    Updated: 2022/03/11 18:46:25 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/03/11 18:55:31 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,20 +31,18 @@ FLAGS = -std=c++98 -Wall -Wextra -Werror
 
 ##### INCLUDES DEPENDENCIES ####
 # Any modify to a .hpp file will alert Makefile to recompile
-#INC_DEP = $(INC)/*.h
+#INC_DEP = $(INC)/*.hpp
 
 ##### SOURCES #####
 SRCPATH = ./srcs
 # addprefix = Adds the $(SRCPATH) "prefix" to each argument after the comma.
 # '%' matches any nonempty string, and the other characters match themselves.
 SRCS = $(addprefix $(SRCPATH)/, megaphone.cpp) #\ if more lines are needed
-#SRCS = $(wildcard *.cpp)
 
 ##### OBJECTS #####
 OBJPATH = $(SRCPATH)/objs
 # OBJS = The path to each .o file
 OBJS = $(SRCS:$(SRCPATH)/%.cpp=$(OBJPATH)/%.o)
-#OBJS = $(SRCS:%.cpp=$(OBJPATH)/%.o)
 
 #################################### RULES ####################################
 
@@ -61,7 +59,7 @@ mk_objdir:
 $(NAME): $(OBJS)# $(INC_DEP)
 	@echo "\n$(RESET)$(GREEN)Building the executable from the object files$(RESET)"
 	$(CC) $(FLAGS) -o $@ $<
-	@echo "\n$(RESET)$(GREEN)$(NAME) is built\n$(RESET)"
+	@echo "\n$(RESET)$(LIGHT_BLUE)$(NAME)$(GREEN) is built\n$(RESET)"
 
 # -c = Compile or assemble the source files ($<)
 #      $< for the $(SRCPATH)/%.c part (the first prerequisite)
@@ -71,7 +69,6 @@ $(OBJPATH)/%.o: $(SRCPATH)/%.cpp# $(INC_DEP)
 	@echo "\n$(RESET)$(GREEN)Generating .o objects$(RESET)"
 	$(CC) $(FLAGS) -c $< -o $@
 # add -I $(INC) before -c if includes/.hpp exists
-
 
 #################################### CLEAN ####################################
 
@@ -90,6 +87,7 @@ fclean: clean print
 
 re: fclean print2 all
 
+#Shit I don't need, why not?
 print:
 	@echo "---\c"
 
