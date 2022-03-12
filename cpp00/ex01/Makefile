@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/24 15:35:00 by jfreitas          #+#    #+#              #
-#    Updated: 2022/03/11 18:56:37 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/03/12 09:31:02 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ OBJS = $(SRCS:$(SRCPATH)/%.cpp=$(OBJPATH)/%.o)
 all: mk_objdir $(NAME)
 
 mk_objdir:
+	@if [ ! -d $(OBJPATH) ]; then echo "\n$(RESET)$(GREEN)Generating .o objects$(RESET)"; fi
 	@if [ ! -d $(OBJPATH) ]; then mkdir $(OBJPATH); fi
 
 # $@ = The target of the rule -> $(NAME)
@@ -58,22 +59,20 @@ mk_objdir:
 # https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
 $(NAME): $(OBJS) $(INC_DEP)
 	@echo "\n$(RESET)$(GREEN)Building the executable from the object files$(RESET)"
-	$(CC) $(FLAGS) -o $@ $<
+	$(CC) $(FLAGS) -o $@ $(OBJS)
 	@echo "\n$(RESET)$(LIGHT_BLUE)$(NAME)$(GREEN) is built\n$(RESET)"
 
 # -c = Compile or assemble the source files ($<)
-#      $< for the $(SRCPATH)/%.c part (the first prerequisite)
+#      $< for the $(SRCPATH)/%.cpp part (the first prerequisite)
 # generating an .o object file (with the use of -o) for each source file given.
 #      $@ for the $(OBJPATH)/%.o part (the target).
 $(OBJPATH)/%.o: $(SRCPATH)/%.cpp $(INC_DEP)
-	@echo "\n$(RESET)$(GREEN)Generating .o objects$(RESET)"
 	$(CC) $(FLAGS) -c $< -o $@
-# add -I $(INC) before -c if includes/.hpp exists
 
 #################################### CLEAN ####################################
 
 # PHONY = Prevents make from confusing the phony target with a file name.
-.PHONY: clean fclean re print
+.PHONY: clean fclean re print print2
 
 clean:
 	@echo "\n$(RESET)$(YELLOW)Removing object directory$(RESET)"
