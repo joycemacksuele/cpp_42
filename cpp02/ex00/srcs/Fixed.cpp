@@ -6,20 +6,20 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 16:36:11 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/03/12 12:46:59 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/03/12 13:15:42 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Fixed.hpp"
 
 // Default constructor that initializes the fixed-point number value to 0.
-Fixed::Fixed(void) {
-	//: _number(0) {
+Fixed::Fixed(void)// {
+	: _number(0) {
 	// Using initialization list so the var is initialized right when the object
 	// is created before the body of the constructor is executed (besides being
 	// assigned to a value inside of it).
 	std::cout << "Default constructor called" << std::endl;
-	_number = 0;
+	//_number = 0;
 	return ;
 }
 
@@ -54,7 +54,7 @@ Fixed::Fixed(void) {
 Fixed::Fixed(const Fixed &src) {
 	//: _number(src._number) {
 	std::cout << "Copy constructor called" << std::endl;
-	//_number = src.getRawBits();
+	//this->_number = src.getRawBits(); or this->setRawBits(rhs.getRawBits());
 	*this = src; // this will call the copy assignment operator
 }
 
@@ -63,7 +63,7 @@ Fixed::Fixed(const Fixed &src) {
 Fixed& Fixed::operator=(const Fixed &rhs) {
 	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &rhs) {// comparing the pointer to the object themselve so self assignment won't happen
-		this->_number = rhs.getRawBits();
+		this->_number = rhs.getRawBits();// this->setRawBits(rhs.getRawBits());
 	}
 	return *this;
 }

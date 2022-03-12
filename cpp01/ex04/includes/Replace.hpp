@@ -6,12 +6,12 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/02/04 15:54:04 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/03/12 13:06:59 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WEAPON_HPP
-# define WEAPON_HPP
+#ifndef REPLACE_HPP
+# define REPLACE_HPP
 
 #include <string>
 #include <iostream>

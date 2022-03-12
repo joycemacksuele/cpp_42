@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/03/12 11:47:20 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/03/12 13:13:55 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ class Fixed {
 		Fixed& operator=(const Fixed &rhs);// Copy assignment operator
 		~Fixed(void);// Destructor
 
-		int		getRawBits(void) const;// returns the raw value of the fixed-point value.
-		void	setRawBits(const int raw);// sets the raw value of the fixed-point number.
+		int	getRawBits(void) const;// returns the raw value of the fixed-point value.
 
 	/* _varNmae -> convention to remember that this variable is private */
 	private:
 		int					_number;// the fixed-point number value.
 		static const int	_fractionalBit = 8;// the number of fractional bits. Its value will always be the integer literal 8.
+
+		void	setRawBits(const int raw);// sets the raw value of the fixed-point number.
 
 };
 
