@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/24 15:35:00 by jfreitas          #+#    #+#              #
-#    Updated: 2022/03/12 09:27:22 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/03/12 12:42:19 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ OBJPATH = $(SRCPATH)/objs
 OBJS = $(SRCS:$(SRCPATH)/%.cpp=$(OBJPATH)/%.o)
 
 #################################### RULES ####################################
+#https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
 
 all: mk_objdir $(NAME)
 

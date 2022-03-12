@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/03/11 15:32:41 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/03/12 11:47:20 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,12 @@
 #define YELLOW  "\033[33m"
 #define BLUE    "\033[34m"
 
-// Copy constructor:
-// When objects are copied, cpp must create a new object from an existing object.
-// - Objects can be copied by being passed as a paremeter or being returned from a,
-// funtion (by value) or by being constructed based on another object of the same class.
-// - Cpp provides a compiler-defined copy constructor if you don't.
-// It is most useful to have a copy constructor if your class has raw pointer, since
-// the compiler-generated copy constructor won't copy the value/data that the pointer
-// is point to, it will copy only the pointer.
-//
 class Fixed {
 
 	public:
 		Fixed(void);// Default (no args) constructor
 		Fixed(const Fixed &src);// Copy constructor
-		Fixed& operator=(const Fixed &src);// Copy assignment operator
+		Fixed& operator=(const Fixed &rhs);// Copy assignment operator
 		~Fixed(void);// Destructor
 
 		int		getRawBits(void) const;// returns the raw value of the fixed-point value.
