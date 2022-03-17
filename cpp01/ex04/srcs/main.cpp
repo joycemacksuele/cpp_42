@@ -29,7 +29,7 @@ void	copyReplace(std::fstream &newFile, std::string line, std::string s1, std::s
 	size_t	linePos = 0;
 	size_t	i = 0;
 
-	if (line.find(s1, linePos) == std::string::npos) {
+	if (line.find(s1, linePos) == std::string::npos) { // npos = no position (s1 was not found in line)
 		newFile << line;
 		return ;
 	}
@@ -55,10 +55,10 @@ void	openReadCopyReplaceFile(std::string fileName, std::string s1, std::string s
 	std::fstream	newFile;
 	std::string		line;
 
-	file.open(fileName, std::fstream::in);// in for reading
+	file.open(fileName, std::fstream::in);// in for reading (could also be of type std::ifstream then file.open(fileName);)
 	if (file.is_open()) {
 		newFileName = fileName + ".replace";
-		newFile.open(newFileName, std::fstream::out);// out for writing
+		newFile.open(newFileName, std::fstream::out);// out for writing (could also be of type std::ostream then newFile.open(newFileName);)
 		if (newFile.is_open()) {
 			while (std::getline(file, line)) {
 				copyReplace(newFile, line, s1, s2);
