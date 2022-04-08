@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/24 15:35:00 by jfreitas          #+#    #+#              #
-#    Updated: 2022/04/08 15:32:11 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/04/08 16:29:01 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,7 @@ clean:
 fclean: clean print
 	@echo "\n$(RESET)$(YELLOW)\nRemoving $(NAME) binary$(RESET)"
 	rm -f $(NAME)
+	rm -f *.replace
 	@echo "\n\c"
 
 re: fclean print2 all
