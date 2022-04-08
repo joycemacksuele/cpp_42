@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:35:11 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/02/20 18:39:25 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/04/08 15:02:15 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ Zombie::Zombie(void) {
 }
 
 Zombie::~Zombie(void) {
+	//delete [] this; -> You should not call delete this from your destructor since it will call the destructor recursively, possibly leading to a stack overflow.
 	std::string zombieName = getName();
 	std::cout << std::endl << "Destructor -> ";
-	std::cout << "Zombie " << GREEN << this->_ZombieName;
+	std::cout << "Zombie " << GREEN << zombieName;
 	std::cout << RESET << " was freed.";
 	return ;
 }

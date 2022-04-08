@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:42:17 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/02/20 19:48:55 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/04/08 15:29:21 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,14 @@ void	openReadCopyReplaceFile(std::string fileName, std::string s1, std::string s
 				copyReplace(newFile, line, s1, s2);
 				newFile << std::endl;
 			}
+			newFile.close();
 		}
+		file.close();
 	} else {
 		std::cout << YELLOW << "File " << fileName << " does not exist... Try again!" << std::endl << RESET;
 	}
-	file.close();
-	newFile.close();
+	//file.close();
+	//newFile.close();
 }
 
 bool	errorRandling(std::string fileName, std::string s1, std::string s2) {

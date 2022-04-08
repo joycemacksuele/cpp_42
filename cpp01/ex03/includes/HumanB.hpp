@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/02/16 17:18:12 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/04/08 15:18:22 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ class HumanB {
 
 		/* here the parameter has to be passed by reference, if it was a
 		 * pointer, then on the main the argument would have to be &arg, and
-		 * the exercise passes a non pointer/non reference variable */
+		 * the exercise passes a non pointer variable */
 		void	setWeapon(Weapon& weapon);
 		void	attack();
 };

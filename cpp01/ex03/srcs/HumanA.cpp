@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 11:23:00 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/02/20 19:37:36 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/04/08 15:19:21 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ HumanA::~HumanA(void) {
 }
 
 void	HumanA::attack() {
-	std::cout << GREEN << this->name << RESET << " attacks with " << YELLOW << weaponA.getType() << RESET << std::endl;
+	std::cout << GREEN << this->name << RESET << " attacks with their " << YELLOW << weaponA.getType() << RESET << std::endl;
 }

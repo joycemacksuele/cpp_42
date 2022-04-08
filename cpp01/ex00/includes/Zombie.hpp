@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/20 12:11:54 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/04/08 13:36:21 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,20 @@ class Zombie {
 		std::string _ZombieName;
 
 	public:
-		Zombie( void );
-		~Zombie( void );
+		Zombie(void);
+		~Zombie(void);
 
 		bool		wasAllocated;
 		bool		getWasAllocated() const ;
-		void		setWasAllocated( bool allocated );
+		void		setWasAllocated(bool allocated);
 
 		std::string	getName() const ;
-		void		setName( std::string name );
+		void		setName(std::string name);
 
-		void		announce( void );
+		void		announce(void );
 };
 
-Zombie* newZombie( std::string name );
-void randomChump( std::string name );
+Zombie* newZombie(std::string name);
+void randomChump(std::string name);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:42:17 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/02/20 18:57:53 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/04/08 15:07:38 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int		main(void) {
 
 	std::cout << std::endl;
 
-	// uses the * to display the value inside the address that stringPTR is pointing to.
 	std::cout << "Display the original string:                      ";
 	std::cout << GREEN << original << std::endl << RESET;
 

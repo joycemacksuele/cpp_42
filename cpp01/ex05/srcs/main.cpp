@@ -1,41 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/17 14:42:17 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/02/05 13:42:59 by jfreitas      ########   odam.nl         */
+/*                                                        ::::::::            */
+/*   main.cpp                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jfreitas <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/04/08 15:41:53 by jfreitas      #+#    #+#                 */
+/*   Updated: 2022/04/08 16:16:56 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Karen.hpp"
+#include "../includes/Harl.hpp"
 
-std::string	userInput( void ) {
-	std::string	level;
-
-	std::cout << std::endl << "Chose your level (or ctrl-c to exit): " << BLUE;
-	std::getline(std::cin, level);
-	return level;
-}
 
 int		main(void) {
 	std::string	level;
-	Karen		karen = Karen();
+	Harl		harl = Harl();
 
-	std::cout << std::endl << GREEN << "Levels available: DEBUG, INFO, WARNING and ERROR!" << RESET << std::endl;
-	level = userInput();
-	while (std::strcmp(level.c_str(), "DEBUG") || std::strcmp(level.c_str(), "INFO") ||
-				std::strcmp(level.c_str(), "WARNING") || std::strcmp(level.c_str(), "ERROR")) {
-		if (!std::strcmp(level.c_str(), "DEBUG") || !std::strcmp(level.c_str(), "INFO") ||
-				!std::strcmp(level.c_str(), "WARNING") || !std::strcmp(level.c_str(), "ERROR")) {
-			karen.complain(level);
-			level = userInput();
-			continue ;
+	std::cout << std::endl << "Levels available: DEBUG, INFO, WARNING and ERROR!" << std::endl;
+	std::cout << "Chose your level (or ctrl-c to exit) " << BLUE << std::endl << std::endl;
+	while (std::getline(std::cin, level)) {
+		if (level == "DEBUG" || level == "INFO" || level == "WARNING" || level == "ERROR") {
+			harl.complain(level);
+		} else {
+			std::cout << YELLOW << "wrong level, try again!" << BLUE << std::endl << std::endl;
 		}
-		std::cout << YELLOW << "wrong level, try again!" << RESET << std::endl;
-		level = userInput();
 	}
 	return 0;
 }

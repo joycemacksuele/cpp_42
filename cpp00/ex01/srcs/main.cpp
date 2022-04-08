@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 18:55:34 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/03/05 12:44:13 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/03/25 16:24:50 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,9 @@ int	chooseContact(int contactIndex, std::string input) {
 	std::cout << std::endl;
 	ft_print(input);
 	std::getline(std::cin, indexInput);
+	//std::cin >> indexInput;
 	indexNbr = std::atoi(indexInput.c_str());
-	if ( indexNbr > 0 && indexNbr - 1 < contactIndex && indexNbr <= 8 )
+	if (indexNbr > 0 && indexNbr - 1 < contactIndex && indexNbr <= 8)
 		return indexNbr;
 	else {
 		ft_print("INDEX");
@@ -96,11 +97,11 @@ int		main(void) {
 	ft_print("START");
 	while (1) {
 		ft_print("LOOP");
-		//std::cin >> input;
+		//std::cin >> input;//after a space the \n is taken as a character not a end of input
 		std::getline(std::cin, input);
-		if (std::cin.eof() || input.compare("EXIT") == 0) {// input == "EXIT" also works (operator overload)
+		if (std::cin.eof() || input.compare("EXIT") == 0) {//input == "EXIT" also works (operator overload)
 			ft_print("EXIT");
-			return 0;// exit(EXIT_SUCCESS); -> No destructors are called if program exits
+			return 0;//exit(EXIT_SUCCESS); -> No destructors are called if program exits
 		}
 		if (input.compare("ADD") == 0) {
 			ft_print(input);

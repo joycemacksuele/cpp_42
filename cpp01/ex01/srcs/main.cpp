@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:42:17 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/01/06 22:33:38 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/04/08 15:01:38 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ std::string	userInputName( int i ) {
 void	zombieLife(int nbZombies) {
 	std::string	name;
 	Zombie		*heapZombie;
-	int			i;
+	int			i = 0;
 
-	i = 0;
 	name = userInputName(i + 1);
 	heapZombie = zombieHorde(nbZombies, name); /** malloc nbZombies times*/
 	while (i < nbZombies) {
@@ -58,7 +57,7 @@ bool	isDigit(std::string amount) {
 
 	i = 0;
 	while (amount[i]) {
-		if (amount[i] < '1' || amount[i] > '9')
+		if (amount[i] < '0' || amount[i] > '9')
 			return false;
 		i++;
 	}

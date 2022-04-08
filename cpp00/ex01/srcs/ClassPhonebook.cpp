@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 03:30:47 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/03/12 08:36:19 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/03/26 10:02:37 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	Phonebook::checkIfEmpty(int i) {
 
 int	Phonebook::addContact(int contactIndex) {
 	if (contactIndex == 8) {
-		this->add(7);
+		this->add(0);
 	}
 	else {
 		if (this->add(contactIndex) == 0) {
@@ -56,6 +56,7 @@ int	Phonebook::add(int i) {
 
 	std::cout << "\t First name . . . . . ";
 	std::getline(std::cin, firstName);
+	//std::cin >> firstName;// after a space it counts the \n as a character not as end of input
 	std::cout << "\t Last name  . . . . . ";
 	std::getline(std::cin, lastName);
 	std::cout << "\t Nickname . . . . . . ";
@@ -82,8 +83,6 @@ int	Phonebook::add(int i) {
  * substr: https://www.cplusplus.com/reference/string/string/substr/
  */
 void	Phonebook::displayContactsList(int index) {
-	//if (checkIfEmpty(index - 1) == -1)
-	//		return ;
 	for (int i = 0; i < index; i++) {
 		std::cout << std::endl << "         │";
 		std::cout << std::setfill(' ') << std::setw(10);
