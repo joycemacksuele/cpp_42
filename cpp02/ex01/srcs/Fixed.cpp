@@ -14,7 +14,7 @@
 
 // Default constructor that initializes the fixed-point number value to 0.
 Fixed::Fixed(void)// {
-	: _fixedNumber(0), _fractionalBit(0) {
+	: _fixedNumber(0), _fractionalBit(8) {
 	std::cout << "Default constructor called" << std::endl;
 	return ;
 }
@@ -24,6 +24,7 @@ Fixed::Fixed(void)// {
 Fixed::Fixed(const int number)// {
 	: _fixedNumber(number), _fractionalBit(8) {
 	std::cout << "Int constructor called" << std::endl;
+	_fixedNumber = number << _fractionalBit;
 	return ;
 }
 
@@ -51,7 +52,7 @@ Fixed::Fixed(const float numberFloat)// {
 
 // Copy constructor
 Fixed::Fixed(const Fixed &src)
-	: _fractionalBit(0) {
+	: _fractionalBit(8) {
 	std::cout << "Copy constructor called" << std::endl;
 	*this = src; // this will call the copy assignment operator
 }
@@ -61,16 +62,17 @@ Fixed::Fixed(const Fixed &src)
 Fixed& Fixed::operator=(const Fixed &rhs) {
 	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &rhs) {
-		this->_fixedNumber = rhs.getRawBits();
+		//this->_fixedNumber = rhs.getRawBits(); or ->
+		this->setRawBits(rhs.getRawBits());
 	}
 	return *this;
 }
 
 // An overload of the insertion («) operator that inserts a floating-point
 // representation of the fixed-point number into the output stream object passed as parameter
-std::ostream& operator<<(std::ostream &stream, const Fixed &rhs) {
-	stream << rhs.toFloat();
-	return stream;
+std::ostream& operator<<(std::ostream &output, const Fixed &rhs) {
+	output << rhs.toFloat();
+	return output;
 }
 
 // Destructor
@@ -81,6 +83,12 @@ Fixed::~Fixed(void) {
 
 // Converts the fixed-point value to a floating-point value.
 float Fixed::toFloat(void) const {
+	//fixed-point value = _fixedNumber
+	//number of fractional bits = _fractionalBit
+	int sign = 1;
+	if (_fixedNumber < 0) {
+		sign = -1;
+	}
 	//this->setRawBits(_number ...)
 	return 0;
 
@@ -88,7 +96,7 @@ float Fixed::toFloat(void) const {
 
 // Converts the fixed-point value to an integer value.
 int Fixed::toInt(void) const {
-	return 0;
+	return _fixedNumber;
 }
 
 
