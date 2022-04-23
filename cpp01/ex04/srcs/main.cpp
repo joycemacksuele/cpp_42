@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:42:17 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/04/08 16:25:52 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/04/09 12:28:02 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	copyReplace(std::fstream &newFile, std::string line, std::string s1, std::s
 	}
 }
 
+// Could have more errors here, and not create the replace file if the current
+// file is empty, chmod 000 or a directory
 void	openReadCopyReplaceFile(std::string fileName, std::string s1, std::string s2) {
 	std::string		newFileName;
 	std::fstream	file;
