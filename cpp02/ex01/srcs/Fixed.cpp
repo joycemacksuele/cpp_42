@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 16:36:11 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/03/26 12:12:33 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/04/23 11:10:22 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,4 @@ void Fixed::setRawBits(const int raw) {// sets the raw value of the fixed-point 
 
 /* the decimal point is called binary point or radix in binary notation, but it
  * is nor explicitly stored, so it's kept in a fixed position (which we have to know).
-
+ */
