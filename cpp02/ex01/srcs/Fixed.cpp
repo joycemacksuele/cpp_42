@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 16:36:11 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/05/19 17:11:09 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/05/19 17:24:41 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ Fixed::Fixed(const float numberFloat)// {
 	// e.g1. for 24.4: fixed_point = (int)(float * 2^4)
 	// e.g2. nfor 24.8: fixed_point = (int)(float * 2^8)
 
-	//this->_fixed_point_value = roundf(numberFloat * (2 ^ this->_frac_bit)) * sign; // the right way
+	this->_fixed_point_value = roundf(numberFloat * (2 ^ this->_frac_bit)) * sign; // the right way ???
 	//this->_fixed_point_value = (int)((numberFloat * (2 ^ this->_frac_bit)) * sign); // TODO try this way
-	this->_fixed_point_value = (int)(((int)numberFloat << this->_frac_bit) * sign); // TODO try this way
+	//this->_fixed_point_value = (int)(((int)numberFloat << this->_frac_bit) * sign); // TODO try this way
 	return ;
 }
 
@@ -135,23 +135,24 @@ int Fixed::toInt(void) const {
 // Converts the fixed-point value to a floating-point value.
 float Fixed::toFloat(void) const {
 	int sign = _fixed_point_value < 0 ? -1 : 1;
-	// return _fixed_point_value >> this->_frac_bit; -> This will not print the franciton part.
+	// return this->_fixed_point_value >> this->_frac_bit; -> This will not print the franciton part.
 	// a workaround has to be done so the return can be really of type float (with the decimals).
 
-	//return (float)((this->_fixed_point_value / (2 ^ this->_frac_bit)) * sign);  // the right way
-	return (float)((this->_fixed_point_value >> this->_frac_bit) * sign); // TODO try this way
+	return (float)((this->_fixed_point_value / (2 ^ this->_frac_bit)) * sign);  // the right way ???
+	//return (float)((this->_fixed_point_value >> this->_frac_bit) * sign); // TODO try this way
+	//return (this->_fixed_point_value >> this->_frac_bit) * sign; // TODO try this way
 }
 
 /* ########################################################################## */
 
 // returns the raw value of the fixed-point value.
 int Fixed::getRawBits(void) const {
-	std::cout << "getRawBits member function called" << std::endl;
+	//std::cout << "getRawBits member function called" << std::endl;
 	return this->_fixed_point_value;
 }
 
 // sets the raw value of the fixed-point value.
 void Fixed::setRawBits(const int raw) {
-	std::cout << "setRawBits member function called" << std::endl;
+	//std::cout << "setRawBits member function called" << std::endl;
 	this->_fixed_point_value = raw;
 }

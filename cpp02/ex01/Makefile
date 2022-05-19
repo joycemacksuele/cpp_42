@@ -6,11 +6,11 @@
 #    By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/24 15:35:00 by jfreitas          #+#    #+#              #
-#    Updated: 2022/03/12 12:56:58 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/05/19 17:16:03 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = UsedFixedPoint
+NAME = FixedPoint
 
 ##### COLORS #####
 WHITE = \033[1;37m
