@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/03/26 11:21:31 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/05/19 17:11:14 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 #define BLUE    "\033[34m"
 
 class Fixed {
-
 	public:
 		Fixed(void);// Default (no args) constructor
 		Fixed(const int numberInt);// Constructor with one int param
@@ -34,6 +33,8 @@ class Fixed {
 		Fixed& operator=(const Fixed &rhs);// Copy assignment operator
 		~Fixed(void);// Destructor
 
+
+/// TODO: Check which one can be priivate
 		int		toInt(void) const;// that converts the fixed-point value to an integer value.
 		float	toFloat(void) const;// converts the fixed-point value to a floating-point value.
 
@@ -45,8 +46,8 @@ class Fixed {
 		// A fixed-point number is a representation of a real number using a
 		// certain number of bits of a type for the integer part, and the
 		// remaining bits of the type for the fractional part.
-		int			_fixedNumber;// the fixed-point number value (whole number without fraction).
-		const int	_fractionalBit;// the number of fractional bits. Its value will always be the integer literal 8.
+		const int	_frac_bit;// the number of fractional bits. Its value will always be the integer literal 8.
+		int			_fixed_point_value;// the fixed-point value (whole number without fraction).
 
 };
 std::ostream& operator<<(std::ostream &stream, const Fixed &rhs);// Stream operator
