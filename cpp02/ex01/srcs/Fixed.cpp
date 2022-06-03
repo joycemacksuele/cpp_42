@@ -6,16 +6,13 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 16:36:11 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/05/19 17:24:41 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/06/03 18:19:06 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Fixed.hpp"
 
-//TODO: use static_cast<type> ??
-//
-/* 
- * Good to know: The decimal point is called binary point or radix in binary notation, but
+/* Good to know: The decimal point is called binary point or radix in binary notation, but
  * it's not explicitly stored, so it's kept in a fixed position (which we have to know).
  */
 
@@ -43,14 +40,13 @@ Fixed::~Fixed(void) {
 
 /* ########################################################################## */
 
-/* 
- * The conversion from the int ot float number to the fixed point value is done by
+/* The conversion from the int ot float number to the fixed point value is done by
  * shifting _frac_bit times to the left (<<) the fixed point value (binary).
  *
  * from int: just shifting is enough.
  * from float: a workaround has to be done to get an int number (aka: without the decimals).
  *
- * << means to do a multiplication by the fractional bits (in this case as the _frac_bits
+ * << means to do a multipllcation by the fractional bits (in this case as the _frac_bits
  * is always 8, so the multiplication will be by 2^8 = 256 (1+2+4+8+16+32+64+128 = 255).
  */
 
@@ -60,16 +56,11 @@ Fixed::Fixed(const int number)// {
 	: _frac_bit(8), _fixed_point_value(number << _frac_bit) {
 	std::cout << "Int constructor called" << std::endl;
 	int sign = _fixed_point_value < 0 ? -1 : 1;
-	//int sign = 1;
-	//if (_fixed_point_value < 0) {
-	//	sign = -1;
-	//}
 	this->_fixed_point_value = (number << _frac_bit) * sign;
 	return ;
 }
 
-/*
- * A floating-point constant without an f, F, l, or L suffix has type double.
+/* A floating-point constant without an f, F, l, or L suffix has type double.
  * If the letter f or F is the suffix, the constant has type float.
  * If suffixed by the letter l or L, it has type long double.
  */
@@ -81,15 +72,21 @@ Fixed::Fixed(const float numberFloat)// {
 	std::cout << "Float constructor called" << std::endl;
 	int sign = _fixed_point_value < 0 ? -1 : 1;
 
-	// this->_fixed_point_value = numberFloat << this->_frac_bit; -> This will print the franction part (we don't want this).
-	// a workaround has to be done so the result can be really of type int.
-	//
-	// e.g1. for 24.4: fixed_point = (int)(float * 2^4)
-	// e.g2. nfor 24.8: fixed_point = (int)(float * 2^8)
+	/* OBS.: the operator ^ for power is not compatible for C++ sinc it is already
+	 * exclusive or (XOR) in C, so giving it another meaning would have broken
+	 * backwards compatibility with C
+	 */
+	this->_fixed_point_value = roundf(numberFloat * std::pow(2, this->_frac_bit)) * sign;
+	//casting to int instead of using the roundf method also works
 
-	this->_fixed_point_value = roundf(numberFloat * (2 ^ this->_frac_bit)) * sign; // the right way ???
-	//this->_fixed_point_value = (int)((numberFloat * (2 ^ this->_frac_bit)) * sign); // TODO try this way
-	//this->_fixed_point_value = (int)(((int)numberFloat << this->_frac_bit) * sign); // TODO try this way
+	/* this->_fixed_point_value = roundf((int)numberFloat << this->_frac_bit) * sign;
+	 * This does not work with bit shift between with a flot type, and by casting
+	 * the float to an int, it ends up getting another fixed point value.
+	 *
+	 * A workaround has to be done so the result can be really of type int.
+	 * e.g1. for 24.4: fixed_point = (int)(float * 2^4)
+	 * e.g2. nfor 24.8: fixed_point = (int)(float * 2^8)
+	 */
 	return ;
 }
 
@@ -100,7 +97,11 @@ Fixed::Fixed(const float numberFloat)// {
 Fixed& Fixed::operator=(const Fixed &rhs) {
 	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &rhs) {
-		//this->_fixed_point_value = rhs.getRawBits(); or this->_fixed_point_value = rhs._fixed_point_vaue;
+		/* Also works:
+		 * this->_fixed_point_value = rhs.getRawBits();
+		 * or
+		 * this->_fixed_point_value = rhs._fixed_point_vaue;
+		 */
 		this->setRawBits(rhs.getRawBits());
 	}
 	return *this;
@@ -115,8 +116,7 @@ std::ostream& operator<<(std::ostream &output, const Fixed &rhs) {
 
 /* ########################################################################## */
 
-/* 
- * The conversion from the fixed point value to int or float is done by
+/* The conversion from the fixed point value to int or float is done by
  * shifting _frac_bit times to the right (>>) the fixed point value (binary).
  *
  * to int: just shifting is enough.
@@ -129,18 +129,22 @@ std::ostream& operator<<(std::ostream &output, const Fixed &rhs) {
 // Converts the fixed-point value to an integer value.
 int Fixed::toInt(void) const {
 	int sign = _fixed_point_value < 0 ? -1 : 1;
+	//std::cout << "\033[0;31m" << this->_fixed_point_value << " as fixed point value and as int: " << "\033[0m";
 	return (this->_fixed_point_value >> this->_frac_bit) * sign;
 }
 
 // Converts the fixed-point value to a floating-point value.
 float Fixed::toFloat(void) const {
 	int sign = _fixed_point_value < 0 ? -1 : 1;
-	// return this->_fixed_point_value >> this->_frac_bit; -> This will not print the franciton part.
-	// a workaround has to be done so the return can be really of type float (with the decimals).
 
-	return (float)((this->_fixed_point_value / (2 ^ this->_frac_bit)) * sign);  // the right way ???
-	//return (float)((this->_fixed_point_value >> this->_frac_bit) * sign); // TODO try this way
-	//return (this->_fixed_point_value >> this->_frac_bit) * sign; // TODO try this way
+	/* return (float)(this->_fixed_point_value >> this->_frac_bit) * sign;
+	 * This will not print the franciton part. A workaround has to be done so
+	 * the return can be really of type float (with the decimals).
+	 */
+
+	//std::cout << "\033[0;35m" << this->_fixed_point_value << " as fixed point value and as float: " << "\033[0m";
+	// https://www.rfwireless-world.com/calculators/floating-vs-fixed-point-converter.html
+	return (float)this->_fixed_point_value / std::pow(2, this->_frac_bit) * sign;
 }
 
 /* ########################################################################## */

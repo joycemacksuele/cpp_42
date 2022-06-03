@@ -17,8 +17,13 @@ public:
 
 	Fixed( const float value ) {
 		int power = pow(2, this->_number_of_fractional_bits);
-			std::cout << "Constant float constructor called" << std::endl;
+		std::cout << "Constant float constructor called" << std::endl;
 		this->_fixed_point_value = roundf(value * power);
+
+
+		std::cout << std::endl << "_fixed_point_value =  " << this->_fixed_point_value << std::endl;
+		std::cout << "FLOAT CONTRUCTOR PARAN:" << value << std::endl;
+
 		return;
 	}
 
@@ -45,7 +50,6 @@ public:
 	}
 
 	float	toFloat( void ) const {
-		std::cout << std::endl << "_fixed_point_value =  " << this->_fixed_point_value << std::endl;
 		int		power = pow(2, this->_number_of_fractional_bits);
 		float	result = (float)this->_fixed_point_value / power;
 		return (result);
@@ -84,16 +88,17 @@ int main( void ) {
 	std::cout << "c is " << c << std::endl;
 	std::cout << "d is " << d << std::endl;
 	std::cout << "e is " << e << std::endl;
-
+	std::cout << "---------------------" << std::endl;
 	std::cout << "a is " << a.toInt() << " as integer" << std::endl;
 	std::cout << "b is " << b.toInt() << " as integer" << std::endl;
 	std::cout << "c is " << c.toInt() << " as integer" << std::endl;
 	std::cout << "d is " << d.toInt() << " as integer" << std::endl;
 	std::cout << "e is " << e.toInt() << " as integer" << std::endl;
+	std::cout << "---------------------" << std::endl;
 	std::cout << "b is " << b.toFloat() << " as float" << std::endl;
 	std::cout << "c is " << c.toFloat() << " as float" << std::endl;
 	std::cout << "e is " << e.toFloat() << " as float" << std::endl;
-
+	std::cout << "---------------------" << std::endl;
 	std::cout << "rawbits of a =  " << a.getRawBits() << std::endl;
 
 
