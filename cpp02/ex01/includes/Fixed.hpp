@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/05/19 17:11:14 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/06/03 19:23:24 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,14 @@ class Fixed {
 		Fixed& operator=(const Fixed &rhs);// Copy assignment operator
 		~Fixed(void);// Destructor
 
-
-/// TODO: Check which one can be priivate
 		int		toInt(void) const;// that converts the fixed-point value to an integer value.
 		float	toFloat(void) const;// converts the fixed-point value to a floating-point value.
 
+	/* _varNmae -> convention to remember that this variable is private */
+	private:
 		int		getRawBits(void) const;// returns the raw value of the fixed-point value.
 		void	setRawBits(const int raw);// sets the raw value of the fixed-point number.
 
-	/* _varNmae -> convention to remember that this variable is private */
-	private:
 		// A fixed-point number is a representation of a real number using a
 		// certain number of bits of a type for the integer part, and the
 		// remaining bits of the type for the fractional part.
