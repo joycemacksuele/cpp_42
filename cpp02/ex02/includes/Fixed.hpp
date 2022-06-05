@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreitas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:39:52 by jfreitas          #+#    #+#             */
-/*   Updated: 2022/06/03 19:51:27 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/06/05 18:19:07 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,42 +27,48 @@
 class Fixed {
 	public:
 		Fixed(void);// Default (no args) constructor
-		Fixed(const int numberInt);// Constructor with one int param
-		Fixed(const float numberfloat);// Constructor with one float param
-		Fixed(const Fixed &src);// Copy constructor
-		Fixed& operator=(const Fixed &rhs);// Copy assignment operator
+		Fixed(const int numberInt);// Overloaded cnstructor (with one int param)
+		Fixed(const float numberfloat);// Overloade constructor (with one float param)
+		Fixed(const Fixed &src);// Overloaded Copy constructor
+		Fixed& operator=(const Fixed& rhs);// Copy assignment operator (important to return a reference to the class since we don't want a deep copy). ex: s2 = s1 is actually s2.operator=(s1);
+		// Good to know: Move assignment operator is like the Copy one but the parameter is a non const (since we will change it by null-ing it) r-value reference (aka ClassName&& rhs).
+		// Move operator will make the current instance point to the value the rhs is pointing to, then null the rhs pointer (so rhs pointer is lost/not accessible anymore).
+		// Copy operator will delete what is inside the current instance, allocate a new necessary space to it and copy what is inside the rhs to this memory just allocated on the current instance (so the rhs pointer is still accessibe and still with the value it had before (aka: now we have 2 addresses with the sam evalue in it)).
 		~Fixed(void);// Destructor
 
-		int		getRawBits(void) const;// returns the raw value of the fixed-point value.
-		void	setRawBits(const int raw);// sets the raw value of the fixed-point number.
+		int		toInt(void) const;// that converts the fixed-point value to an integer value.
+		float	toFloat(void) const;// converts the fixed-point value to a floating-point value.
 
-		// The 6 comparison operators: >, <, >=, <=, == and !=.
-		bool operator>(const Fixed &rhs) const;
-		bool operator<(const Fixed &rhs) const;
-		bool operator>=(const Fixed &rhs) const;
-		bool operator<=(const Fixed &rhs) const;
-		bool operator==(const Fixed &rhs) const;
-		bool operator!=(const Fixed &rhs) const;
-		// The 4 arithmetic operators: +, -, *, and /.
-		Fixed operator+(const Fixed &rhs) const;
-		Fixed operator-(const Fixed &rhs) const;
-		Fixed operator*(const Fixed &rhs) const;
-		Fixed operator/(const Fixed &rhs) const;
-		// The 4 increment/decrement (pre-increment and post-increment, pre-decrement and post-decrement) 
-		Fixed& operator++();//++var
-		Fixed& operator++(int);//var++
-		Fixed& operator--();//--var
-		Fixed& operator--(int);//var--
+		// The 6 comparison (binary) operators: >, <, >=, <=, == and !=.
+		// https://en.cppreference.com/w/cpp/language/operator_comparison
+		bool operator>(const Fixed& rhs) const;
+		bool operator<(const Fixed& rhs) const;
+		bool operator>=(const Fixed& rhs) const;
+		bool operator<=(const Fixed& rhs) const;
+		bool operator==(const Fixed& rhs) const;
+		bool operator!=(const Fixed& rhs) const;
+		// The 4 arithmetic (binary) operators: +, -, *, and /.
+		// https://en.cppreference.com/w/cpp/language/operator_arithmetic
+		Fixed operator+(const Fixed& rhs) const;
+		Fixed operator-(const Fixed& rhs) const;
+		Fixed operator*(const Fixed& rhs) const;
+		Fixed operator/(const Fixed& rhs) const;
+		// The 4 (unary) increment/decrement 
+		// https://en.cppreference.com/w/cpp/language/operator_incdec
+		Fixed& operator++();// ++var (pre-increment)
+		Fixed operator++(int);// var++ (post-increment)
+		Fixed& operator--();// --var (pre-decrement)
+		Fixed operator--(int);// var-- (post-decrement)
 
-		static int&	min(int& fixed_point_value_1, int& fixed_point_value2);
-		static int&	min(const int& fixed_point_value_1, const int& fixed_point_value2);
-		static int&	max(int& fixed_point_value_1, int& fixed_point_value2);
-		static int&	max(const int& fixed_point_value_1, const int& fixed_point_value2);
+		static Fixed&	min(Fixed& fixed_point_value_1, Fixed& fixed_point_value2);
+		static Fixed&	min(const Fixed& fixed_point_value_1, const Fixed& fixed_point_value2);
+		static Fixed&	max(Fixed& fixed_point_value_1, Fixed& fixed_point_value2);
+		static Fixed&	max(const Fixed& fixed_point_value_1, const Fixed& fixed_point_value2);
 
 	/* _varNmae -> convention to remember that this variable is private */
 	private:
-		int		toInt(void) const;// that converts the fixed-point value to an integer value.
-		float	toFloat(void) const;// converts the fixed-point value to a floating-point value.
+		int		getRawBits(void) const;// returns the raw value of the fixed-point value.
+		void	setRawBits(const int raw);// sets the raw value of the fixed-point number.
 
 		// A fixed-point number is a representation of a real number using a
 		// certain number of bits of a type for the integer part, and the
