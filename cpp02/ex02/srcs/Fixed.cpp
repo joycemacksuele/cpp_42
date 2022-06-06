@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 16:36:11 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/06/05 18:27:31 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/06/06 17:40:24 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ Fixed::~Fixed(void) {
  * from int: just shifting is enough.
  * from float: a workaround has to be done to get an int number (aka: without the decimals).
  *
- * << means to do a multipllcation by the fractional bits (in this case as the _frac_bits
+ * << means to do a multiplication by the fractional bits (in this case as the _frac_bits
  * is always 8, so the multiplication will be by 2^8 = 256 (1+2+4+8+16+32+64+128 = 255).
  */
 
@@ -77,15 +77,15 @@ Fixed::Fixed(const float numberFloat)// {
 	 * backwards compatibility with C
 	 */
 	this->_fixed_point_value = roundf(numberFloat * std::pow(2, this->_frac_bit)) * sign;
-	//casting to int instead of using the roundf method also works
+	//this->_fixed_point_value = roundf(numberFloat * (1 << this->_frac_bit)) * sign;// also works
 
 	/* this->_fixed_point_value = roundf((int)numberFloat << this->_frac_bit) * sign;
 	 * This does not work with bit shift between with a flot type, and by casting
 	 * the float to an int, it ends up getting another fixed point value.
 	 *
-	 * A workaround has to be don	return Fixed(this->_fixed_point_value / rhs._fixed_point_value);e so the result can be really of type int.
+	 * A workaround has to be done return Fixed(this->_fixed_point_value / rhs._fixed_point_value); so the result can be really of type int.
 	 * e.g1. for 24.4: fixed_point = (int)(float * 2^4)
-	 * e.g2. nfor 24.8: fixed_point = (int)(float * 2^8)
+	 * e.g2. for 24.8: fixed_point = (int)(float * 2^8)
 	 */
 	return ;
 }
@@ -112,103 +112,113 @@ Fixed& Fixed::operator=(const Fixed& rhs) {
 	return *this;// return the current instance by reference (the content of it, to allow chain assignment) as s1 = s2 = s3.
 }
 
+/* ########################################################################## */
+
 // The 6 comparison (binary) operators: >, <, >=, <=, == and !=.
 // https://en.cppreference.com/w/cpp/language/operator_comparison
 bool Fixed::operator>(const Fixed& rhs) const {
 	std::cout << "Comparison > operator called" << std::endl;
-	if (this->_fixed_point_value > rhs._fixed_point_value) {
+	if (this->getRawBits() > rhs.getRawBits())
 		return true;
-	} else {
-		return false;
-	}
+	return false;
 }
 
 bool Fixed::operator<(const Fixed& rhs) const {
 	std::cout << "Comparison < operator called" << std::endl;
-	if (this->_fixed_point_value < rhs._fixed_point_value) {
+	if (this->getRawBits() < rhs.getRawBits())
 		return true;
-	} else {
-		return false;
-	}
+	return false;
 }
 
 bool Fixed::operator>=(const Fixed& rhs) const {
 	std::cout << "Comparison >= operator called" << std::endl;
-	if (this->_fixed_point_value >= rhs._fixed_point_value) {
+	if (this->getRawBits() >= rhs.getRawBits())
 		return true;
-	} else {
-		return false;
-	}
+	return false;
 }
 
 bool Fixed::operator<=(const Fixed& rhs) const {
 	std::cout << "Comparison <= operator called" << std::endl;
-	if (this->_fixed_point_value <= rhs._fixed_point_value) {
+	if (this->getRawBits() <= rhs.getRawBits())
 		return true;
-	} else {
-		return false;
-	}
+	return false;
 }
 
 bool Fixed::operator==(const Fixed& rhs) const {
 	std::cout << "Comparison == operator called" << std::endl;
-	if (this->_fixed_point_value == rhs._fixed_point_value) {
+	if (this->getRawBits() == rhs.getRawBits())
 		return true;
-	} else {
-		return false;
-	}
+	return false;
 }
 
 bool Fixed::operator!=(const Fixed& rhs) const {
 	std::cout << "Comparison != operator called" << std::endl;
-	if (this->_fixed_point_value == rhs._fixed_point_value) {
-		return false;
-	} else {
+	if (this->getRawBits() != rhs.getRawBits())
 		return true;
-	}
+	return false;
 }
+
+/* ########################################################################## */
 
 // The 4 arithmetic (binary) operators: +, -, *, and /.
 // https://en.cppreference.com/w/cpp/language/operator_arithmetic
 Fixed Fixed::operator+(const Fixed& rhs) const {
 	std::cout << "Arithmetic + operator called" << std::endl;
-	return this->_fixed_point_value + rhs._fixed_point_value;
+	Fixed lhs;
+	lhs.setRawBits(getRawBits() + rhs.getRawBits());
+	return lhs;
 	//return Fixed(this->_fixed_point_value + rhs._fixed_point_value);//had to have another overloaded contructor
 }
 
 Fixed Fixed::operator-(const Fixed& rhs) const {
 	std::cout << "Arithmetic - operator called" << std::endl;
-	return this->_fixed_point_value - rhs._fixed_point_value;
+	Fixed lhs;
+	lhs.setRawBits(getRawBits() - rhs.getRawBits());
+	return lhs;
 	//return Fixed(this->_fixed_point_value - rhs._fixed_point_value);//had to have another overloaded contructor
 }
 
 Fixed Fixed::operator*(const Fixed& rhs) const {
 	std::cout << "Arithmetic * operator called" << std::endl;
-	return this->_fixed_point_value * rhs._fixed_point_value;
+	Fixed lhs;
+	lhs.setRawBits((this->getRawBits() * rhs.getRawBits()) >> this->_frac_bit);
+	// _fixed_point_value * rhs._fixed_point_value / 256
+	// ex: 2 * 3 = 6 -> 512(2<<8 or 2*256) * 768(3<<8 or 3*256) = 393216 -> 393216 / 256 (or >> 8) = 1536 fixed.
+	// AND later on the fixed-tofloat or toInt: 1536 >> 8 (or / 256) = 6
+	return lhs;
 	//return Fixed(this->_fixed_point_value * rhs._fixed_point_value);//had to have another overloaded contructor
 }
 
 Fixed Fixed::operator/(const Fixed& rhs) const {
 	std::cout << "Arithmetic / operator called" << std::endl;
-	return this->_fixed_point_value / rhs._fixed_point_value;
+	Fixed lhs;
+	lhs.setRawBits((this->getRawBits() << this->_frac_bit) / rhs.getRawBits());
+	// _fixed_point_value * 256 / rhs._fixed_point_value
+	// ex: 2 / 3 = .666 -> 512(2<<8 or 2*256) << 8 (or * 256) = 131072 (the fixed point value of 512)
+	// 131072 / 768(3<<8 or 3*256) = 170.66 -> 170 fixed.
+	// AND later on the fixed-tofloat or toInt: 170 >> 8 (or / 256) = .66
+	return lhs;
 	//return Fixed(this->_fixed_point_value / rhs._fixed_point_value);//had to have another overloaded contructor
 }
 
-/// TODO: will increase or decrease the fixed-point value from the smallest representable such as 1 +  > 1
+/* ########################################################################## */
 
-// The 4 (unary) increment/decrement
-// https://en.cppreference.com/w/cpp/language/operator_incdec
+/* The 4 (unary) increment/decrement
+ * https://en.cppreference.com/w/cpp/language/operator_incdec
+ * The post have an int argument "artificially" added so it can be differentiated from the pre ones.
+ * https://stackoverflow.com/questions/15244094/overloading-for-both-pre-and-post-increment */
 Fixed& Fixed::operator++() {
 	std::cout << "Arithmetic ++ pre-increment operator called" << std::endl;
-	this->setRawBits(this->_fixed_point_value + 1);
+	this->setRawBits(this->getRawBits() + 1);
 	return *this;
 }
 
 Fixed Fixed::operator++(int) {
 	std::cout << "Arithmetic post-increment ++ operator called" << std::endl;
-	int old_fixed_point_value = this->_fixed_point_value;
-	this->setRawBits(this->_fixed_point_value + 1);
-	return Fixed(old_fixed_point_value);
+	Fixed lhs(*this);
+	operator++();//calls the pre-increment to this instance
+	//this->setRawBits(this->getRawBits() + 1); or ++(*this) also works
+	return lhs;//returns the copy of this instance before it was incremented.
 }
 
 Fixed& Fixed::operator--() {
@@ -219,15 +229,18 @@ Fixed& Fixed::operator--() {
 
 Fixed Fixed::operator--(int) {
 	std::cout << "Arithmetic post-decrement -- operator called" << std::endl;
-	int old_fixed_point_value = this->_fixed_point_value;
-	this->setRawBits(this->_fixed_point_value - 1);
-	return Fixed(old_fixed_point_value);
+	Fixed lhs(*this);
+	operator--();//calls the pre-decrement to this instance
+	//this->setRawBits(this->getRawBits() + 1); or ++(*this) also works
+	return lhs;//returns the copy of this instance before it was incremented.
 }
+
+/* ########################################################################## */
 
 // An overload of the insertion («) operator that inserts a floating-point
 // representation of the fixed-point number into the output stream object passed as parameter
 std::ostream& operator<<(std::ostream& output, const Fixed& rhs) {
-	output << rhs.toFloat();
+	output << GREEN << rhs.toFloat() << RESET;
 	return output;
 }
 
@@ -256,44 +269,39 @@ float Fixed::toFloat(void) const {
 
 	/* return (float)(this->_fixed_point_value >> this->_frac_bit) * sign;
 	 * This will not print the franciton part. A workaround has to be done so
-	 * the return can be really of type float (with the decimals).
-	 */
+	 * the return can be really of type float (with the decimals). */
 
 	//std::cout << "\033[0;35m" << this->_fixed_point_value << " as fixed point value and as float: " << "\033[0m";
 	// https://www.rfwireless-world.com/calculators/floating-vs-fixed-point-converter.html
 	return (float)this->_fixed_point_value / std::pow(2, this->_frac_bit) * sign;
+	//return (float)this->_fixed_point_value / (float)(1 << this->_frac_bit) * sign; // Also works (1<<frac_bit = 256 = 100000000)
 }
 
-Fixed& Fixed::min(Fixed& fixed_point_value_1, Fixed& fixed_point_value2) {
-	if (fixed_point_value_1 < fixed_point_value2) {
-		return fixed_point_value_1;
-	} else {
-		return fixed_point_value2;
-	}
+/* ########################################################################## */
+
+Fixed& Fixed::min(Fixed& lhs, Fixed& rhs) {
+	if (lhs._fixed_point_value < rhs._fixed_point_value)
+		return lhs;
+	return rhs;
 }
 
-Fixed& Fixed::min(const Fixed& fixed_point_value_1, const Fixed& fixed_point_value2) {
-	if (fixed_point_value_1 < fixed_point_value2) {
-		return Fixed(fixed_point_value_1);
-	} else {
-		return Fixed(fixed_point_value2);
-	}
+const Fixed& Fixed::min(const Fixed& lhs, const Fixed& rhs) {
+	Fixed joyce(lhs);
+	if (lhs._fixed_point_value < rhs._fixed_point_value)
+		return lhs;
+	return rhs;
 }
 
-Fixed& Fixed::max(Fixed& fixed_point_value_1, Fixed& fixed_point_value2) {
-	if (fixed_point_value_1 > fixed_point_value2) {
-		return fixed_point_value_1;
-	} else {
-		return fixed_point_value2;
-	}
+Fixed& Fixed::max(Fixed& lhs, Fixed& rhs) {
+	if (lhs._fixed_point_value > rhs._fixed_point_value)
+		return lhs;
+	return rhs;
 }
 
-Fixed& Fixed::max(const Fixed& fixed_point_value_1, const Fixed& fixed_point_value2) {
-	if (fixed_point_value_1 < fixed_point_value2) {
-		return Fixed(fixed_point_value_1);
-	} else {
-		return Fixed(fixed_point_value2);
-	}
+const Fixed& Fixed::max(const Fixed& lhs, const Fixed& rhs) {
+	if (lhs._fixed_point_value > rhs._fixed_point_value)
+		return lhs;
+	return rhs;
 }
 
 /* ########################################################################## */

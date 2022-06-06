@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 16:36:11 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/06/05 17:08:12 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/06/06 17:21:34 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,15 @@ Fixed::Fixed(const float numberFloat)// {
 	 * backwards compatibility with C
 	 */
 	this->_fixed_point_value = roundf(numberFloat * std::pow(2, this->_frac_bit)) * sign;
-	//casting to int instead of using the roundf method also works
+	//this->_fixed_point_value = roundf(numberFloat * (1 << this->_frac_bit)) * sign;// also works
 
 	/* this->_fixed_point_value = roundf((int)numberFloat << this->_frac_bit) * sign;
-	 * This does not work with bit shift between with a flot type, and by casting
+	 * This does not work with bit shift between with a float type, and by casting
 	 * the float to an int, it ends up getting another fixed point value.
 	 *
 	 * A workaround has to be done so the result can be really of type int.
 	 * e.g1. for 24.4: fixed_point = (int)(float * 2^4)
-	 * e.g2. nfor 24.8: fixed_point = (int)(float * 2^8)
+	 * e.g2. for 24.8: fixed_point = (int)(float * 2^8)
 	 */
 	return ;
 }
@@ -142,9 +142,10 @@ float Fixed::toFloat(void) const {
 	 * the return can be really of type float (with the decimals).
 	 */
 
-	//std::cout << "\033[0;35m" << this->_fixed_point_value << " as fixed point value and as float: " << "\033[0m";
+	// std::cout << "\033[0;35m" << this->_fixed_point_value << " as fixed point value and as float: " << "\033[0m";
 	// https://www.rfwireless-world.com/calculators/floating-vs-fixed-point-converter.html
 	return (float)this->_fixed_point_value / std::pow(2, this->_frac_bit) * sign;
+	//return (float)this->_fixed_point_value / (float)(1 << this->_frac_bit) * sign; // Also works (1<<frac_bit = 256 = 100000000)
 }
 
 /* ########################################################################## */
