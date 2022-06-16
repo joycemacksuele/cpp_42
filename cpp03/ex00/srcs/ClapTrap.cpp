@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/06/12 20:36:36 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/06/16 16:15:12 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 /* ########################################################################## */
 
 // Default constructor
-ClapTrap::ClapTrap(void) {
+ClapTrap::ClapTrap(void)
+	: _hitPoints(10), _energyPoints(10), _attackDamage(0) {
 	std::cout << "Default constructor called" << std::endl;
 	return ;
 }
 
 // Constructor with one parameter
 ClapTrap::ClapTrap(const std::string name)// {
-	: _name(name) {
+	: _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0) {
 	std::cout << "Overloaded constructor called (with one parameter)" << std::endl;
 	return ;
 }
@@ -43,10 +44,10 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& rhs) {
 		 * is inside the rhs instance into the memory that was just cleaned from
 		 * this current instance.
 		 */
-		this->_name = rhs._name;
-		this->_hitPoints = rhs._hitPoints;
-		this->_energyPoints = rhs._energyPoints;
-		this->_attackDamage = rhs._attackDamage;
+		set_name(rhs._name);
+		set_hitPoints(rhs.get_hitPoints());
+		set_energyPoints(rhs.get_energyPoints());
+		set_attackDamage(rhs.get_attackDamage());
 	}
 	// return the current instance by reference (the content of it, to allow chain assignment) as s1 = s2 = s3
 	return *this;
@@ -77,19 +78,19 @@ unsigned int ClapTrap::get_attackDamage() const {
 	return _attackDamage;
 }
 
-void ClapTrap::set_name(const std::string name) {
+void ClapTrap::set_name(std::string name) {
 	_name = name;
 }
 
-void ClapTrap::set_hitPoints(const unsigned int hitPoints) {
+void ClapTrap::set_hitPoints(unsigned int hitPoints) {
 	_hitPoints = hitPoints;
 }
 
-void ClapTrap::set_energyPoints(const unsigned int energyPoints) {
+void ClapTrap::set_energyPoints(unsigned int energyPoints) {
 	_energyPoints = energyPoints;
 }
 
-void ClapTrap::set_attackDamage(const unsigned int attackDamage) {
+void ClapTrap::set_attackDamage(unsigned int attackDamage) {
 	_attackDamage = attackDamage;
 }
 
@@ -99,9 +100,10 @@ void ClapTrap::set_attackDamage(const unsigned int attackDamage) {
 // representation of the fixed-point number into the output stream object passed as parameter
 std::ostream& operator<<(std::ostream& output, const ClapTrap& rhs) {
 	std::cout << GREEN;
-	std::cout << rhs.get_name() << " current Hit Points: " << rhs.get_hitPoints() << std::endl;
-	std::cout << rhs.get_name() << " current Energy Points: " << rhs.get_energyPoints() << std::endl;
-	std::cout << RESET;
+	std::cout << rhs.get_name() << " current Hit Points: " << rhs.get_hitPoints() << RESET << " (Nb + <amount> for repair)" << std::endl;
+	std::cout << GREEN;
+	std::cout << rhs.get_name() << " current Energy Points: " << rhs.get_energyPoints() << RESET << " (Nb - 1 per attack or repair)" << std::endl;
+	std::cout << std::endl << RESET;
 	return output;
 }
 
@@ -109,12 +111,12 @@ std::ostream& operator<<(std::ostream& output, const ClapTrap& rhs) {
 
 void ClapTrap::attack(const std::string& target) {
 	std::cout << YELLOW << "ClapTrap " << this->get_name() << " attacks " << target << ", ";
-	std::cout << "causing " << this->get_attackDamage() << " Hit Points of damage!" << RESET << std::endl;
+	std::cout << "causing " << this->get_attackDamage() << " Points of damage on its Hit Points!" << RESET << std::endl;
 
 	// When ClapTrack attacks, it causes its target to lose <attack damage> hit points.
 	ClapTrap targetClapTrap(target);
 	targetClapTrap.takeDamage(this->get_attackDamage());
-	// Attacking costs 1 energy point 
+	// Attacking costs 1 energy point.
 	this->set_energyPoints(this->get_energyPoints() - 1);//--(*this)??
 
 	// output to keep track
