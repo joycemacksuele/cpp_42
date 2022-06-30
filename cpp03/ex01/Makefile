@@ -6,7 +6,7 @@
 #    By: jfreitas <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/18 14:10:36 by jfreitas      #+#    #+#                  #
-#    Updated: 2022/06/18 14:12:45 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/06/30 11:01:08 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ RESET = \033[0m
 #CC = clang++
 CC = c++
 FLAGS = -std=c++98 -Wall -Wextra -Werror -pedantic
+# -Wshadow if variables/types/typedefs/parameters... have the same name (i.e. shadows one another).
+# -Wno-shadow is the default for the compiler, determinating that no warning is issued when variables are being shadowed.
 
 ##### INCLUDES #####
 INC = ./includes

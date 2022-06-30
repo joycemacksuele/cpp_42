@@ -6,28 +6,35 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 20:33:34 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/06/18 17:56:01 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/06/30 12:19:06 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ScavTrap.hpp"
 
 int main(void) {
-	ClapTrap attacker;
-	ScavTrap attacker1;
-	ScavTrap attacker2("Attacker 2");
-	ScavTrap attacker3(attacker1);
+	//ClapTrap attacker;// default costructor
+	ScavTrap attacker1;// default costructor
+	ScavTrap attacker2("B");// overloaded costructor
+	ScavTrap attacker3(attacker1);// copy costructor
 
-	attacker1.set_name("Attacker 1");
-	attacker1.attack("Attacker 3");
+	std::cout << RED << std::endl << "Default Constructor attacker" << RESET << std::endl;
+	attacker1.set_name("A");
+	attacker1.attack("A2");
 	attacker1.beRepaired(2);
+	std::cout << RED << "Attack damage was set o 5 instead of the standard 20" << RESET << std::endl;
+	attacker1.set_attackDamage(5);
+	attacker1.attack("A22");
+	attacker1.beRepaired(5);
 
-	attacker2.attack("Henrique");
+	std::cout << RED << std::endl  << "Overloaded Constructor (with target name) attacker" << RESET << std::endl;
+	attacker2.attack("B2");
 	attacker2.beRepaired(2);
+	attacker2.guardGate();
 
-	attacker3.set_name("Attacker 3");
-	attacker3.set_attackDamage(5);
-	attacker3.attack("You");
+	std::cout << RED << std::endl  << "Copy Constructor attacker" << RESET << std::endl;
+	attacker3.set_name("C");
+	attacker3.attack("C2");
 	attacker3.beRepaired(1);
 	return 0;
 }
