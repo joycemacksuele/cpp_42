@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/18 17:04:06 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/06/30 12:13:53 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/06/30 13:09:48 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,14 @@ ScavTrap::~ScavTrap(void) {
 
 // An overload of the insertion («) operator that inserts a floating-point
 // representation of the fixed-point number into the output stream object passed as parameter
-std::ostream& operator<<(std::ostream& output, const ScavTrap& rhs) {
+/*std::ostream& operator<<(std::ostream& output, const ScavTrap& rhs) {
 	std::cout << GREEN;
 	std::cout << rhs.get_name() << ": current Hit Points is " << rhs.get_hitPoints() << RESET << " (Nb + <amount> for repair)" << std::endl;
 	std::cout << GREEN;
 	std::cout << rhs.get_name() << ": current Energy Points is " << rhs.get_energyPoints() << RESET << " (Nb - 1 per attack and/or repair)" << std::endl;
 	std::cout << RESET;
 	return output;
-}
+}*/
 
 /* ########################################################################## */
 
@@ -94,9 +94,17 @@ void ScavTrap::attack(const std::string& target) {
 	this->set_energyPoints(this->get_energyPoints() - 1);
 
 	// output to keep track
-	std::cout << *this;
+	//std::cout << *this; -> this won't work since public members of the base/parent/inherited
+	// class (ClapTrap) becomes the private members of the derived/child (ScavTrap) class.
+	// So the getters and setters used on the insertion operator in this example are now private members of ScavTrap.
+	std::cout << GREEN;
+	std::cout << this->get_name() << ": current Hit Points is " << this->get_hitPoints() << RESET << " (Nb + <amount> for repair)" << std::endl;
+	std::cout << GREEN;
+	std::cout << this->get_name() << ": current Energy Points is " << this->get_energyPoints() << RESET << " (Nb - 1 per attack and/or repair)" << std::endl;
+	std::cout << RESET;
 }
 
 void	ScavTrap::guardGate() {
 	std::cout << YELLOW << "ScavTrap " << this->get_name() << ": is now in Gate keeper mode." <<  RESET << std::endl;
+	this->beRepaired(5);
 }
