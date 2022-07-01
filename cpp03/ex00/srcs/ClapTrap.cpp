@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/06/16 16:15:12 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/01 12:58:01 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ std::string ClapTrap::get_name() const {
 	return _name;
 }
 
-unsigned int ClapTrap::get_hitPoints() const {
+int ClapTrap::get_hitPoints() const {
 	return _hitPoints;
 }
 
-unsigned int ClapTrap::get_energyPoints() const {
+int ClapTrap::get_energyPoints() const {
 	return _energyPoints;
 }
 
@@ -82,11 +82,11 @@ void ClapTrap::set_name(std::string name) {
 	_name = name;
 }
 
-void ClapTrap::set_hitPoints(unsigned int hitPoints) {
+void ClapTrap::set_hitPoints(int hitPoints) {
 	_hitPoints = hitPoints;
 }
 
-void ClapTrap::set_energyPoints(unsigned int energyPoints) {
+void ClapTrap::set_energyPoints(int energyPoints) {
 	_energyPoints = energyPoints;
 }
 
@@ -103,19 +103,26 @@ std::ostream& operator<<(std::ostream& output, const ClapTrap& rhs) {
 	std::cout << rhs.get_name() << " current Hit Points: " << rhs.get_hitPoints() << RESET << " (Nb + <amount> for repair)" << std::endl;
 	std::cout << GREEN;
 	std::cout << rhs.get_name() << " current Energy Points: " << rhs.get_energyPoints() << RESET << " (Nb - 1 per attack or repair)" << std::endl;
-	std::cout << std::endl << RESET;
+	std::cout << RESET;
 	return output;
 }
 
 /* ########################################################################## */
 
 void ClapTrap::attack(const std::string& target) {
+	if (this->get_energyPoints() <= 0 || this->get_hitPoints() <= 0) {
+		std::cout << BLUE << this->get_name() << " has no Energy Points or Hit Points left, so it can't attack." << RESET << std::endl;
+		return ;
+	}
 	std::cout << YELLOW << "ClapTrap " << this->get_name() << " attacks " << target << ", ";
 	std::cout << "causing " << this->get_attackDamage() << " Points of damage on its Hit Points!" << RESET << std::endl;
 
 	// When ClapTrack attacks, it causes its target to lose <attack damage> hit points.
 	ClapTrap targetClapTrap(target);
 	targetClapTrap.takeDamage(this->get_attackDamage());
+	if (targetClapTrap.get_energyPoints() <= 0 || targetClapTrap.get_hitPoints() <= 0) {
+		std::cout << BLUE << targetClapTrap.get_name() << " has no Energy Points or Hit Points left." << RESET << std::endl;
+	}
 	// Attacking costs 1 energy point.
 	this->set_energyPoints(this->get_energyPoints() - 1);//--(*this)??
 
@@ -131,7 +138,7 @@ void ClapTrap::takeDamage(unsigned int amount) {
 }
 
 void ClapTrap::beRepaired(unsigned int amount) {
-	std::cout << GREEN << "ClapTrap " << this->get_name() << " repared itself." << RESET << std::endl;
+	std::cout << GREEN << "ClapTrap " << this->get_name() << ": repared itself, getting " << amount << " Hit Points back." << RESET << std::endl;
 	// When ClapTrap repairs itself, it gets <amount> hit points back.
 	this->set_hitPoints(this->get_hitPoints() + amount);
 	// repairing costs 1 energy point.
@@ -140,121 +147,3 @@ void ClapTrap::beRepaired(unsigned int amount) {
 	// output to keep track
 	std::cout << *this;
 }
-
-/* ########################################################################## */
-
-// The 6 comparison (binary) operators: >, <, >=, <=, == and !=.
-// https://en.cppreference.com/w/cpp/language/operator_comparison
-/*bool ClapTrap::operator>(const ClapTrap& rhs) const {
-	std::cout << "Comparison > operator called" << std::endl;
-	if (this->_hitPoints > rhs._hitPoints)
-		return true;
-	return false;
-}
-
-bool ClapTrap::operator<(const ClapTrap& rhs) const {
-	std::cout << "Comparison < operator called" << std::endl;
-	if (this->_hitPoints < rhs._hitPoints)
-		return true;
-	return false;
-}
-
-bool ClapTrap::operator>=(const ClapTrap& rhs) const {
-	std::cout << "Comparison >= operator called" << std::endl;
-	if (this->_hitPoints >= rhs._hitPoints)
-		return true;
-	return false;
-}
-
-bool ClapTrap::operator<=(const ClapTrap& rhs) const {
-	std::cout << "Comparison <= operator called" << std::endl;
-	if (this->_hitPoints <= rhs._hitPoints)
-		return true;
-	return false;
-}
-
-bool ClapTrap::operator==(const ClapTrap& rhs) const {
-	std::cout << "Comparison == operator called" << std::endl;
-	if (this->_hitPoints == rhs._hitPoints)
-		return true;
-	return false;
-}
-
-bool ClapTrap::operator!=(const ClapTrap& rhs) const {
-	std::cout << "Comparison != operator called" << std::endl;
-	if (this->_hitPoints != rhs._hitPoints)
-		return true;
-	return false;
-}*/
-
-/* ########################################################################## */
-
-// The 4 arithmetic (binary) operators: +, -, *, and /.
-// https://en.cppreference.com/w/cpp/language/operator_arithmetic
-/*ClapTrap ClapTrap::operator+(const ClapTrap& rhs) const {
-	std::cout << "Arithmetic + operator called" << std::endl;
-	ClapTrap lhs;
-	lhs._attackDamage += rhs._attackDamage;
-	return lhs;
-	//return ClapTrap(this->_attackDamage + rhs._attackDamage );//had to have another overloaded contructor
-}
-
-ClapTrap ClapTrap::operator-(const ClapTrap& rhs) const {
-	std::cout << "Arithmetic - operator called" << std::endl;
-	ClapTrap lhs;
-	lhs._attackDamage -= rhs._attackDamage;
-	return lhs;
-	//return ClapTrap(this->_attackDamage - rhs._attackDamage );//had to have another overloaded contructor
-}
-
-ClapTrap ClapTrap::operator*(const ClapTrap& rhs) const {
-	std::cout << "Arithmetic * operator called" << std::endl;
-	ClapTrap lhs;
-	lhs._attackDamage *= rhs._attackDamage;
-	return lhs;
-	//return ClapTrap(this->_attackDamage * rhs._attackDamage );//had to have another overloaded contructor
-}
-
-ClapTrap ClapTrap::operator/(const ClapTrap& rhs) const {
-	std::cout << "Arithmetic / operator called" << std::endl;
-	ClapTrap lhs;
-	lhs._attackDamage /= rhs._attackDamage;
-	return lhs;
-	//return ClapTrap(this->_attackDamage / rhs._attackDamage );//had to have another overloaded contructor
-}*/
-
-/* ########################################################################## */
-
-/* The 4 (unary) increment/decrement
- * https://en.cppreference.com/w/cpp/language/operator_incdec
- * The post have an int argument "artificially" added so it can be differentiated from the pre ones.
- * https://stackoverflow.com/questions/15244094/overloading-for-both-pre-and-post-increment */
-
-//  Attacking and repairing (methods) cost 1 energy point each
-/*ClapTrap& ClapTrap::operator++() {
-	std::cout << "Arithmetic ++ pre-increment operator called" << std::endl;
-	this->_energyPoints += 1;
-	return *this;
-}
-
-ClapTrap ClapTrap::operator++(int) {
-	std::cout << "Arithmetic post-increment ++ operator called" << std::endl;
-	ClapTrap lhs(*this);
-	operator++();//calls the pre-increment to this instance
-	//this->_energyPoints += 1; or ++(*this) also works
-	return lhs;//returns the copy of this instance before it was incremented.
-}
-
-ClapTrap& ClapTrap::operator--() {
-	std::cout << "Arithmetic -- pre-decrement operator called" << std::endl;
-	this->_energyPoints -= 1;
-	return *this;
-}
-
-ClapTrap ClapTrap::operator--(int) {
-	std::cout << "Arithmetic post-decrement -- operator called" << std::endl;
-	ClapTrap lhs(*this);
-	operator--();//calls the pre-decrement to this instance
-	//this->_energyPoints -= 1; or --(*this) also works
-	return lhs;//returns the copy of this instance before it was incremented.
-}*/

@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/18 17:04:06 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/06/30 13:09:48 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/01 12:26:45 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,19 @@ ScavTrap::~ScavTrap(void) {
 /* ########################################################################## */
 
 void ScavTrap::attack(const std::string& target) {
+	if (this->get_energyPoints() <= 0 || this->get_hitPoints() <= 0) {
+		std::cout << BLUE << this->get_name() << " has no Energy Points or Hit Points leftm so it can't attack." << RESET << std::endl;
+		return ;
+	}
 	std::cout << YELLOW << "ScavTrap " << this->get_name() << ": attacks " << target << ", ";
 	std::cout << "causing " << this->get_attackDamage() << " Points of damage on its Hit Points!" << RESET << std::endl;
 
 	// When ClapTrack attacks, it causes its target to lose <attack damage> hit points.
 	ScavTrap targetScavTrap(target);
 	targetScavTrap.takeDamage(this->get_attackDamage());
+	if (targetScavTrap.get_energyPoints() <= 0 || targetScavTrap.get_hitPoints() <= 0) {
+		std::cout << BLUE << targetScavTrap.get_name() << " has no Energy Points or Hit Points left." << RESET << std::endl;
+	}
 	// Attacking costs 1 energy point.
 	this->set_energyPoints(this->get_energyPoints() - 1);
 

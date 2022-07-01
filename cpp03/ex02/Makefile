@@ -6,11 +6,11 @@
 #    By: jfreitas <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/18 14:10:36 by jfreitas      #+#    #+#                  #
-#    Updated: 2022/06/30 11:01:08 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/07/01 11:44:14 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ClapTrap_ScavTrap
+NAME = ClapTrap_FragTrap
 
 ##### COLORS #####
 WHITE = \033[1;37m
@@ -39,7 +39,7 @@ INC_DEP = $(INC)/*.hpp
 SRCPATH = ./srcs
 # addprefix = Adds the $(SRCPATH) "prefix" to each argument after the comma.
 # '%' matches any nonempty string, and the other characters match themselves.
-SRCS = $(addprefix $(SRCPATH)/, main.cpp ClapTrap.cpp ScavTrap.cpp) #\ if more lines are needed
+SRCS = $(addprefix $(SRCPATH)/, main.cpp ClapTrap.cpp FragTrap.cpp) #\ if more lines are needed
 
 ##### OBJECTS #####
 OBJPATH = $(SRCPATH)/objs

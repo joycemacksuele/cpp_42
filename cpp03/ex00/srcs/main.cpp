@@ -6,27 +6,32 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 20:33:34 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/06/16 15:59:10 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/01 12:57:41 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ClapTrap.hpp"
 
 int main(void) {
-	ClapTrap attacker1;
-	ClapTrap attacker2("Attacker 2");
-	ClapTrap attacker3(attacker1);
 
+	std::cout << RED << std::endl  << "Default Constructor attacker" << RESET << std::endl;
+	ClapTrap attacker1;
 	attacker1.set_name("Attacker 1");
-	attacker1.attack("Attacker 3");
+	attacker1.attack("Joyce");
 	attacker1.beRepaired(2);
 
-	attacker2.attack("Henrique");
+	std::cout << RED << std::endl  << "Overloaded Constructor (with target name) attacker" << RESET << std::endl;
+	ClapTrap attacker2("Attacker 2");
+	attacker2.attack("Codam");
 	attacker2.beRepaired(2);
 
-	attacker3.set_name("Attacker 3");
+	std::cout << RED << std::endl  << "Copy Constructor attacker" << RESET << std::endl;
+	ClapTrap attacker3(attacker2);
+	std::cout << BLUE << "Attack damage was set o 5 instead of the standard 0" << RESET << std::endl;
 	attacker3.set_attackDamage(5);
-	attacker3.attack("You");
+	attacker3.attack("Larry");
 	attacker3.beRepaired(1);
+
+	std::cout << std::endl;
 	return 0;
 }

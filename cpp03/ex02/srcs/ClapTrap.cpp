@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/06/30 12:08:29 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/01 13:00:20 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ std::string ClapTrap::get_name() const {
 	return _name;
 }
 
-unsigned int ClapTrap::get_hitPoints() const {
+int ClapTrap::get_hitPoints() const {
 	return _hitPoints;
 }
 
-unsigned int ClapTrap::get_energyPoints() const {
+int ClapTrap::get_energyPoints() const {
 	return _energyPoints;
 }
 
@@ -82,11 +82,11 @@ void ClapTrap::set_name(std::string name) {
 	_name = name;
 }
 
-void ClapTrap::set_hitPoints(unsigned int hitPoints) {
+void ClapTrap::set_hitPoints(int hitPoints) {
 	_hitPoints = hitPoints;
 }
 
-void ClapTrap::set_energyPoints(unsigned int energyPoints) {
+void ClapTrap::set_energyPoints(int energyPoints) {
 	_energyPoints = energyPoints;
 }
 
@@ -110,12 +110,19 @@ std::ostream& operator<<(std::ostream& output, const ClapTrap& rhs) {
 /* ########################################################################## */
 
 void ClapTrap::attack(const std::string& target) {
+	if (this->get_energyPoints() <= 0 || this->get_hitPoints() <= 0) {
+		std::cout << BLUE << this->get_name() << " has no Energy Points or Hit Points left, so it can't attack." << RESET << std::endl;
+		return ;
+	}
 	std::cout << YELLOW << "ClapTrap " << this->get_name() << ": attacks " << target << ", ";
 	std::cout << "causing " << this->get_attackDamage() << " Points of damage on its Hit Points!" << RESET << std::endl;
 
 	// When ClapTrack attacks, it causes its target to lose <attack damage> hit points.
 	ClapTrap targetClapTrap(target);
 	targetClapTrap.takeDamage(this->get_attackDamage());
+	if (targetClapTrap.get_energyPoints() <= 0 || targetClapTrap.get_hitPoints() <= 0) {
+		std::cout << BLUE << targetClapTrap.get_name() << " has no Energy Points or Hit Points left." << RESET << std::endl;
+	}
 	// Attacking costs 1 energy point.
 	this->set_energyPoints(this->get_energyPoints() - 1);//--(*this)??
 
@@ -131,7 +138,7 @@ void ClapTrap::takeDamage(unsigned int amount) {
 }
 
 void ClapTrap::beRepaired(unsigned int amount) {
-	std::cout << GREEN << "ClapTrap " << this->get_name() << ": repared itself." << RESET << std::endl;
+	std::cout << GREEN << "ClapTrap " << this->get_name() << ": repared itself, getting " << amount << " Hit Points back." << RESET << std::endl;
 	// When ClapTrap repairs itself, it gets <amount> hit points back.
 	this->set_hitPoints(this->get_hitPoints() + amount);
 	// repairing costs 1 energy point.

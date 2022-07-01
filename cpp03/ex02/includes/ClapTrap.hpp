@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/06/30 12:33:52 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/01 11:57:43 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,21 @@ class ClapTrap {
 		void	beRepaired(unsigned int amount);
 
 		// getters
-		std::string get_name() const;
-		unsigned int get_hitPoints() const;
-		unsigned int get_energyPoints() const;
-		unsigned int get_attackDamage() const;
+		std::string		get_name() const;
+		int				get_hitPoints() const;
+		int				get_energyPoints() const;
+		unsigned int	get_attackDamage() const;
 		// setters
 		void set_name(std::string name);
-		void set_hitPoints(unsigned int hitPoints);
-		void set_energyPoints(unsigned int energyPoints);
+		void set_hitPoints(int hitPoints);
+		void set_energyPoints(int energyPoints);
 		void set_attackDamage(unsigned int attackDamage);
 
 	/* _varNmae -> convention to remember that this variable is private */
 	private:
 		std::string		_name;
-		unsigned int	_hitPoints;// represent the health of the ClapTrap.
-		unsigned int	_energyPoints;//Attacking and repairing cost 1 energy point each.
+		int				_hitPoints;// represent the health of the ClapTrap.
+		int				_energyPoints;//Attacking and repairing cost 1 energy point each.
 		unsigned int	_attackDamage;// When ClapTrack attacks, it causes its target to lose <attack damage> hit points.
 		std::string		_targetName;
 

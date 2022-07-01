@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ScavTrap.hpp                                       :+:    :+:            */
+/*   FragTrap.hpp                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/18 14:13:38 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/06/30 12:37:27 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/01 11:28:48 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCAVTRAP_HPP
-# define SCAVTRAP_HPP
+#ifndef FRAGTRAP_HPP
+# define FRAGTRAP_HPP
 
 #include <string>
 #include <iostream>
@@ -59,14 +59,14 @@
  *      inaccessible to the objects of the derived class).
  */
 
-// i.e. ScavTrap = child/derived class AND ClapTrap = base/parent class
-class ScavTrap : private ClapTrap {
+// i.e. FragTrap = child/derived class AND ClapTrap = base/parent class
+class FragTrap : public ClapTrap {
 
 	public:
-		ScavTrap(void);// Default (no args) constructor
-		ScavTrap(const std::string name, int hitPoints = 100, int energyPoints = 50, int attackDamage = 20);// Overloaded constructor (with one param)
-		ScavTrap(const ClapTrap& src);// Overloaded Copy constructor
-		ScavTrap& operator=(const ClapTrap& rhs);// Copy assignment operator
+		FragTrap(void);// Default (no args) constructor
+		FragTrap(const std::string name, int hitPoints = 100, int energyPoints = 100, int attackDamage = 30);// Overloaded constructor (with one or 4 params)
+		FragTrap(const ClapTrap& src);// Overloaded Copy constructor
+		FragTrap& operator=(const ClapTrap& rhs);// Copy assignment operator
 		// Important to return a reference to the class since we don't want a deep copy). ex: s2 = s1 is actually s2.operator=(s1);
 		/* - Good to know: Move assignment operator is like the Copy one but the parameter
 		 *   is a non const (since we will change it by null-ing it) r-value reference (aka ClassName&& rhs).
@@ -77,12 +77,12 @@ class ScavTrap : private ClapTrap {
 		 *   on the current instance (so the rhs pointer is still accessibe and still with the value
 		 *   it had before (aka: now we have 2 addresses with the sam evalue in it)).
 		 */
-		~ScavTrap(void);// Destructor
+		~FragTrap(void);// Destructor
 
 		// those are the only methods that can access the PUBLIC memberts of the
 		// parent/base/inherited class (like public methods as getters and setters or public variables)
-		void	attack(const std::string& target);
-		void	guardGate();
+		//void	attack(const std::string& target);
+		void	highFivesGuys(void);
 
 };
 
