@@ -1,41 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   Animal.cpp                                       :+:    :+:            */
+/*   WrongCat.cpp                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/19 19:30:04 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/19 19:50:38 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Animal.hpp"
+#include "../includes/WrongCat.hpp"
 
 /* ########################################################################## */
 
 // Default constructor
-Animal::Animal(void) 
-	: type("Animal") {
-	std::cout << GREEN << "Animal" << RESET << " Default constructor called" << std::endl;
+WrongCat::WrongCat(void) {
+	//: type("WrongCat") {
+	std::cout << GREEN << "WrongCat" << RESET << " Default constructor called" << std::endl;
+	setType("WrongCat");
 	return ;
 }
 
 // Constructor with one parameter
-/*Animal::Animal(const std::string type) {
-	std::cout << GREEN << "Animal" << RESET << " Overloaded constructor called (with one parameter)" << std::endl;
+/*WrongCat::WrongCat(const std::string type) {
+	std::cout << GREEN << "WrongCat" << RESET << " Overloaded constructor called (with one parameter)" << std::endl;
 	return ;
 }*/
 
 // Copy constructor
-Animal::Animal(const Animal &src) {
-	std::cout << GREEN << "Animal" << RESET << " Copy constructor called" << std::endl;
+WrongCat::WrongCat(const WrongCat &src) {
+	std::cout << GREEN << "WrongCat" << RESET << " Copy constructor called" << std::endl;
 	*this = src; // this will call the copy assignment operator
 }
 
 // Copy assignment operator
-Animal& Animal::operator=(const Animal& rhs) {
-	std::cout << GREEN << "Animal" << RESET << " Copy assignment operator called" << std::endl;
+WrongCat& WrongCat::operator=(const WrongCat& rhs) {
+	std::cout << GREEN << "WrongCat" << RESET << " Copy assignment operator called" << std::endl;
 	if (this != &rhs) { //checking for self assignmet (if the 2 instances are equal)
 		/* if we had some raw pointers on the class we would need to deal without
 		 * the memory here, i.e. deleting the current memory and allocation new
@@ -50,26 +51,15 @@ Animal& Animal::operator=(const Animal& rhs) {
 }
 
 // Destructor
-Animal::~Animal(void) {
-	std::cout << GREEN << "Animal" << RESET << " Destructor called" << std::endl;
+WrongCat::~WrongCat(void) {
+	std::cout << GREEN << "WrongCat" << RESET << " Destructor called" << std::endl;
 	delete [] this;
 	return ;
 }
 
 /* ########################################################################## */
-// getters and setters
 
-std::string Animal::getType() const {
-	return type;
-}
+/*void WrongCat::makeSound() const {
+	std::cout << "Wrong Miaw Miaw!" << std::endl;
 
-void Animal::setType(std::string animalType) {
-	type = animalType;
-}
-
-/* ########################################################################## */
-
-void Animal::makeSound() const {
-	std::cout << "gnarrg.g.g.g?" << std::endl;
-
-}
+}*/

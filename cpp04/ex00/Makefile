@@ -6,7 +6,7 @@
 #    By: jfreitas <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/18 14:10:36 by jfreitas      #+#    #+#                  #
-#    Updated: 2022/07/17 18:36:51 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/07/19 19:47:22 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ INC_DEP = $(INC)/*.hpp
 SRCPATH = ./srcs
 # addprefix = Adds the $(SRCPATH) "prefix" to each argument after the comma.
 # '%' matches any nonempty string, and the other characters match themselves.
-SRCS = $(addprefix $(SRCPATH)/, main.cpp Animal.cpp Dog.cpp Cat.cpp) #\ if more lines are needed
+SRCS = $(addprefix $(SRCPATH)/, main.cpp Animal.cpp Dog.cpp Cat.cpp \
+	   WrongAnimal.cpp WrongCat.cpp) #\ if more lines are needed
 
 ##### OBJECTS #####
 OBJPATH = $(SRCPATH)/objs

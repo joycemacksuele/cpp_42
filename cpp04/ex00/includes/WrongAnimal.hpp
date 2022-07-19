@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   Animal.hpp                                       :+:    :+:            */
+/*   WrongAnimal.hpp                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/19 19:10:25 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/19 19:46:00 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANIMAL_HPP
-# define ANIMAL_HPP
+#ifndef WRONG_ANIMAL_HPP
+# define WRONG_ANIMAL_HPP
 
 #include <string>
 #include <iostream>
@@ -30,14 +30,14 @@
  * protected: members cannot be accessed from outside the class, however, they
  *            can be accessed in inherited classes.
  */
-class Animal {
+class WrongAnimal {
 	public:
-		Animal(void);// Default (no args) constructor
+		WrongAnimal(void);// Default (no args) constructor
 
-		//Animal(const std::string type);// Overloaded constructor (with one param)
+		//WrongAnimal(const std::string type);// Overloaded constructor (with one param)
 
-		Animal(const Animal& src);// Overloaded Copy constructor
-		Animal& operator=(const Animal& rhs);// Copy assignment operator
+		WrongAnimal(const WrongAnimal& src);// Overloaded Copy constructor
+		WrongAnimal& operator=(const WrongAnimal& rhs);// Copy assignment operator
 		/* Good to know:
 		 * - Move assignment operator is like the Copy assignment one, but the
 		 *   parameter is a non const (since we will change it by null-ing it)
@@ -56,7 +56,7 @@ class Animal {
 		 *   Important: to return a reference to the class since we don't want
 		 *   a deep copy). -> ex: s2 = s1 is actually s2.operator=(s1);
 		 */
-		~Animal(void);// Destructor
+		~WrongAnimal(void);// Destructor
 
 		virtual void makeSound() const;
 
