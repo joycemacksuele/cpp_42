@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   WrongCat.cpp                                       :+:    :+:            */
+/*   WrongAnimal.cpp                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/24 12:22:21 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/24 14:50:30 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/WrongCat.hpp"
+#include "../includes/WrongAnimal.hpp"
 
 /* ########################################################################## */
 
 // Default constructor
-WrongCat::WrongCat(void) {
-	//: type("WrongCat") {
-	std::cout << GREEN << "WrongCat" << RESET << " Default constructor called" << std::endl;
-	setType("WrongCat");
+WrongAnimal::WrongAnimal(void) 
+	: type("WrongAnimal") {
+	std::cout << GREEN << "WrongAnimal" << RESET << " Default constructor called" << std::endl;
 	return ;
 }
 
 // Copy constructor
-WrongCat::WrongCat(const WrongCat &src) {
-	std::cout << GREEN << "WrongCat" << RESET << " Copy constructor called" << std::endl;
+WrongAnimal::WrongAnimal(const WrongAnimal& src) {
+	std::cout << GREEN << "WrongAnimal" << RESET << " Copy constructor called" << std::endl;
 	*this = src; // this will call the copy assignment operator
 }
 
 // Copy assignment operator
-WrongCat& WrongCat::operator=(const WrongCat& rhs) {
-	std::cout << GREEN << "WrongCat" << RESET << " Copy assignment operator called" << std::endl;
+WrongAnimal& WrongAnimal::operator=(const WrongAnimal& rhs) {
+	std::cout << GREEN << "WrongAnimal" << RESET << " Copy assignment operator called" << std::endl;
 	if (this != &rhs) { //checking for self assignmet (if the 2 instances are equal)
-		/* if we had some raw pointers on the class we would need to deal with
+		/* if we had some raw pointers on the class we would need to deal without
 		 * the memory here, i.e. deleting the current memory and allocation new
 		 * space for the rhs whole instance or specific member(s), then copy what
 		 * is inside the rhs instance into the memory that was just cleaned from
@@ -45,15 +44,26 @@ WrongCat& WrongCat::operator=(const WrongCat& rhs) {
 }
 
 // Destructor
-WrongCat::~WrongCat(void) {
-	std::cout << YELLOW << "WrongCat" << RESET << " Destructor called" << std::endl;
+WrongAnimal::~WrongAnimal(void) {
+	std::cout << YELLOW << "WrongAnimal" << RESET << " Destructor called" << std::endl;
 	return ;
 }
 
 /* ########################################################################## */
+// getters and setters
 
-// as this method is not virtual in the parent class, this is not overriting it.
-void WrongCat::makeSound() const {
-	std::cout << "Wrong Miaw Miaw!" << std::endl;
+std::string WrongAnimal::getType() const {
+	return type;
+}
+
+void WrongAnimal::setType(const std::string& animalType) {
+	type = animalType;
+}
+
+/* ########################################################################## */
+
+// as its not virtual, won't be overriten by the child class
+void WrongAnimal::makeSound() const {
+	std::cout << "Wrong gnarrg.g.g.g?" << std::endl;
 
 }

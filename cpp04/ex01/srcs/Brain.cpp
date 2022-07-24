@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   WrongCat.cpp                                       :+:    :+:            */
+/*   Brain.cpp                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/24 12:22:21 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/24 14:50:14 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/WrongCat.hpp"
+#include "../includes/Brain.hpp"
 
 /* ########################################################################## */
 
 // Default constructor
-WrongCat::WrongCat(void) {
-	//: type("WrongCat") {
-	std::cout << GREEN << "WrongCat" << RESET << " Default constructor called" << std::endl;
-	setType("WrongCat");
+Brain::Brain(void) { 
+	std::cout << GREEN << "Brain" << RESET << " Default constructor called" << std::endl;
 	return ;
 }
 
+// Constructor with one parameter
+/*Brain::Brain(const std::string type) {
+	std::cout << GREEN << "Brain" << RESET << " Overloaded constructor called (with one parameter)" << std::endl;
+	return ;
+}*/
+
 // Copy constructor
-WrongCat::WrongCat(const WrongCat &src) {
-	std::cout << GREEN << "WrongCat" << RESET << " Copy constructor called" << std::endl;
+Brain::Brain(const Brain& src) {
+	std::cout << GREEN << "Brain" << RESET << " Copy constructor called" << std::endl;
 	*this = src; // this will call the copy assignment operator
 }
 
 // Copy assignment operator
-WrongCat& WrongCat::operator=(const WrongCat& rhs) {
-	std::cout << GREEN << "WrongCat" << RESET << " Copy assignment operator called" << std::endl;
+Brain& Brain::operator=(const Brain& rhs) {
+	std::cout << GREEN << "Brain" << RESET << " Copy assignment operator called" << std::endl;
 	if (this != &rhs) { //checking for self assignmet (if the 2 instances are equal)
 		/* if we had some raw pointers on the class we would need to deal with
 		 * the memory here, i.e. deleting the current memory and allocation new
@@ -38,22 +42,21 @@ WrongCat& WrongCat::operator=(const WrongCat& rhs) {
 		 * is inside the rhs instance into the memory that was just cleaned from
 		 * this current instance.
 		 */
-		setType(rhs.getType());
+		int i = 0;
+		while (i < this->_number_of_ideas) {
+			this->_ideas[i] = rhs._ideas[i];
+			i++;
+		}
 	}
 	// return the current instance by reference (the content of it, to allow chain assignment) as s1 = s2 = s3
 	return *this;
 }
 
 // Destructor
-WrongCat::~WrongCat(void) {
-	std::cout << YELLOW << "WrongCat" << RESET << " Destructor called" << std::endl;
+Brain::~Brain(void) {
+	std::cout << YELLOW << "Brain" << RESET << " Destructor called" << std::endl;
 	return ;
 }
 
 /* ########################################################################## */
-
-// as this method is not virtual in the parent class, this is not overriting it.
-void WrongCat::makeSound() const {
-	std::cout << "Wrong Miaw Miaw!" << std::endl;
-
-}
+// getters and setters

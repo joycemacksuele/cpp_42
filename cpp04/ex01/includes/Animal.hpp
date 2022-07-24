@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/22 14:53:58 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/24 15:06:33 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 #define GREEN   "\033[32m"
 #define YELLOW  "\033[33m"
 #define BLUE    "\033[34m"
+
+#define NUMBER_OF_ANIMALS 4
 
 /*
  * Access specifiers:
@@ -63,12 +65,11 @@ class Animal {
 		virtual void makeSound() const;
 
 		// getters and setters
-		std::string getType() const;
-		void setType(const std::string& animalType);
+		std::string		getType() const;
+		void			setType(const std::string& animalType);
 
 	protected:
 		std::string type;
-
 };
 
 #endif
