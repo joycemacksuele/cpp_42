@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   Animal.hpp                                       :+:    :+:            */
+/*   Animal.hpp                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/29 11:57:11 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/29 18:51:53 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ class Animal {
 	public:
 		Animal(void);// Default (no args) constructor
 		Animal(const Animal& src);// Overloaded Copy constructor
-		Animal& operator=(const Animal& rhs);// Copy assignment operator
+		virtual Animal& operator=(const Animal& rhs);// Copy assignment operator
 		/* Good to know:
 		 * - Move assignment operator is like the Copy assignment one, but the
 		 *   parameter is a non const (since we will change it by null-ing it)

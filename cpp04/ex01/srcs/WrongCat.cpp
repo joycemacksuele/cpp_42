@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/29 10:07:28 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/29 18:03:03 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ WrongCat::WrongCat(const std::string& type) {
 }*/
 
 // Copy assignment operator
-WrongCat& WrongCat::operator=(const WrongCat& rhs) {
+/*WrongCat& WrongCat::operator=(const WrongCat& rhs) {
 	std::cout << GREEN << "WrongCat" << RESET << " Copy assignment operator called" << std::endl;
 	if (this != &rhs) { //checking for self assignmet (if the 2 instances are equal)
-		/* if we had some raw pointers on the class we would need to deal with
+		* if we had some raw pointers on the class we would need to deal with
 		 * the memory here, doing a deep copy. i.e.:
-		 */
+		 /
 
 		// deleting the current memory (it was allocated on the constructor)
 		delete this->_brain;
@@ -55,7 +55,7 @@ WrongCat& WrongCat::operator=(const WrongCat& rhs) {
 	}
 	// return the current instance by reference (the content of it, to allow chain assignment) as s1 = s2 = s3
 	return *this;
-}
+}*/
 
 // Destructor
 WrongCat::~WrongCat(void) {

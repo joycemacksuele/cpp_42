@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   Cat.hpp                                       :+:    :+:            */
+/*   Cat.hpp                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/29 09:46:41 by jfreitas      ########   odam.nl         */
+/*   Created: 2022/07/29 18:43:07 by jfreitas      #+#    #+#                 */
+/*   Updated: 2022/07/29 19:04:16 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ class Cat : public Animal {
 		Cat(const Cat& src);// Overloaded Copy constructor
 		Cat& operator=(const Cat& rhs);// Copy assignment operator
 		~Cat(void);// Destructor
+
+		Animal& operator=(const Animal& rhs);// Copy assignment operator
 
 		void makeSound() const;//overrites the parent class method
 
