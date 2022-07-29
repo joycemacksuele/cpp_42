@@ -6,7 +6,7 @@
 #    By: jfreitas <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/18 14:10:36 by jfreitas      #+#    #+#                  #
-#    Updated: 2022/07/24 12:14:50 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/07/29 12:06:18 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,9 @@ RESET = \033[0m
 ##### FLAGS #####
 #CC = clang++
 CC = c++
-FLAGS = -std=c++98 -Wall -Wextra -Werror -pedantic
+FLAGS = -std=c++98 -Wall -Wextra -Werror -pedantic -g# -fsanitize=address# -fno-omit-frame-pointer
+# To get perfect stack traces you may need to disable inlining (just use -O1) before -g
+# To get nicer stack traces in error messages add -fno-omit-frame-pointer
 # -Wshadow if variables/types/typedefs/parameters... have the same name (i.e. shadows one another).
 # -Wno-shadow is the default for the compiler, determinating that no warning is issued when variables are being shadowed.
 

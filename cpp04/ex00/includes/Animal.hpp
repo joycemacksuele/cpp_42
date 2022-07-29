@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/22 14:53:58 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/29 09:37:40 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ class Animal {
 		 * a virtual destructor.
 		 */
 
-		virtual void makeSound() const;
+		virtual void makeSound() const;// virtual method to be overriten by a child class
 
 		// getters and setters
-		std::string getType() const;
-		void setType(const std::string& animalType);
+		const std::string&		getType() const;
+		void					setType(const std::string& animalType);
 
 	protected:
 		std::string type;

@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/22 14:54:27 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/29 09:38:00 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ Animal::~Animal(void) {
 /* ########################################################################## */
 // getters and setters
 
-std::string Animal::getType() const {
+const std::string& Animal::getType() const {
 	return this->type;
 }
 

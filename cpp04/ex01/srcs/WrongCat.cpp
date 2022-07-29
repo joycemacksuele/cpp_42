@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/24 14:52:32 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/29 10:07:28 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ WrongCat::WrongCat(void) {
 }
 
 // Constructor with one parameter
-WrongCat::WrongCat(const std::string type) {
+WrongCat::WrongCat(const std::string& type) {
 	std::cout << GREEN << "Cat" << RESET << " Overloaded constructor called (with one parameter)" << std::endl;
 	this->setType(type);
 	this->_brain = new Brain();
@@ -69,4 +69,11 @@ WrongCat::~WrongCat(void) {
 // as this method is not virtual in the parent class, this is not overriting it.
 void WrongCat::makeSound() const {
 	std::cout << "Wrong Miaw Miaw!" << std::endl;
+}
+
+/* ########################################################################## */
+
+//virtual method form the parent class, so this one will be executed instead
+Brain* WrongCat::getBrain() const {
+	return this->_brain;
 }

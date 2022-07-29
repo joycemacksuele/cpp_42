@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/24 14:50:30 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/29 10:03:45 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ WrongAnimal::~WrongAnimal(void) {
 /* ########################################################################## */
 // getters and setters
 
-std::string WrongAnimal::getType() const {
+const std::string& WrongAnimal::getType() const {
 	return type;
 }
 
@@ -66,4 +66,8 @@ void WrongAnimal::setType(const std::string& animalType) {
 void WrongAnimal::makeSound() const {
 	std::cout << "Wrong gnarrg.g.g.g?" << std::endl;
 
+}
+
+Brain* WrongAnimal::getBrain() const {// virtual method to be overriten by a child class
+	return 0;
 }

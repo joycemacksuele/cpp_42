@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/24 14:50:14 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/29 12:33:02 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ Brain::Brain(void) {
 }
 
 // Constructor with one parameter
-/*Brain::Brain(const std::string type) {
+/*Brain::Brain(const std::string& type) {
 	std::cout << GREEN << "Brain" << RESET << " Overloaded constructor called (with one parameter)" << std::endl;
 	return ;
 }*/
@@ -44,7 +44,7 @@ Brain& Brain::operator=(const Brain& rhs) {
 		 */
 		int i = 0;
 		while (i < this->_number_of_ideas) {
-			this->_ideas[i] = rhs._ideas[i];
+			this->ideas[i] = rhs.ideas[i];
 			i++;
 		}
 	}

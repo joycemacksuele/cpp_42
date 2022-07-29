@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/24 14:50:20 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/29 12:33:46 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ Animal::~Animal(void) {
 /* ########################################################################## */
 // getters and setters
 
-std::string Animal::getType() const {
+const std::string& Animal::getType() const {
 	return this->type;
 }
 
@@ -71,5 +71,8 @@ void Animal::setType(const std::string& animalType) {
 
 void Animal::makeSound() const {// virtual method to be overriten by a child class
 	std::cout << "gnarrg.g.g.g?" << std::endl;
+}
 
+Brain* Animal::getBrain() const {// virtual method to be overriten by a child class
+	return 0;
 }

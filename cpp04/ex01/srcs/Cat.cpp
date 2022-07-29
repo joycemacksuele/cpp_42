@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/24 15:27:06 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/29 12:54:35 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ Cat::Cat(void) {
 }
 
 // Constructor with one parameter
-Cat::Cat(const std::string type) {
+Cat::Cat(const std::string& type) {
 	std::cout << GREEN << "Dog" << RESET << " Overloaded constructor called (with one parameter)" << std::endl;
 	this->setType(type);
 	this->_brain = new Brain();
@@ -73,6 +73,7 @@ void Cat::makeSound() const {
 
 /* ########################################################################## */
 
+//virtual method form the parent class, so this one will be executed instead
 Brain* Cat::getBrain() const {
 	return this->_brain;
 }

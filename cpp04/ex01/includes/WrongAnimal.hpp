@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/24 11:39:12 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/29 10:02:30 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <string>
 #include <iostream>
 #include <unistd.h>
+
+#include "../includes/Brain.hpp"
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
@@ -47,8 +49,12 @@ class WrongAnimal {
 		// method is called, it will execute this parent fuction.
 
 		// getters and setters
-		std::string	getType() const;
+		const std::string&	getType() const;
 		void		setType(const std::string& animalType);
+
+		//needed so the array of type Animal can access Cats' or Dogs' brains
+		virtual Brain*		getBrain() const;// virtual method to be overriten by a child class
+		// C++11 has the override special identifier
 
 	protected:
 		std::string type;

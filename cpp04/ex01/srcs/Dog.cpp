@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/24 15:27:23 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/07/29 12:29:47 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ Dog::Dog(void) {
 }
 
 // Constructor with one parameter
-/*Dog::Dog(const std::string type) {
+/*Dog::Dog(const std::string& type) {
 	std::cout << GREEN << "Dog" << RESET << " Overloaded constructor called (with one parameter)" << std::endl;
 	return ;
 }*/
@@ -71,6 +71,7 @@ void Dog::makeSound() const {
 
 /* ########################################################################## */
 
+//virtual method form the parent class, so this one will be executed instead
 Brain* Dog::getBrain() const {
 	return this->_brain;
 }
