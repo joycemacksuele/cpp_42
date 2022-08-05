@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/29 18:43:44 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/05 11:46:12 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@
 class WrongAnimal {
 	public:
 		WrongAnimal(void);// Default (no args) constructor
-		WrongAnimal(const WrongAnimal& src);// Overloaded Copy constructor
-		WrongAnimal& operator=(const WrongAnimal& rhs);// Copy assignment operator
+		//WrongAnimal(const WrongAnimal& src);// Overloaded Copy constructor
+		//WrongAnimal& operator=(const WrongAnimal& rhs);// Copy assignment operator
 		virtual ~WrongAnimal(void);// Destructor
 		/* Deleting a derived class object using a pointer of base class type
 		 * that has a non-virtual destructor results in undefined behavior.

@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 20:33:34 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/29 19:23:56 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/05 11:49:16 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,65 +37,60 @@ int main(int argc, char **argv) {
 		 *
 		 * In general, if the variables of an object have been dynamically allocated,
 		 * then it's required to do a Deep Copy in order to create a copy of the object.
+		 *
+		 * Calling a Copy Constructor:
+		 *    Type Obj1(Obj);
+		 *    or
+		 *    Type Obj1 = Obj;
+		 *
+		 * Calling the Assignment operator:
+		 *    Type Obj2;
+		 *    Obj2 = Obj1;
 		 */
 		std::cout << BLUE << "Testing deep copy with Cat:" << std::endl << RESET << std::endl;
-		Animal* deepCat = new Cat();
-//	ClapTrap attacker2("Attacker 2");
-//	ClapTrap attacker3(attacker2);
+		Cat deepCat = Cat();
 		std::cout << std::endl;
-		//std::cout << deepCat->getType() << " ";
-		//deepCat->makeSound();
-
-		deepCat->setType("Deep");
-		std::cout << "Joyce (deepCat) type: " << deepCat->getType() << std::endl;
-
-		// The copy constructor IS implemented (deep copy)
-		std::cout << "before copy assignment?" << std::endl;
-		Animal* catCopy = deepCat;
-		std::cout << "After copy assignment?" << std::endl;
-
-		std::cout << "Joyce (deepCat) type: " << deepCat->getType() << std::endl;
-		std::cout << "Joyce (catCopy) type before setting: " << catCopy->getType() << std::endl;
-
-		catCopy->setType("CatCopy");
-		std::cout << "Joyce (catCopy) type after setting: " << catCopy->getType() << std::endl;
-		std::cout << "Joyce (deepCat) type AFTER copy: " << deepCat->getType() << std::endl;
-
-
-		//std::cout << catCopy->getType() << " ";
-		//catCopy->makeSound();// will output the Cat sound since this method is virtual. i.e. is overriten by the child class.
+		// The copy constructor IS implemented, calling the Assignment operator (deep copy)
+		Cat catCopy = deepCat;
+		deepCat.setType("Deep");
+		catCopy.setType("CatCopy");
 		std::cout << std::endl;
-		std::cout << "Setting type of Cat to 'Deep', then the copy of it will not be of type 'Deep', it will keep the same type 'CatCopy':" << std::endl;
 		std::cout << "Cat type: ";
-		std::cout<< deepCat->getType();
+		std::cout<< deepCat.getType();
 		std::cout << std::endl;
 		std::cout << "CatCopy type: ";
-		std::cout<< catCopy->getType();// The type will stay the same since it was a deep copy
-		std::cout << std::endl << std::endl;
-		// delete will call the destructos
-		delete deepCat;
+		std::cout<< catCopy.getType();// The type will stay the same since it was a deep copy
+		std::cout << std::endl;
+		//delete deepCat;// delete will call the destructos
+
+
+	/*************************************************************************/
 
 		std::cout << std::endl << "-------------------------" << std::endl << BLUE << "Testing shallow copy with WrongCat:" << std::endl << RESET << std::endl;
-		WrongAnimal* wrongCat = new WrongCat();
+		WrongCat wrongCat = WrongCat();
 		std::cout << std::endl;
-
-		wrongCat->setType("Shallow");
 		// The copy constructor is not implemented, the compiler will provide default copy constructor (shallow copy).
-		WrongAnimal* wrongCatCopy = wrongCat;
-		wrongCatCopy->setType("WrongCatCopy");
+		WrongCat wrongCatCopy = wrongCat;
+
+		wrongCat.getBrain()->ideas[0] = "WrongCa idea";
+		wrongCatCopy.getBrain()->ideas[0] = "WrongCatCopy idea";
+		std::cout << wrongCat.getBrain()->ideas[0] << wrongCatCopy.getBrain()->ideas[0];
+
+		wrongCat.setType("Shallow");
+		wrongCatCopy.setType("WrongCatCopy");
 		std::cout << std::endl;
-		std::cout << "Setting type of WrongCat to 'Shallow', then the copy of it will also be of type 'Shallow':" << std::endl;
 		std::cout << "WrongCat type: ";
-		std::cout<< wrongCat->getType();
+		std::cout<< wrongCat.getType();
 		std::cout << std::endl;
 		std::cout << "WrongCatCopy type: ";
-		std::cout<< wrongCatCopy->getType();// The type will be also Sha	std::cout << std::endl << "Checking for leaks after deleting a new Dog and Cat of type Animal:" << std::endl << std::endl;
+		std::cout<< wrongCatCopy.getType();
 		std::cout << std::endl << std::endl;
-		// delete will call the destructos
-		delete wrongCat;
-
+		//delete wrongCat;// delete will call the destructos
 
 		return 0;
+
+	/*************************************************************************/
+
 	} else if (argc == 2 && std::strcmp(argv[1], "ideas") == 0) {
 		/* create and fill an array of Animal objects. Half of it will be Dog
 		 * objects and the other half will be Cat objects:
@@ -117,7 +112,7 @@ int main(int argc, char **argv) {
 		for (int i_idea = 0; i_idea < NUMBER_OF_ANIMALS; i_idea++) {
 			Brain* brain = cat_or_dog[i_idea]->getBrain();
 			brain->ideas[i_idea] = idea + (char)(i_idea + 49);
-			std::cout << cat_or_dog[i_idea]->getType() << ": " <<  cat_or_dog[i_idea]->getBrain()->ideas[i_idea] << std::endl;
+			std::cout << cat_or_dog[i_idea]->getType() << ": " << cat_or_dog[i_idea]->getBrain()->ideas[i_idea] << std::endl;
 		}
 
 		// At the end of your program, loop over this array and delete every Animal.
@@ -133,6 +128,7 @@ int main(int argc, char **argv) {
 		print_err_arg();
 		return 0;
 	}
+
 	/*************************************************************************/
 
 	const Animal* meta = new Animal();
@@ -151,7 +147,6 @@ int main(int argc, char **argv) {
 	std::cout << "As the destructor is called by \"delete\" and the parent destructor is virtual, the child destructor is called first:" << std::endl;
 	delete dog;//should not create a leak
 	delete cat;//should not create a leak
-
 
 	/* Making base class destructor virtual guarantees that the object of
 	 * derived class is destructed properly, i.e., both base class and derived

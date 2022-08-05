@@ -6,29 +6,27 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/29 18:03:03 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/05 11:46:44 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/WrongCat.hpp"
 
-/* ########################################################################## */
-
 // Default constructor
 WrongCat::WrongCat(void) {
 	std::cout << GREEN << "WrongCat" << RESET << " Default constructor called" << std::endl;
 	this->setType("WrongCat");
-	this->_brain = new Brain();
+	//this->_brain = new Brain();
 	return ;
 }
 
 // Constructor with one parameter
-WrongCat::WrongCat(const std::string& type) {
+/*WrongCat::WrongCat(const std::string& type) {
 	std::cout << GREEN << "Cat" << RESET << " Overloaded constructor called (with one parameter)" << std::endl;
 	this->setType(type);
 	this->_brain = new Brain();
 	return ;
-}
+}*/
 
 // Copy constructor
 /*WrongCat::WrongCat(const WrongCat &src) {
@@ -60,7 +58,7 @@ WrongCat::WrongCat(const std::string& type) {
 // Destructor
 WrongCat::~WrongCat(void) {
 	std::cout << YELLOW << "WrongCat" << RESET << " Destructor called" << std::endl;
-	delete this->_brain;
+	//delete this->_brain;
 	return ;
 }
 

@@ -6,13 +6,11 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/29 18:53:29 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/05 11:11:44 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Animal.hpp"
-
-/* ########################################################################## */
 
 // Default constructor
 Animal::Animal(void)

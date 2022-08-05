@@ -6,13 +6,11 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/29 19:22:21 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/05 11:24:15 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Cat.hpp"
-
-/* ########################################################################## */
 
 // Default constructor
 Cat::Cat(void) {
@@ -24,7 +22,7 @@ Cat::Cat(void) {
 
 // Constructor with one parameter
 Cat::Cat(const std::string& type) {
-	std::cout << GREEN << "Dog" << RESET << " Overloaded constructor called (with one parameter)" << std::endl;
+	std::cout << GREEN << "Cat" << RESET << " Overloaded constructor called (with one parameter)" << std::endl;
 	this->setType(type);
 	this->_brain = new Brain();
 	return ;
@@ -47,7 +45,7 @@ Cat& Cat::operator=(const Cat& rhs) {
 		// deleting the current memory (it was allocated on the constructor)
 		//delete this->_brain;
 		// allocation new space for the rhs whole instance or specific member(s)
-		//this->_brain = new Brain(); // in this case, for the specific member _brain
+		this->_brain = new Brain(); // in this case, for the specific member _brain
 		// then copy what is inside the rhs instance into the memory that was
 		// just cleaned from this current instance.
 		*this->_brain = *rhs.getBrain();
@@ -67,7 +65,7 @@ Animal& Cat::operator=(const Animal& rhs) {
 		 */
 
 		// deleting the current memory (it was allocated on the constructor)
-		delete this->_brain;
+		//delete this->_brain;
 		// allocation new space for the rhs whole instance or specific member(s)
 		this->_brain = new Brain(); // in this case, for the specific member _brain
 		// then copy what is inside the rhs instance into the memory that was

@@ -6,13 +6,11 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/29 18:44:08 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/05 11:11:40 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Brain.hpp"
-
-/* ########################################################################## */
 
 // Default constructor
 Brain::Brain(void) { 
