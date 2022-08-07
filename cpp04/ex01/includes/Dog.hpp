@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/29 18:43:26 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/29 18:43:31 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/07 16:05:07 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ class Dog : public Animal {
 
 	public:
 		Dog(void);// Default (no args) constructor
-		//Dog(const std::string& type);// Overloaded constructor (with one param)
 		Dog(const Dog& src);// Overloaded Copy constructor
 		Dog& operator=(const Dog& rhs);// Copy assignment operator
 		~Dog(void);// Destructor

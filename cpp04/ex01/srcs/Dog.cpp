@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/05 11:11:29 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/07 16:00:28 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@ Dog::Dog(void) {
 	this->_brain = new Brain();
 	return ;
 }
-
-// Constructor with one parameter
-/*Dog::Dog(const std::string& type) {
-	std::cout << GREEN << "Dog" << RESET << " Overloaded constructor called (with one parameter)" << std::endl;
-	return ;
-}*/
 
 // Copy constructor
 Dog::Dog(const Dog& src) {
@@ -41,13 +35,13 @@ Dog& Dog::operator=(const Dog& rhs) {
 		 */
 
 		// deleting the current memory (it was allocated on the constructor)
-		delete this->_brain;
+		delete this->type;
 		// allocation new space for the rhs whole instance or specific member(s)
-		this->_brain = new Brain(); // in this case, for the specific member _brain
+		this->type = new std::string(rhs.getType());
+		this->_brain = new Brain();
 		// then copy what is inside the rhs instance into the memory that was
 		// just cleaned from this current instance.
 		*this->_brain = *rhs._brain;
-		this->setType(rhs.getType());
 	}
 	// return the current instance by reference (the content of it, to allow chain assignment) as s1 = s2 = s3
 	return *this;

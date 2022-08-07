@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/29 18:43:07 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/29 19:04:16 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/07 16:05:02 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,9 @@ class Cat : public Animal {
 
 	public:
 		Cat(void);// Default (no args) constructor
-		Cat(const std::string& type);// Overloaded constructor (with one param)
 		Cat(const Cat& src);// Overloaded Copy constructor
 		Cat& operator=(const Cat& rhs);// Copy assignment operator
 		~Cat(void);// Destructor
-
-		Animal& operator=(const Animal& rhs);// Copy assignment operator
 
 		void makeSound() const;//overrites the parent class method
 

@@ -6,25 +6,19 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/05 11:11:44 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/07 15:46:12 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Animal.hpp"
 
 // Default constructor
-Animal::Animal(void)
-	: type("Animal") {
+Animal::Animal(void) {
+	//: type("Animal") {
 	std::cout << GREEN << "Animal" << RESET << " Default constructor called" << std::endl;
+	this->type = new std::string("Animal");
 	return ;
 }
-
-// Constructor with one parameter
-/*Animal::Animal(const std::string type)
-	: type(type) {
-	std::cout << GREEN << "Animal" << RESET << " Overloaded constructor called (with one parameter)" << std::endl;
-	return ;
-}*/
 
 // Copy constructor
 Animal::Animal(const Animal& src) {
@@ -35,22 +29,18 @@ Animal::Animal(const Animal& src) {
 // Copy assignment operator
 Animal& Animal::operator=(const Animal& rhs) {
 	std::cout << GREEN << "Animal" << RESET << " Copy assignment operator called" << std::endl;
-	if (this != &rhs) { //checking for self assignmet (if the 2 instances are equal)
-		/* if we had some raw pointers on the class we would need to deal without
-		 * the memory here, i.e. deleting the current memory and allocation new
-		 * space for the rhs whole instance or specific member(s), then copy what
-		 * is inside the rhs instance into the memory that was just cleaned from
-		 * this current instance.
-		 */
+	if (this != &rhs) {
+		delete this->type;
+		this->type = new std::string(rhs.getType());
 		this->setType(rhs.getType());
 	}
-	// return the current instance by reference (the content of it, to allow chain assignment) as s1 = s2 = s3
 	return *this;
 }
 
 // Destructor
 Animal::~Animal(void) {
 	std::cout << YELLOW << "Animal" << RESET << " Destructor called" << std::endl;
+	delete this->type;
 	return ;
 }
 
@@ -58,11 +48,11 @@ Animal::~Animal(void) {
 // getters and setters
 
 const std::string& Animal::getType() const {
-	return this->type;
+	return *this->type;
 }
 
 void Animal::setType(const std::string& animalType) {
-	this->type = animalType;
+	*this->type = animalType;
 }
 
 /* ########################################################################## */

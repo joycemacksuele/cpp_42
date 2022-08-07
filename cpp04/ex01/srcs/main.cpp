@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 20:33:34 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/05 11:49:16 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/07 16:03:34 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,46 +47,41 @@ int main(int argc, char **argv) {
 		 *    Type Obj2;
 		 *    Obj2 = Obj1;
 		 */
-		std::cout << BLUE << "Testing deep copy with Cat:" << std::endl << RESET << std::endl;
 		Cat deepCat = Cat();
 		std::cout << std::endl;
-		// The copy constructor IS implemented, calling the Assignment operator (deep copy)
+		std::cout << BLUE << "Cat type before copy: " << deepCat.getType();
+		std::cout << std::endl << std::endl << RESET;
+		// Copy constructor IS implemented, calling the Assignment operator (deep copy)
 		Cat catCopy = deepCat;
-		deepCat.setType("Deep");
-		catCopy.setType("CatCopy");
+		catCopy.setType("Cat Copy");
+		std::cout << std::endl << BLUE;
+		std::cout << "CatCopy type:        ";
+		std::cout << catCopy.getType();
 		std::cout << std::endl;
-		std::cout << "Cat type: ";
-		std::cout<< deepCat.getType();
-		std::cout << std::endl;
-		std::cout << "CatCopy type: ";
-		std::cout<< catCopy.getType();// The type will stay the same since it was a deep copy
-		std::cout << std::endl;
-		//delete deepCat;// delete will call the destructos
-
+		// should NOT be the same as CatCopy since it has different pointers (deep copy)
+		std::cout << "Cat type after copy: ";
+		std::cout << deepCat.getType();
+		std::cout << std::endl << std::endl << RESET;
+		return 0;
 
 	/*************************************************************************/
 
-		std::cout << std::endl << "-------------------------" << std::endl << BLUE << "Testing shallow copy with WrongCat:" << std::endl << RESET << std::endl;
+	} else if (argc == 2 && std::strcmp(argv[1], "shallow") == 0) {
 		WrongCat wrongCat = WrongCat();
 		std::cout << std::endl;
-		// The copy constructor is not implemented, the compiler will provide default copy constructor (shallow copy).
+		std::cout << BLUE << "WrongCat type before copy: " << wrongCat.getType();
+		std::cout << std::endl << std::endl<< RESET;
+		// Copy assignment operator NOT implemented, compiler provides default one (shallow copy)
 		WrongCat wrongCatCopy = wrongCat;
-
-		wrongCat.getBrain()->ideas[0] = "WrongCa idea";
-		wrongCatCopy.getBrain()->ideas[0] = "WrongCatCopy idea";
-		std::cout << wrongCat.getBrain()->ideas[0] << wrongCatCopy.getBrain()->ideas[0];
-
-		wrongCat.setType("Shallow");
-		wrongCatCopy.setType("WrongCatCopy");
+		wrongCatCopy.setType("WrongCat Copy");
+		std::cout << std::endl << BLUE;
+		std::cout << "WrongCatCopy type:        ";
+		std::cout << wrongCatCopy.getType();
 		std::cout << std::endl;
-		std::cout << "WrongCat type: ";
+		// should be the same as WongCatCopy since it keeps the same pointer (shallow copy)
+		std::cout << "WrongCat type after copy: ";
 		std::cout<< wrongCat.getType();
-		std::cout << std::endl;
-		std::cout << "WrongCatCopy type: ";
-		std::cout<< wrongCatCopy.getType();
-		std::cout << std::endl << std::endl;
-		//delete wrongCat;// delete will call the destructos
-
+		std::cout << std::endl << std::endl << RESET;
 		return 0;
 
 	/*************************************************************************/

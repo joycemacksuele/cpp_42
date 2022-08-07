@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/07/29 18:51:53 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/07 16:05:52 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ class Animal {
 		// C++11 has the override special identifier
 
 	protected:
-		std::string type;
+		std::string* type;// a pointer to test if its deep copy or not against WrongCat
 };
 
 #endif

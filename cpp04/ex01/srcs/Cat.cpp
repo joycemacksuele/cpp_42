@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/05 11:24:15 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/07 16:10:38 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@ Cat::Cat(void) {
 	return ;
 }
 
-// Constructor with one parameter
-Cat::Cat(const std::string& type) {
-	std::cout << GREEN << "Cat" << RESET << " Overloaded constructor called (with one parameter)" << std::endl;
-	this->setType(type);
-	this->_brain = new Brain();
-	return ;
-}
-
 // Copy constructor
 Cat::Cat(const Cat& src) {
 	std::cout << GREEN << "Cat" << RESET << " Copy constructor called" << std::endl;
@@ -37,43 +29,12 @@ Cat::Cat(const Cat& src) {
 // Copy assignment operator
 Cat& Cat::operator=(const Cat& rhs) {
 	std::cout << GREEN << "Cat" << RESET << " Copy assignment operator called" << std::endl;
-	if (this != &rhs) { //checking for self assignmet (if the 2 instances are equal)
-		/* if we had some raw pointers on the class we would need to deal with
-		 * the memory here, doing a deep copy. i.e.:
-		 */
-
-		// deleting the current memory (it was allocated on the constructor)
-		//delete this->_brain;
-		// allocation new space for the rhs whole instance or specific member(s)
-		this->_brain = new Brain(); // in this case, for the specific member _brain
-		// then copy what is inside the rhs instance into the memory that was
-		// just cleaned from this current instance.
+	if (this != &rhs) {
+		delete this->type;
+		this->type = new std::string(rhs.getType());
+		this->_brain = new Brain();
 		*this->_brain = *rhs.getBrain();
-		this->setType(rhs.getType());
 	}
-	// return the current instance by reference (the content of it, to allow chain assignment) as s1 = s2 = s3
-	return *this;
-}
-
-// Copy assignment operator
-// virtual operator from the parent class, so this one will be executed instead
-Animal& Cat::operator=(const Animal& rhs) {
-	std::cout << GREEN << "Animal overriten by Cat" << RESET << " Copy assignment operator called" << std::endl;
-	if (this != &rhs) { //checking for self assignmet (if the 2 instances are equal)
-		/* if we had some raw pointers on the class we would need to deal with
-		 * the memory here, doing a deep copy. i.e.:
-		 */
-
-		// deleting the current memory (it was allocated on the constructor)
-		//delete this->_brain;
-		// allocation new space for the rhs whole instance or specific member(s)
-		this->_brain = new Brain(); // in this case, for the specific member _brain
-		// then copy what is inside the rhs instance into the memory that was
-		// just cleaned from this current instance.
-		*this->_brain = *rhs.getBrain();
-		this->setType(rhs.getType());
-	}
-	// return the current instance by reference (the content of it, to allow chain assignment) as s1 = s2 = s3
 	return *this;
 }
 
