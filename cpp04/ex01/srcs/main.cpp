@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 20:33:34 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/07 16:03:34 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/07 17:24:35 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,13 @@ static void check_leaks() {
 
 static void print_err_arg() {
 	std::cout << "-------------------------" << std::endl;
-	std::cout << "2 options for the argument: " << GREEN << "\"deep\" or \"ideas\"" << RESET << std::endl;
+	std::cout << "3 options for the argument: " << GREEN << "\"deep\", \"shallow\" or \"ideas\"" << RESET << std::endl;
 	std::cout << "-------------------------" << std::endl;
 }
 
 int main(int argc, char **argv) {
-	atexit(check_leaks);
-
 	if (argc == 2 && std::strcmp(argv[1], "deep") == 0) {
+		atexit(check_leaks);
 		/*
 		 * A copy of a Dog or a Cat mustn’t be shallow. Thus, you have to test
 		 * that your copies are deep copies!
@@ -67,6 +66,7 @@ int main(int argc, char **argv) {
 	/*************************************************************************/
 
 	} else if (argc == 2 && std::strcmp(argv[1], "shallow") == 0) {
+		atexit(check_leaks);
 		WrongCat wrongCat = WrongCat();
 		std::cout << std::endl;
 		std::cout << BLUE << "WrongCat type before copy: " << wrongCat.getType();
@@ -87,6 +87,7 @@ int main(int argc, char **argv) {
 	/*************************************************************************/
 
 	} else if (argc == 2 && std::strcmp(argv[1], "ideas") == 0) {
+		atexit(check_leaks);
 		/* create and fill an array of Animal objects. Half of it will be Dog
 		 * objects and the other half will be Cat objects:
 		 */
@@ -142,6 +143,8 @@ int main(int argc, char **argv) {
 	std::cout << "As the destructor is called by \"delete\" and the parent destructor is virtual, the child destructor is called first:" << std::endl;
 	delete dog;//should not create a leak
 	delete cat;//should not create a leak
+
+	atexit(check_leaks);
 
 	/* Making base class destructor virtual guarantees that the object of
 	 * derived class is destructed properly, i.e., both base class and derived
