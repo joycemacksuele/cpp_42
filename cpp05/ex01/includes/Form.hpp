@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/12 18:26:39 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/13 17:37:50 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,46 +27,43 @@
 #define BLUE    "\033[34m"
 #define BOLD    "\x1B[1m"
 
-/*
- * Access specifiers:
- * public: members are accessible from outside the class
- * private: members cannot be accessed (or viewed) from outside the class
- * protected: members cannot be accessed from outside the class, however, they
- *            can be accessed in inherited classes.
- */
 class Form {
 	public:
 		Form(void);// Default (no args) constructor
-		Form(const std::string& name, const unsigned int& grade);// Overloaded constructor
+		Form(const std::string& formName, const unsigned int& gradeToSign, const unsigned int& gradeToExecute);// Overloaded constructor
 		Form(const Form& src);// Overloaded Copy constructor
 		Form& operator=(const Form& rhs);// Copy assignment operator
 		virtual ~Form(void);// Destructor
 
-		class GradeTooHighException : public std::exception {
-			virtual const char* what() const throw();
-		};
-		class GradeTooLowException : public std::exception {
-			virtual const char* what(void) const throw();
-		};
-
-		// getters and setters
-		const std::string&	getName() const;
+		// getters
+		const std::string&	getFormName() const;
 		bool				getIsSigned() const;
 		const unsigned int&	getGradeToSign() const;
 		const unsigned int&	getGradeToExecute() const;
-		//void				setGrade(const unsigned int& grade);
 
-		void				beSigned(const Bureaucrat& bureaucrat);// will access the signForm() method form Buraucrat
-		//void				incrementGrade();
-		//void				decrementGrade();
+		void				beSigned(const Bureaucrat& bureaucrat);
 
 	private:
-		const std::string	_name;
-		bool				isSigned = false;
-		//1 (highest possible grade) to 150 (lowest possible grade).
-		const unsigned int	gradeToSign;
-		const unsigned int	gradeToExecute;
+		static const unsigned int	_lowestGrade = 150;
+		static const unsigned int	_highestGrade = 1;
+		const std::string			_formName;
+		bool						_isSigned;
+		unsigned int				_gradeToSign;
+		unsigned int				_gradeToExecute;
 
+		void	throwError(const unsigned int& gradeToSigni, const unsigned int& gradeToExecute);
+		// setters
+		void	setGradeToSign(const unsigned int& gradeToSign);
+		void	setGradeToExecute(const unsigned int& gradeToExecute);
+
+		class GradeTooHighException : public std::exception {
+			private:
+				virtual const char* what() const throw();
+		};
+		class GradeTooLowException : public std::exception {
+			private:
+				virtual const char* what(void) const throw();
+		};
 };
 
 std::ostream& operator<<(std::ostream& outputStream, const Form& rhs);

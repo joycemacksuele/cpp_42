@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/12 18:26:01 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/13 17:32:08 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,34 @@ class Bureaucrat {
 		Bureaucrat& operator=(const Bureaucrat& rhs);// Copy assignment operator
 		virtual ~Bureaucrat(void);// Destructor
 
-		class GradeTooHighException : public std::exception {
-			virtual const char* what() const throw();
-		};
-		class GradeTooLowException : public std::exception {
-			virtual const char* what(void) const throw();
-		};
-
-		// getters and setters
+		// getters
 		const std::string&	getName() const;
 		const unsigned int&	getGrade() const;
-		void				setGrade(const unsigned int& grade);
 
-		void				incrementGrade();
-		void				decrementGrade();
+		void	incrementGrade();
+		void	decrementGrade();
 
-		void				signForm();
+		void	signForm(const bool& isSigned, const std::string& formName, const unsigned int& gradeToSignForm) const;
 
 	private:
-		const std::string	_name;
-		unsigned int		_grade;//1 (highest possible grade) to 150 (lowest possible grade).
+		static const unsigned int	_lowestGrade = 150;
+		static const unsigned int	_highestGrade = 1;
+		const std::string			_name;
+		unsigned int				_grade;//1 (highest possible grade) to 150 (lowest possible grade).
+
+		void	throwError(const unsigned int& grade);
+		// setters
+		void	setGrade(const unsigned int& grade);
+
+		class GradeTooHighException : public std::exception {
+			public:
+				virtual const char* what() const throw();
+		};
+		class GradeTooLowException : public std::exception {
+			public:
+				virtual const char* what(void) const throw();
+		};
+
 };
 
 std::ostream& operator<<(std::ostream& outputStream, const Bureaucrat& rhs);

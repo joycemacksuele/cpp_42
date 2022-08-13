@@ -6,62 +6,99 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 20:33:34 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/12 17:23:46 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/13 18:31:00 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <Bureaucrat.hpp>
+#include <Form.hpp>
 
-static void print_arg_option() {
-	std::cout << "-------------------------" << std::endl;
-	std::cout << "Options of arguments: " << std::endl;
-	std::cout << GREEN << "<grade number>" << std::endl;
-	std::cout << "<grade number> <increment>" << std::endl;
-	std::cout << "<grade number> <decrement>";
-	std::cout << RESET << std::endl;
-	std::cout << "-------------------------" << std::endl;
-}
+int main() {
+	std::string bureaucratName;
+	std::cout << std::endl << "Bureaucat will be created...";
+	std::cout << "Name the bureaucrat: ";
+	std::cin >> bureaucratName;
+	//std::cout << std::endl;
 
-int main(int argc, char **argv) {
-	if (argc == 2 && std::isdigit(argv[1][0])) {
-		const unsigned int& grade = std::atoi(&argv[1][0]);
+	while (1) {
+		unsigned int bureaucratGrade;
+		std::cout << std::endl << "Choose a grade for the bureaucrat (1 to 150): ";
+		std::cin >> bureaucratGrade;
+		std::cout << std::endl;
+
 		try {
-			Bureaucrat bureaucrat = Bureaucrat("Joyce", grade);
+			Bureaucrat bureaucrat = Bureaucrat(bureaucratName, bureaucratGrade);
 			std::cout << bureaucrat;
-		} catch (const std::exception& e) {
-			std::cerr << std::endl << BOLD RED "Error: " RESET BOLD << e.what() << std::endl;
-		}
 
 	/*************************************************************************/
 
-	} else if (argc == 3 && std::strcmp(&argv[2][0], "increment") == 0) {
-		const unsigned int& grade = std::atoi(&argv[1][0]);
-		try {
-			Bureaucrat bureaucrat = Bureaucrat("Bu", grade);
-			std::cout << bureaucrat;
-			bureaucrat.incrementGrade();
-			std::cout << bureaucrat;
-		} catch (const std::exception& e) {
-			std::cerr << std::endl << BOLD RED "Error: " RESET BOLD << e.what() << std::endl;
-		}
+			std::string formName;
+			unsigned int formGradeToSign;
+			unsigned int formGradeToExecute;
+			std::cout << std::endl << "----------------------------------------" << std::endl << std::endl;
+			std::cout << "A Form will be created and signed (but not executed today)..." << std::endl << std::endl;
+			std::cout << "Name of the form: ";
+			std::cin >> formName;
+			std::cout << std::endl;
+			std::cout << "Choose the grade necessary for the form to be signed (1 to 150): ";
+			std::cin >> formGradeToSign;
+			std::cout << std::endl;
+			std::cout << "Choose the grade necessary for the form to be executed (1 to 150): ";
+			std::cin >> formGradeToExecute;
+			std::cout << std::endl;
+
+			try {
+				Form form = Form(formName, formGradeToSign, formGradeToExecute);
+				std::cout << form;
+				try {
+					form.beSigned(bureaucrat);
+				} catch (const std::exception& e) {
+					std::cerr << std::endl << BOLD RED "Error2: " RESET BOLD << e.what() << RESET << std::endl << std::endl;
+				}
 
 	/*************************************************************************/
 
-	} else if (argc == 3 && std::strcmp(&argv[2][0], "decrement") == 0) {
-		const unsigned int& grade = std::atoi(&argv[1][0]);
-		try {
-			Bureaucrat bureaucrat = Bureaucrat("De", grade);
-			std::cout << bureaucrat;
-			bureaucrat.decrementGrade();
-			std::cout << bureaucrat;
+				if (form.getIsSigned() == false) {
+
+					std::string yesOrNo;
+					std::cout << "want to increase or decrease the " << bureaucrat.getName() << "'s grade? (increase/decrease/no): ";
+					std::cin >> yesOrNo;
+					std::cout << std::endl;
+
+					if (std::strcmp(yesOrNo.c_str(), "decrease") == 0) {
+						try {
+							bureaucrat.decrementGrade();
+							std::cout << bureaucrat;
+							std::cout << form;
+						} catch (const std::exception& e) {
+							std::cerr << std::endl << BOLD RED "Error3: " RESET BOLD << e.what() << RESET << std::endl << std::endl;
+						}
+					} if (std::strcmp(yesOrNo.c_str(), "decrease") == 0) {
+						try {
+							bureaucrat.incrementGrade();
+							std::cout << bureaucrat;
+							std::cout << form;
+						} catch (const std::exception& e) {
+							std::cerr << std::endl << BOLD RED "Error: " RESET BOLD << e.what() << RESET << std::endl << std::endl;
+						}
+					} else {
+						std::cout << YELLOW << "Wrong choice and Bureaucrat " << bureaucrat.getName() << \
+						" could not sign the form. Try aain later! Bye." << RESET << std::endl << std::endl;
+						break ;
+					}
+				}
+
+			} catch (const std::exception& e) {
+				std::cerr << std::endl << BOLD RED "Error4: " RESET BOLD << e.what() << RESET << std::endl << std::endl;
+				continue ;
+			}
+
 		} catch (const std::exception& e) {
-			std::cerr << std::endl << BOLD RED "Error: " RESET BOLD << e.what() << std::endl;
+			std::cerr << std::endl << BOLD RED "Error1: " RESET BOLD << e.what() << RESET << std::endl << std::endl;
+			continue ;
 		}
 
-	/*************************************************************************/
-
-	} else {
-		print_arg_option();
+		break ;
 	}
 	return 0;
 }

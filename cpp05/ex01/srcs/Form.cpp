@@ -6,41 +6,32 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/12 18:17:09 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/13 18:18:56 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <Bureaucrat.hpp>
+//#include <Bureaucrat.hpp>
 #include <Form.hpp>
+
 
 
 /* ########################################################################## */
 
 // Default constructor
 Form::Form(void)
-	: _name("Form") {
-		std::cout << GREEN << "Form" << RESET << " Default constructor called" << std::endl;
-		return ;
-	}
+	: _formName("Standard form"), _isSigned(false) {
+	std::cout << GREEN << "Form" << RESET << " Default constructor called" << std::endl;
+	return ;
+}
 
-Form::Form(const std::string& name, const unsigned int& grade)
-	: _name(name) {
-		std::cout << GREEN << "Form" << RESET << " Overloaded constructor called" << std::endl;
-		if (grade < 1) {
-			throw Form::GradeTooHighException();
-		} else if (grade > 150) {
-			throw Form::GradeTooLowException();
-		} else {
-			this->setGrade(grade);
-		}
-		return ;
-	}
+// Overloaded constructor
+Form::Form(const std::string& formName, const unsigned int& gradeToSign, const unsigned int& gradeToExecute)
+	: _formName(formName), _isSigned(false) {
+	std::cout << GREEN << "Form" << RESET << " Overloaded constructor called" << std::endl;
+	throwError(gradeToSign, gradeToExecute);
+	return ;
+}
 
-// Constructor with one parameter
-/*Form::Form(const std::string type) {
-  std::cout << GREEN << "Form" << RESET << " Overloaded constructor called (with one parameter)" << std::endl;
-  return ;
-  }*/
 
 // Copy constructor
 Form::Form(const Form &src) {
@@ -52,7 +43,10 @@ Form::Form(const Form &src) {
 Form& Form::operator=(const Form& rhs) {
 	std::cout << GREEN << "Form" << RESET << " Copy assignment operator called" << std::endl;
 	if (this != &rhs) {
-		this->setGrade(rhs.getGrade());
+		this->_isSigned = rhs._isSigned;
+		this->setGradeToSign(rhs.getGradeToSign());
+		this->setGradeToExecute(rhs.getGradeToExecute());
+
 	}
 	return *this;
 }
@@ -65,42 +59,65 @@ Form::~Form(void) {
 
 /* ########################################################################## */
 // getters and setters
-
-const std::string& Form::getName() const {
-	return this->_name;
+const std::string& Form::getFormName() const {
+	return this->_formName;
 }
 
-const unsigned int& Form::getGrade() const {
-	return this->_grade;
+bool Form::getIsSigned() const {
+	return this->_isSigned;
 }
 
-void Form::setGrade(const unsigned int& grade) {
-	this->_grade = grade;
+const unsigned int& Form::getGradeToSign() const {
+	return this->_gradeToSign;
+}
+
+const unsigned int& Form::getGradeToExecute() const {
+	return this->_gradeToExecute;
+}
+
+void Form::setGradeToSign(const unsigned int& gradeToSign) {
+	this->_gradeToSign = gradeToSign;
+}
+
+void Form::setGradeToExecute(const unsigned int& gradeToExecute) {
+	this->_gradeToExecute = gradeToExecute;
 }
 
 /* ########################################################################## */
 
-void Form::incrementGrade() {
-	if (getGrade() - 1 < 1) {
+void Form::throwError(const unsigned int& gradeToSign, const unsigned int& gradeToExecute) {
+	if (gradeToSign < _highestGrade || gradeToExecute < _highestGrade) {
 		throw Form::GradeTooHighException();
+	} else if (gradeToSign > _lowestGrade || gradeToExecute > _lowestGrade) {
+		throw Form::GradeTooLowException();
 	} else {
-		setGrade(getGrade() - 1);
+		setGradeToSign(gradeToSign);
+		setGradeToExecute(gradeToExecute);
 	}
 }
 
-void Form::decrementGrade() {
-	if (getGrade() + 1 > 150) {
-		throw Form::GradeTooLowException();
+void Form::beSigned(const Bureaucrat& bureaucrat) {
+	if (bureaucrat.getGrade() <= this->getGradeToSign()) {
+		_isSigned = true;
+		bureaucrat.signForm(_isSigned, this->getFormName(), this->getGradeToSign());
 	} else {
-		setGrade(getGrade() + 1);
+		bureaucrat.signForm(_isSigned, this->getFormName(), this->getGradeToSign());
+		throw Form::GradeTooLowException();
 	}
 }
 
 /* ########################################################################## */
 // Overloaded insertion («) operator
 std::ostream& operator<<(std::ostream& outputStream, const Form& rhs) {
-	outputStream << std::endl << BLUE << rhs.getName() << ", bureaucrat grade ";
-	std::cout << rhs.getGrade() << RESET << std::endl << std::endl;
+	bool isSigned = false;
+	if (rhs.getIsSigned()) {
+		isSigned = true;
+	}
+	outputStream << std::endl << BLUE << \
+	"Form: " << rhs.getFormName() << std::endl << \
+	"Is Signed: " << std::boolalpha << isSigned << std::endl << \
+	"Grade required to sign is: " << rhs.getGradeToSign() << std::endl << \
+	"Grade required to execute is: " << rhs.getGradeToExecute() << RESET << std::endl;
 	return outputStream;
 }
 

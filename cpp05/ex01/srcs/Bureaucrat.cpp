@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/12 17:43:50 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/13 18:22:45 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,17 @@
 // Default constructor
 Bureaucrat::Bureaucrat(void)
 	: _name("Bureaucrat") {
-		std::cout << GREEN << "Bureaucrat" << RESET << " Default constructor called" << std::endl;
-		return ;
-	}
+	std::cout << GREEN << "Bureaucrat" << RESET << " Default constructor called" << std::endl;
+	return ;
+}
 
+// Overloaded constructor
 Bureaucrat::Bureaucrat(const std::string& name, const unsigned int& grade)
 	: _name(name) {
-		std::cout << GREEN << "Bureaucrat" << RESET << " Overloaded constructor called" << std::endl;
-		if (grade < 1) {
-			throw Bureaucrat::GradeTooHighException();
-		} else if (grade > 150) {
-			throw Bureaucrat::GradeTooLowException();
-		} else {
-			this->setGrade(grade);
-		}
-		return ;
-	}
-
-// Constructor with one parameter
-/*Bureaucrat::Bureaucrat(const std::string type) {
-  std::cout << GREEN << "Bureaucrat" << RESET << " Overloaded constructor called (with one parameter)" << std::endl;
-  return ;
-  }*/
+	std::cout << GREEN << "Bureaucrat" << RESET << " Overloaded constructor called" << std::endl;
+	throwError(grade);
+	return ;
+}
 
 // Copy constructor
 Bureaucrat::Bureaucrat(const Bureaucrat &src) {
@@ -49,16 +38,9 @@ Bureaucrat::Bureaucrat(const Bureaucrat &src) {
 // Copy assignment operator
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& rhs) {
 	std::cout << GREEN << "Bureaucrat" << RESET << " Copy assignment operator called" << std::endl;
-	if (this != &rhs) { //checking for self assignmet (if the 2 instances are equal)
-		/* if we had some raw pointers on the class we would need to deal with
-		 * the memory here, i.e. deleting the current memory and allocation new
-		 * space for the rhs whole instance or specific member(s), then copy what
-		 * is inside the rhs instance into the memory that was just cleaned from
-		 * this current instance.
-		 */
+	if (this != &rhs) {
 		this->setGrade(rhs.getGrade());
 	}
-	// return the current instance by reference (the content of it, to allow chain assignment) as s1 = s2 = s3
 	return *this;
 }
 
@@ -85,19 +67,34 @@ void Bureaucrat::setGrade(const unsigned int& grade) {
 
 /* ########################################################################## */
 
-void Bureaucrat::incrementGrade() {
-	if (getGrade() - 1 < 1) {
+void Bureaucrat::throwError(const unsigned int& grade) {
+	if (grade < _highestGrade) {
 		throw Bureaucrat::GradeTooHighException();
+	} else if (grade > _lowestGrade) {
+		throw Bureaucrat::GradeTooLowException();
 	} else {
-		setGrade(getGrade() - 1);
+		setGrade(grade);
 	}
 }
 
+void Bureaucrat::incrementGrade() {
+	throwError(getGrade() - 1);
+}
+
 void Bureaucrat::decrementGrade() {
-	if (getGrade() + 1 > 150) {
-		throw Bureaucrat::GradeTooLowException();
+	throwError(getGrade() + 1);
+}
+
+void Bureaucrat::signForm(const bool& isSigned, const std::string& formName, const unsigned int& gradeToSignForm) const {
+	//  If the form got signed, it will print:
+	std::cout << std::endl;
+	if (isSigned) {
+		std::cout << GREEN << getName() << " signed " << formName << "!" << RESET << std::endl;
+		std::cout << std::endl;
 	} else {
-		setGrade(getGrade() + 1);
+		std::cout << YELLOW << getName() << " could't sign " << formName << " because its grade (" << \
+		getGrade() << ") is too low. The Grade necessary to sign the form was: " << \
+		gradeToSignForm << RESET << std::endl;
 	}
 }
 
@@ -105,7 +102,7 @@ void Bureaucrat::decrementGrade() {
 // Overloaded insertion («) operator
 std::ostream& operator<<(std::ostream& outputStream, const Bureaucrat& rhs) {
 	outputStream << std::endl << BLUE << rhs.getName() << ", bureaucrat grade ";
-	std::cout << rhs.getGrade() << RESET << std::endl << std::endl;
+	std::cout << rhs.getGrade() << RESET << std::endl;
 	return outputStream;
 }
 
