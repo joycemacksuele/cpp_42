@@ -89,8 +89,8 @@ void Bureaucrat::signForm(const bool& isSigned, const std::string& formName, con
 	//  If the form got signed, it will print:
 	std::cout << std::endl;
 	if (isSigned) {
-		std::cout << GREEN << getName() << " signed " << formName << "!" << RESET << std::endl;
-		std::cout << std::endl;
+		std::cout << GREEN << getName() << " signed " << formName << "! (The Bureaucrat's grade (" << getGrade() << ") is higher than the required grade to sign (" << gradeToSignForm << ")."<< RESET << std::endl;
+		//std::cout << std::endl;
 	} else {
 		std::cout << YELLOW << getName() << " could't sign " << formName << " because its grade (" << \
 		getGrade() << ") is too low. The Grade necessary to sign the form was: " << \

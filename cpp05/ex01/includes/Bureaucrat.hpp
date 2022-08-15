@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   Bureaucrat.hpp                                       :+:    :+:            */
+/*   Bureaucrat.hpp                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
@@ -17,6 +17,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <exception>
+#include <sstream>
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
