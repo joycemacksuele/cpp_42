@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   Form.hpp                                           :+:    :+:            */
+/*   ShrubberyCreationForm.hpp                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORM_HPP
-# define FORM_HPP
+#ifndef ShrubberyCreationForm_HPP
+# define ShrubberyCreationForm_HPP
 
 #include <string>
 #include <iostream>
@@ -27,16 +27,16 @@
 #define BLUE    "\033[34m"
 #define BOLD    "\x1B[1m"
 
-class Form {
+class ShrubberyCreationForm : private Form{
 	public:
-		Form(void);// Default (no args) constructor
-		Form(const std::string& formName, const unsigned int& gradeToSign, const unsigned int& gradeToExecute);// Overloaded constructor
-		Form(const Form& src);// Overloaded Copy constructor
-		Form& operator=(const Form& rhs);// Copy assignment operator
-		virtual ~Form(void);// Destructor
+		ShrubberyCreationForm(void);// Default (no args) constructor
+		ShrubberyCreationForm(const std::string& ShrubberyCreationFormName const);// Overloaded constructor
+		ShrubberyCreationForm(const ShrubberyCreationForm& src);// Overloaded Copy constructor
+		ShrubberyCreationForm& operator=(const ShrubberyCreationForm& rhs);// Copy assignment operator
+		virtual ~ShrubberyCreationForm(void);// Destructor
 
 		// getters
-		const std::string&	getFormName() const;
+		const std::string&	getShrubberyCreationFormName() const;
 		bool				getIsSigned() const;
 		const unsigned int&	getGradeToSign() const;
 		const unsigned int&	getGradeToExecute() const;
@@ -44,14 +44,12 @@ class Form {
 		void				beSigned(const Bureaucrat& bureaucrat);
 
 	private:
-		static const unsigned int	_lowestGrade = 150;
-		static const unsigned int	_highestGrade = 1;
-		const std::string			_formName;
+		const std::string			_ShrubberyCreationFormName;
 		bool						_isSigned;
 		unsigned int				_gradeToSign;
 		unsigned int				_gradeToExecute;
 
-		void	throwError(const unsigned int& gradeToSigni, const unsigned int& gradeToExecute);
+		void	throwError(const unsigned int& gradeToSign, const unsigned int& gradeToExecute);
 		// setters
 		void	setGradeToSign(const unsigned int& gradeToSign);
 		void	setGradeToExecute(const unsigned int& gradeToExecute);
@@ -66,6 +64,6 @@ class Form {
 		};
 };
 
-std::ostream& operator<<(std::ostream& outputStream, const Form& rhs);
+std::ostream& operator<<(std::ostream& outputStream, const ShrubberyCreationForm& rhs);
 
 #endif

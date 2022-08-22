@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   Bureaucrat.hpp                                       :+:    :+:            */
+/*   Bureaucrat.hpp                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
@@ -17,12 +17,17 @@
 #include <iostream>
 #include <unistd.h>
 #include <exception>
+#include <sstream>
+
+#include <Form.hpp>
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
 #define GREEN   "\033[32m"
 #define YELLOW  "\033[33m"
 #define BLUE    "\033[34m"
+#define MAGENTA "\033[35m" 
+#define CYAN    "\033[36m"
 #define BOLD    "\x1B[1m"
 
 /*
@@ -48,6 +53,7 @@ class Bureaucrat {
 		void	decrementGrade();
 
 		void	signForm(const bool& isSigned, const std::string& formName, const unsigned int& gradeToSignForm) const;
+        void    executeForm(const& Form form);
 
 	private:
 		static const unsigned int	_lowestGrade = 150;

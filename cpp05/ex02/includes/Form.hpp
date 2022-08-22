@@ -20,20 +20,14 @@
 
 #include <Bureaucrat.hpp>
 
-#define RESET   "\033[0m"
-#define RED     "\033[31m"
-#define GREEN   "\033[32m"
-#define YELLOW  "\033[33m"
-#define BLUE    "\033[34m"
-#define BOLD    "\x1B[1m"
 
-class Form {
+class AForm {
 	public:
-		Form(void);// Default (no args) constructor
-		Form(const std::string& formName, const unsigned int& gradeToSign, const unsigned int& gradeToExecute);// Overloaded constructor
-		Form(const Form& src);// Overloaded Copy constructor
-		Form& operator=(const Form& rhs);// Copy assignment operator
-		virtual ~Form(void);// Destructor
+		AForm(void);// Default (no args) constructor
+		AForm(const std::string& FormName, const unsigned int& gradeToSign, const unsigned int& gradeToExecute);// Overloaded constructor
+		AForm(const AForm& src);// Overloaded Copy constructor
+		AForm& operator=(const AForm& rhs);// Copy assignment operator
+		virtual ~AForm(void);// Destructor
 
 		// getters
 		const std::string&	getFormName() const;
@@ -41,7 +35,12 @@ class Form {
 		const unsigned int&	getGradeToSign() const;
 		const unsigned int&	getGradeToExecute() const;
 
-		void				beSigned(const Bureaucrat& bureaucrat);
+
+		void	        	beSigned(const Bureaucrat& bureaucrat);
+        virtual void        execute(const Bureaucrat&  executor) const = 0;
+        // virtual method (pure method)
+		// = 0 means it can't be implemented here so the class can't be instanciated
+		// but should be implemented/overriten by the child class(es)
 
 	private:
 		static const unsigned int	_lowestGrade = 150;
@@ -51,7 +50,8 @@ class Form {
 		unsigned int				_gradeToSign;
 		unsigned int				_gradeToExecute;
 
-		void	throwError(const unsigned int& gradeToSigni, const unsigned int& gradeToExecute);
+		void	throwError(const unsigned int& gradeToSign, const unsigned int& gradeToExecute);
+
 		// setters
 		void	setGradeToSign(const unsigned int& gradeToSign);
 		void	setGradeToExecute(const unsigned int& gradeToExecute);
@@ -66,6 +66,6 @@ class Form {
 		};
 };
 
-std::ostream& operator<<(std::ostream& outputStream, const Form& rhs);
+std::ostream& operator<<(std::ostream& outputStream, const AForm& rhs);
 
 #endif

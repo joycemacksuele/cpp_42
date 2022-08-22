@@ -46,7 +46,7 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& rhs) {
 
 // Destructor
 Bureaucrat::~Bureaucrat(void) {
-	std::cout << YELLOW << "Bureaucrat" << RESET << " Destructor called" << std::endl;
+	std::cout << YELLOW << "Bureaucrat" << RESET << " Destructor called" << std::endl << std::endl;
 	return ;
 }
 
@@ -89,7 +89,7 @@ void Bureaucrat::signForm(const bool& isSigned, const std::string& formName, con
 	//  If the form got signed, it will print:
 	std::cout << std::endl;
 	if (isSigned) {
-		std::cout << GREEN << getName() << " signed " << formName << "! (The Bureaucrat's grade (" << getGrade() << ") is higher than the required grade to sign (" << gradeToSignForm << ")."<< RESET << std::endl;
+		std::cout << GREEN << getName() << " signed " << formName << "! " << RESET << "(The Bureaucrat's grade (" << getGrade() << ") is higher than the required grade to sign (" << gradeToSignForm << ")." << std::endl;
 		//std::cout << std::endl;
 	} else {
 		std::cout << YELLOW << getName() << " could't sign " << formName << " because its grade (" << \
@@ -101,7 +101,7 @@ void Bureaucrat::signForm(const bool& isSigned, const std::string& formName, con
 /* ########################################################################## */
 // Overloaded insertion («) operator
 std::ostream& operator<<(std::ostream& outputStream, const Bureaucrat& rhs) {
-	outputStream << std::endl << BLUE << rhs.getName() << ", bureaucrat grade ";
+	outputStream << std::endl << CYAN << rhs.getName() << ", bureaucrat grade ";
 	std::cout << rhs.getGrade() << RESET << std::endl;
 	return outputStream;
 }

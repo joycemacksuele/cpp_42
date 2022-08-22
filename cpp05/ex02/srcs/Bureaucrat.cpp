@@ -46,7 +46,7 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& rhs) {
 
 // Destructor
 Bureaucrat::~Bureaucrat(void) {
-	std::cout << YELLOW << "Bureaucrat" << RESET << " Destructor called" << std::endl;
+	std::cout << YELLOW << "Bureaucrat" << RESET << " Destructor called" << std::endl << std::endl;
 	return ;
 }
 
@@ -89,8 +89,7 @@ void Bureaucrat::signForm(const bool& isSigned, const std::string& formName, con
 	//  If the form got signed, it will print:
 	std::cout << std::endl;
 	if (isSigned) {
-		std::cout << GREEN << getName() << " signed " << formName << "!" << RESET << std::endl;
-		std::cout << std::endl;
+		std::cout << GREEN << getName() << " signed " << formName << "! " << RESET << "(The Bureaucrat's grade (" << getGrade() << ") is higher than the required grade to sign (" << gradeToSignForm << ")." << std::endl;
 	} else {
 		std::cout << YELLOW << getName() << " could't sign " << formName << " because its grade (" << \
 		getGrade() << ") is too low. The Grade necessary to sign the form was: " << \
@@ -98,10 +97,22 @@ void Bureaucrat::signForm(const bool& isSigned, const std::string& formName, con
 	}
 }
 
+void Bureaucrat::executeForm(const Form& form) {
+	//  If the form got executed, it will print:
+	std::cout << std::endl;
+	if (form.isSigned) {
+		std::cout << GREEN << getName() << " executed " << form.formName << "! " << RESET << "(The Bureaucrat's grade (" << getGrade() << ") is higher than the required grade to execute (" << form.gradeToExecuteForm << ")." << std::endl;
+	} else {
+		std::cout << YELLOW << getName() << " could't execute " << form.formName << " because its grade (" << \
+		getGrade() << ") is too low. The Grade necessary to execute the form was: " << \
+		form.gradeToExecuteForm << RESET << std::endl;
+	}
+}
+
 /* ########################################################################## */
 // Overloaded insertion («) operator
 std::ostream& operator<<(std::ostream& outputStream, const Bureaucrat& rhs) {
-	outputStream << std::endl << BLUE << rhs.getName() << ", bureaucrat grade ";
+	outputStream << std::endl << CYAN << rhs.getName() << ", bureaucrat grade ";
 	std::cout << rhs.getGrade() << RESET << std::endl;
 	return outputStream;
 }

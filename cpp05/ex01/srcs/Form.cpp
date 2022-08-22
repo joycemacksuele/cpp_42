@@ -53,7 +53,7 @@ Form& Form::operator=(const Form& rhs) {
 
 // Destructor
 Form::~Form(void) {
-	std::cout << YELLOW << "Form" << RESET << " Destructor called" << std::endl;
+	std::cout << std::endl << YELLOW << "Form" << RESET << " Destructor called" << std::endl << std::endl;
 	return ;
 }
 
@@ -113,7 +113,7 @@ std::ostream& operator<<(std::ostream& outputStream, const Form& rhs) {
 	if (rhs.getIsSigned()) {
 		isSigned = true;
 	}
-	outputStream << std::endl << BLUE << \
+	outputStream << std::endl << CYAN << \
 	"Form: " << rhs.getFormName() << std::endl << \
 	"Is Signed: " << std::boolalpha << isSigned << std::endl << \
 	"Grade required to sign is: " << rhs.getGradeToSign() << std::endl << \
