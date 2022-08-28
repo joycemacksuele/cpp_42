@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/13 18:22:45 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/08/28 18:06:54 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,9 @@ void Bureaucrat::signForm(const bool& isSigned, const std::string& formName, con
 	//  If the form got signed, it will print:
 	std::cout << std::endl;
 	if (isSigned) {
-		std::cout << GREEN << getName() << " signed " << formName << "! " << RESET << "(The Bureaucrat's grade (" << getGrade() << ") is higher than the required grade to sign (" << gradeToSignForm << ")." << std::endl;
+		std::cout << GREEN << getName() << " signed " << formName << "! " << RESET << \
+		"(The Bureaucrat's grade (" << getGrade() << ") is higher than the required grade to sign (" << \
+		gradeToSignForm << ")." << std::endl;
 	} else {
 		std::cout << YELLOW << getName() << " could't sign " << formName << " because its grade (" << \
 		getGrade() << ") is too low. The Grade necessary to sign the form was: " << \
@@ -97,15 +99,17 @@ void Bureaucrat::signForm(const bool& isSigned, const std::string& formName, con
 	}
 }
 
-void Bureaucrat::executeForm(const Form& form) {
+void Bureaucrat::executeForm(const AForm& form) {
 	//  If the form got executed, it will print:
 	std::cout << std::endl;
-	if (form.isSigned) {
-		std::cout << GREEN << getName() << " executed " << form.formName << "! " << RESET << "(The Bureaucrat's grade (" << getGrade() << ") is higher than the required grade to execute (" << form.gradeToExecuteForm << ")." << std::endl;
+	if (form.getIsExecuted()) {
+		std::cout << GREEN << getName() << " executed " << form.getFormName() << "! " << RESET << \
+		"(The Bureaucrat's grade (" << getGrade() << ") is higher than the required grade to execute (" << \
+		form.getGradeToExecute() << ")." << std::endl;
 	} else {
-		std::cout << YELLOW << getName() << " could't execute " << form.formName << " because its grade (" << \
-		getGrade() << ") is too low. The Grade necessary to execute the form was: " << \
-		form.gradeToExecuteForm << RESET << std::endl;
+		std::cout << YELLOW << getName() << " could't execute " << form.getFormName() << \
+		" because its grade (" << getGrade() << ") is too low. The Grade necessary to execute the form was: " << \
+		form.getGradeToExecute() << RESET << std::endl;
 	}
 }
 
