@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/28 17:03:05 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/28 17:47:46 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/01 13:11:09 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,13 @@ AForm& AForm::operator=(const AForm& rhs) {
 		this->_isSigned = rhs._isSigned;
 		this->setGradeToSign(rhs.getGradeToSign());
 		this->setGradeToExecute(rhs.getGradeToExecute());
-
 	}
 	return *this;
 }
 
 // Destructor
 AForm::~AForm(void) {
-	std::cout << std::endl << YELLOW << "AForm" << RESET << " Destructor called" << std::endl << std::endl;
+	std::cout << YELLOW << "AForm" << RESET << " Destructor called" << std::endl << std::endl;
 	return ;
 }
 
@@ -59,24 +58,56 @@ const std::string& AForm::getFormName() const {
 	return this->_formName;
 }
 
+void AForm::setFormName(const std::string& formName) {
+	this->_formName = formName;
+}
+
 bool AForm::getIsSigned() const {
 	return this->_isSigned;
+}
+
+bool AForm::getIsExecuted() const {
+	return this->_isExecuted;
 }
 
 const unsigned int& AForm::getGradeToSign() const {
 	return this->_gradeToSign;
 }
 
-const unsigned int& AForm::getGradeToExecute() const {
-	return this->_gradeToExecute;
-}
-
 void AForm::setGradeToSign(const unsigned int& gradeToSign) {
 	this->_gradeToSign = gradeToSign;
 }
 
+const unsigned int& AForm::getGradeToExecute() const {
+	return this->_gradeToExecute;
+}
+
 void AForm::setGradeToExecute(const unsigned int& gradeToExecute) {
 	this->_gradeToExecute = gradeToExecute;
+}
+
+/*const unsigned int& AForm::getLowestGradeToSign() const {
+	return this->_lowestGradeToSign;
+}
+
+void AForm::setLowestGradeToSign(const unsigned int& lowestGradeToSign) {
+	this->_lowestGradeToSign = lowestGradeToSign;
+}
+
+const unsigned int& AForm::getLowestGradeToExecute() const {
+	return this->_lowestGradeToSign;
+}
+
+void AForm::setLowestGradeToExecute(const unsigned int& lowestGradeToExecute) {
+	this->_lowestGradeToExecute = lowestGradeToExecute;
+}*/
+
+const unsigned int& AForm::getHighestGrade() const {
+	return this->_highestGrade;
+}
+
+void AForm::setHighestGrade(const unsigned int& highestGrade) {
+	this->_highestGrade = highestGrade;
 }
 
 /* ########################################################################## */
@@ -84,7 +115,7 @@ void AForm::setGradeToExecute(const unsigned int& gradeToExecute) {
 void AForm::throwError(const unsigned int& gradeToSign, const unsigned int& gradeToExecute) {
 	if (gradeToSign < _highestGrade || gradeToExecute < _highestGrade) {
 		throw AForm::GradeTooHighException();
-	} else if (gradeToSign > _lowestGrade || gradeToExecute > _lowestGrade) {
+	} else if (gradeToSign > _gradeToSign || gradeToExecute > _gradeToSign) {
 		throw AForm::GradeTooLowException();
 	} else {
 		setGradeToSign(gradeToSign);
@@ -102,9 +133,22 @@ void AForm::beSigned(const Bureaucrat& bureaucrat) {
 	}
 }
 
+bool AForm::requirementsToExecute(const Bureaucrat& executor) const {
+	if (getIsSigned()) {
+		if (executor.getGrade() < getHighestGrade()) {
+			throw AForm::GradeTooHighException();
+		} else if (executor.getGrade() > getGradeToExecute()) {
+			throw AForm::GradeTooLowException();
+		} else if (executor.getGrade() <= getGradeToExecute()) {
+			return true;
+		}
+	}
+	return false;
+}
+
 /* ########################################################################## */
 // Overloaded insertion («) operator
-std::ostream& operator<<(std::ostream& outputStream, const AForm& rhs) {
+/*std::ostream& operator<<(std::ostream& outputStream, const AForm& rhs) {
 	bool isSigned = false;
 	if (rhs.getIsSigned()) {
 		isSigned = true;
@@ -115,7 +159,7 @@ std::ostream& operator<<(std::ostream& outputStream, const AForm& rhs) {
 	"Grade required to sign is: " << rhs.getGradeToSign() << std::endl << \
 	"Grade required to execute is: " << rhs.getGradeToExecute() << RESET << std::endl;
 	return outputStream;
-}
+}*/
 
 /* ########################################################################## */
 const char* AForm::GradeTooLowException::what() const throw() {

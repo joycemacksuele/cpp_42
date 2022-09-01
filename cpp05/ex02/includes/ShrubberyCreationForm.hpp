@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/28 18:12:39 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/01 12:37:35 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <exception>
 
 #include <AForm.hpp>
+#include <Bureaucrat.hpp>
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
@@ -35,7 +36,7 @@ class ShrubberyCreationForm : public AForm {
 		ShrubberyCreationForm& operator=(const ShrubberyCreationForm& rhs);// Copy assignment operator
 		virtual ~ShrubberyCreationForm(void);// Destructor
 
-		void		execute(const Bureaucrat& executor) const;
+		virtual void		execute(const Bureaucrat& executor) const;
 
 	private:
 		std::string _target;

@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/28 18:11:10 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/01 13:02:25 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,25 @@
 
 #include <Bureaucrat.hpp>
 
-// A class is abstract if it has at least one pure virtual function.
-// If we do not override the pure virtual function in derived class, then derived class also becomes abstract class.
+/* Abstract class:
+ *
+ * A class is abstract if it has at least one pure virtual method.
+ * = 0 means derived classes must provide an implementation, not that the base
+ * class can not provide an implementation.
+ *
+ * An Abstract class can't be instanciated
+ *
+ * If we do not override the pure virtual function in derived class,
+ * then derived class also becomes abstract class.
+ */
+
+/* Access specifiers:
+ *
+ * public: members are accessible from outside the class
+ * private: members cannot be accessed (or viewed) from outside the class
+ * protected: members cannot be accessed from outside the class, however, they
+ *            can be accessed in inherited classes.
+ */
 class AForm {
 	public:
 		AForm(void);// Default (no args) constructor
@@ -39,11 +56,8 @@ class AForm {
 		const unsigned int&	getGradeToExecute() const;
 
 		void				beSigned(const Bureaucrat& bureaucrat);
-        virtual void		execute(const Bureaucrat& executor) const = 0;
 		bool				requirementsToExecute(const Bureaucrat& executor) const;
-        // virtual method (pure method)
-		// = 0 means it can't be implemented here so the class can't be instanciated
-		// but should be implemented/overriten by the child class(es)
+		virtual void		execute(const Bureaucrat& executor) const = 0;
 
 		void	throwError(const unsigned int& gradeToSign, const unsigned int& gradeToExecute);
 
@@ -56,21 +70,31 @@ class AForm {
 				virtual const char* what(void) const throw();
 		};
 
+	protected:
+		//const unsigned int&	getLowestGradeToSign() const;
+		//const unsigned int&	getLowestGradeToExecute() const;
+		const unsigned int&	getHighestGrade() const;
+		//void setLowestGradeToSign(const unsigned int& lowestGradeToSign);
+		//void setLowestGradeToExecute(const unsigned int& lowestGradeToExecute);
+
+		// setters
+		void	setHighestGrade(const unsigned int& highestGrade);
+		void	setGradeToSign(const unsigned int& gradeToSign);
+		void	setGradeToExecute(const unsigned int& gradeToExecute);
+		void	setFormName(const std::string& formName);
+
 	private:
-		static const unsigned int	_lowestGrade = 150;
-		static const unsigned int	_highestGrade = 1;
-		const std::string			_formName;
+		//unsigned int				_lowestGradeToSign;
+		//unsigned int				_lowestGradeToExecute;
+		unsigned int				_highestGrade;
+		std::string					_formName;
 		bool						_isSigned;
 		bool						_isExecuted;
 		unsigned int				_gradeToSign;
 		unsigned int				_gradeToExecute;
 
-
-		// setters
-		void	setGradeToSign(const unsigned int& gradeToSign);
-		void	setGradeToExecute(const unsigned int& gradeToExecute);
 };
 
-std::ostream& operator<<(std::ostream& outputStream, const AForm& rhs);
+//std::ostream& operator<<(std::ostream& outputStream, const AForm& rhs);
 
 #endif

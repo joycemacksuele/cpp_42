@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/28 18:07:07 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/01 11:55:38 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <exception>
 #include <sstream>
 
-#include <AForm.hpp>
+//#include <AForm.hpp>
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
@@ -30,13 +30,7 @@
 #define CYAN    "\033[36m"
 #define BOLD    "\x1B[1m"
 
-/*
- * Access specifiers:
- * public: members are accessible from outside the class
- * private: members cannot be accessed (or viewed) from outside the class
- * protected: members cannot be accessed from outside the class, however, they
- *            can be accessed in inherited classes.
- */
+class AForm;
 class Bureaucrat {
 	public:
 		Bureaucrat(void);// Default (no args) constructor
@@ -53,7 +47,7 @@ class Bureaucrat {
 		void	decrementGrade();
 
 		void	signForm(const bool& isSigned, const std::string& formName, const unsigned int& gradeToSignForm) const;
-        bool	executeForm(const AForm& form) const;
+        void	executeForm(const AForm& form);
 
 	private:
 		static const unsigned int	_lowestGrade = 150;
