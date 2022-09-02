@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/01 13:02:25 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/02 10:58:55 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ class AForm {
 		const unsigned int&	getGradeToExecute() const;
 
 		void				beSigned(const Bureaucrat& bureaucrat);
-		bool				requirementsToExecute(const Bureaucrat& executor) const;
-		virtual void		execute(const Bureaucrat& executor) const = 0;
+		bool				requirementsToExecute(const Bureaucrat& executor);
+		virtual void		execute(const Bureaucrat& executor) = 0;
 
 		void	throwError(const unsigned int& gradeToSign, const unsigned int& gradeToExecute);
 

@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 20:33:34 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/26 16:21:52 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/02 11:29:30 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int main() {
 					continue ;
 				} catch (const std::string& ee) {
 					sleep(1);
-					std::cerr << std::endl << BOLD RED "Error1.1: " RESET BOLD << ee << RESET << std::endl;
+					std::cerr << std::endl << BOLD RED "Error5.1: " RESET BOLD << ee << RESET << std::endl;
 					std::cout << std::endl << "----------------------------------------" << std::endl << std::endl;
 					continue ;
 				}

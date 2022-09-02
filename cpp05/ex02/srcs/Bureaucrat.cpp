@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/01 13:07:40 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/02 14:38:55 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& rhs) {
 
 // Destructor
 Bureaucrat::~Bureaucrat(void) {
-	std::cout << YELLOW << "Bureaucrat" << RESET << " Destructor called" << std::endl << std::endl;
+	std::cout << RED << "Bureaucrat" << RESET << " Destructor called" << std::endl << std::endl;
 	return ;
 }
 
@@ -92,7 +92,7 @@ void Bureaucrat::signForm(const bool& isSigned, const std::string& formName, con
 	if (isSigned) {
 		std::cout << GREEN << getName() << " signed " << formName << "! " << RESET << \
 		"(The Bureaucrat's grade (" << getGrade() << ") is higher or equal than the required grade to sign (" << \
-		gradeToSignForm << ")." << std::endl;
+		gradeToSignForm << "))." << std::endl;
 	} else {
 		std::cout << YELLOW << getName() << " could't sign " << formName << " because its grade (" << \
 		getGrade() << ") is too low. The Grade necessary to sign the form was: " << \
@@ -103,11 +103,11 @@ void Bureaucrat::signForm(const bool& isSigned, const std::string& formName, con
 void Bureaucrat::executeForm(const AForm& form) {
 	//  If the form got executed, it will print:
 	std::cout << std::endl;
-	if (form.getIsExecuted()) {
+	if (form.getIsExecuted() && form.getIsSigned()) {
 		std::cout << GREEN << getName() << " executed " << form.getFormName() << "! " << RESET << \
 		"(The Bureaucrat's grade (" << getGrade() << ") is higher or equal than the required grade to execute (" << \
 		form.getGradeToExecute() << ")." << std::endl;
-	} else {
+	} else if (form.getIsSigned() == true) {
 		std::cout << YELLOW << getName() << " could't execute " << form.getFormName() << \
 		" because its grade (" << getGrade() << ") is too low. The Grade necessary to execute the form was: " << \
 		form.getGradeToExecute() << RESET << std::endl;

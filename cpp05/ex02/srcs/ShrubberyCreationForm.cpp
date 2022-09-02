@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/28 17:03:05 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/01 13:08:17 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/02 15:02:03 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 
 // Destructor
 ShrubberyCreationForm::~ShrubberyCreationForm(void) {
-	std::cout << std::endl << YELLOW << "ShrubberyCreationForm" << RESET << " Destructor called" << std::endl << std::endl;
+	std::cout << std::endl << RED << "ShrubberyCreationForm" << RESET << " Destructor called" << std::endl;
 	return ;
 }
 
@@ -61,45 +61,49 @@ ShrubberyCreationForm::~ShrubberyCreationForm(void) {
 // getters and setters
 /* ########################################################################## */
 
-void ShrubberyCreationForm::execute(const Bureaucrat& executor) const {
+void ShrubberyCreationForm::execute(const Bureaucrat& executor) {
 	try {
 		if (requirementsToExecute(executor)) {
 			std::string fileName = _target + "_shrubbery";
 			std::ofstream file(fileName);
-			file << "  ,@@@@@@@,\
-		       ,,,.   ,@@@@@@/@@,  .oo8888o.\
-		    ,&%%&%&&%,@@@@@/@@@@@@,8888\\88/8o\
-		   ,%&\\%&&%&&%,@@@\\@@@/@@@88\\88888/88'\
-		   %&&%&%&/%&&%@@\\@@/ /@@@88888\\88888'\
-		  %&&%/ %&%%&&@@\\ V /@@' `88\\8 `/88'\
-		  `&%\\ ` /%&'    |.|        \\ '|8'\
-		       |o|        | |         | |\
-		       |.|        | |         | |\
-		    \\/ ._\\//_/__/  ,\\_//__\\/.  \\_//__/_";
+			file << "\n\
+		               ,@@@@@@@,\n\
+		       ,,,.   ,@@@@@@/@@,  .oo8888o.\n\
+		    ,&%%&%&&%,@@@@@/@@@@@@,8888\\88/8o\n\
+		   ,%&\\%&&%&&%,@@@\\@@@/@@@88\\88888/88\n\
+		   %&&%&%&/%&&%@@\\@@/ /@@@88888\\88888\n\
+		  %&&%/ %&%%&&@@\\ V /@@` `88\\8 `/88.\n\
+		  `&%\\ ` /%&'    |.|        \\ '|8\n\
+		       |o|        | |         | |\n\
+		       |.|        | |         | |\n\
+		    \\/ ._\\//_/__/  ,\\_//__\\/.  \\_//__/_.form\n\n";
 			file.close();
+		} else {
+			throw std::string(executor.getName() + " could't execute " + getFormName() +
+			" because this form was not signed");
 		}
 	} catch (const std::exception& e) {
-		throw e;
+		throw ;
 	}
 }
 
 /* ########################################################################## */
 // Overloaded insertion («) operator
 std::ostream& operator<<(std::ostream& outputStream, const ShrubberyCreationForm& rhs) {
-	bool isSigned = false;
-	bool isExecuted = false;
-	if (rhs.getIsSigned()) {
-		isSigned = true;
-	}
-	if (rhs.getIsExecuted()) {
-		isExecuted = true;
-	}
+	//bool isSigned = false;
+	//bool isExecuted = false;
+	//if (rhs.getIsSigned()) {
+//		isSigned = true;
+//	}
+//	if (rhs.getIsExecuted()) {
+	//	isExecuted = true;
+//	}
 	outputStream << std::endl << CYAN << \
 	"ShrubberyCreationForm: " << std::endl << \
 	"Grade required to sign is: " << rhs.getGradeToSign() << std::endl << \
 	"Grade required to execute is: " << rhs.getGradeToExecute() << std::endl << \
-	"Is Signed: " << std::boolalpha << isSigned << std::endl << \
-	"Is executed: " << std::boolalpha << isExecuted << std::endl << RESET;
+	"Is Signed: " << std::boolalpha << rhs.getIsSigned() << std::endl << \
+	"Is executed: " << std::boolalpha << rhs.getIsExecuted() << std::endl << RESET;
 
 	return outputStream;
 }

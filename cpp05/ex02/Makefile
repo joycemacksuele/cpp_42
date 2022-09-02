@@ -6,7 +6,7 @@
 #    By: jfreitas <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/18 14:10:36 by jfreitas      #+#    #+#                  #
-#    Updated: 2022/09/01 11:57:27 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/09/02 15:03:00 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,8 +85,9 @@ clean:
 	@echo "\n\c"
 
 fclean: clean print
-	@echo "\n$(RESET)$(YELLOW)\nRemoving $(NAME) binary$(RESET)"
+	@echo "\n$(RESET)$(YELLOW)\nRemoving $(NAME) binary and form files$(RESET)"
 	rm -f $(NAME)
+	rm -f *_shrubbery
 	@echo "\n\c"
 
 re: fclean print2 all

@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/01 12:37:35 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/02 10:59:03 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ class ShrubberyCreationForm : public AForm {
 		ShrubberyCreationForm& operator=(const ShrubberyCreationForm& rhs);// Copy assignment operator
 		virtual ~ShrubberyCreationForm(void);// Destructor
 
-		virtual void		execute(const Bureaucrat& executor) const;
+		virtual void		execute(const Bureaucrat& executor);
 
 	private:
 		std::string _target;

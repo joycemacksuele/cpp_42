@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/26 15:17:35 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/02 10:28:23 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void Bureaucrat::signForm(const bool& isSigned, const std::string& formName, con
 	//  If the form got signed, it will print:
 	std::cout << std::endl;
 	if (isSigned) {
-		std::cout << GREEN << getName() << " signed " << formName << "! " << RESET << "(The Bureaucrat's grade (" << getGrade() << ") is higher than the required grade to sign (" << gradeToSignForm << ")." << std::endl;
+		std::cout << GREEN << getName() << " signed " << formName << "! " << RESET << "(The Bureaucrat's grade (" << getGrade() << ") is higher than the required grade to sign (" << gradeToSignForm << "))." << std::endl;
 		//std::cout << std::endl;
 	} else {
 		std::cout << YELLOW << getName() << " could't sign " << formName << " because its grade (" << \
