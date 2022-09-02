@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/28 17:03:05 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/02 15:02:03 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/02 16:10:32 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,6 @@ void ShrubberyCreationForm::execute(const Bureaucrat& executor) {
 /* ########################################################################## */
 // Overloaded insertion («) operator
 std::ostream& operator<<(std::ostream& outputStream, const ShrubberyCreationForm& rhs) {
-	//bool isSigned = false;
-	//bool isExecuted = false;
-	//if (rhs.getIsSigned()) {
-//		isSigned = true;
-//	}
-//	if (rhs.getIsExecuted()) {
-	//	isExecuted = true;
-//	}
 	outputStream << std::endl << CYAN << \
 	"ShrubberyCreationForm: " << std::endl << \
 	"Grade required to sign is: " << rhs.getGradeToSign() << std::endl << \
