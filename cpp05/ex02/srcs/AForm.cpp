@@ -123,7 +123,7 @@ bool AForm::requirementsToExecute(const Bureaucrat& executor) {
 			throw AForm::GradeTooHighException();
 		} else if (executor.getGrade() > getGradeToExecute()) {
 			throw AForm::GradeTooLowException();
-		} else if (executor.getGrade() <= getGradeToExecute()) {
+		} else if (executor.getGrade() <= getGradeToExecute() ) {
 			_isExecuted = true;
 			return true;
 		}
