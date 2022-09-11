@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/28 17:03:05 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/02 16:10:32 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/11 15:27:01 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /* ########################################################################## */
 
 // Default constructor
-ShrubberyCreationForm::ShrubberyCreationForm(void) 
+ShrubberyCreationForm::ShrubberyCreationForm(void)
 	: _target("Standard target") {
 	std::cout << GREEN << "ShrubberyCreationForm" << RESET << " Default constructor called" << std::endl;
 	setFormName("ShrubberyCreationForm");
@@ -43,7 +43,8 @@ ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &src) {
 }
 
 // Copy assignment operator
-ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm& rhs) {
+template<typename T>
+T& ShrubberyCreationForm::operator=(const T& rhs) {
 	std::cout << GREEN << "ShrubberyCreationForm" << RESET << " Copy assignment operator called" << std::endl;
 	if (this != &rhs) {
 		this->_target = rhs._target;
@@ -85,17 +86,4 @@ void ShrubberyCreationForm::execute(const Bureaucrat& executor) {
 	} catch (const std::exception& e) {
 		throw ;
 	}
-}
-
-/* ########################################################################## */
-// Overloaded insertion («) operator
-std::ostream& operator<<(std::ostream& outputStream, const ShrubberyCreationForm& rhs) {
-	outputStream << std::endl << CYAN << \
-	"ShrubberyCreationForm: " << std::endl << \
-	"Grade required to sign is: " << rhs.getGradeToSign() << std::endl << \
-	"Grade required to execute is: " << rhs.getGradeToExecute() << std::endl << \
-	"Is Signed: " << std::boolalpha << rhs.getIsSigned() << std::endl << \
-	"Is executed: " << std::boolalpha << rhs.getIsExecuted() << std::endl << RESET;
-
-	return outputStream;
 }

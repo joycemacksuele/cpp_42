@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/02 10:59:03 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/11 15:29:37 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ class ShrubberyCreationForm : public AForm {
 		ShrubberyCreationForm(void);// Default (no args) constructor
 		ShrubberyCreationForm(const std::string& target);// Overloaded constructor
 		ShrubberyCreationForm(const ShrubberyCreationForm& src);// Overloaded Copy constructor
-		ShrubberyCreationForm& operator=(const ShrubberyCreationForm& rhs);// Copy assignment operator
+
+		template<typename T>
+		T& operator=(const T& rhs);// Copy assignment operator
 		virtual ~ShrubberyCreationForm(void);// Destructor
 
 		virtual void		execute(const Bureaucrat& executor);
@@ -41,7 +43,5 @@ class ShrubberyCreationForm : public AForm {
 	private:
 		std::string _target;
 };
-
-std::ostream& operator<<(std::ostream& outputStream, const ShrubberyCreationForm& rhs);
 
 #endif

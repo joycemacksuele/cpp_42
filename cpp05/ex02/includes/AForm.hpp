@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/02 10:58:55 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/11 13:36:19 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,6 @@ class AForm {
 
 };
 
-//std::ostream& operator<<(std::ostream& outputStream, const AForm& rhs);
+std::ostream& operator<<(std::ostream& outputStream, const AForm& rhs);
 
 #endif

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   RobotomyRequestForm.hpp                          :+:    :+:            */
+/*   PresidentialPardonForm.hpp                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/11 15:29:33 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/11 15:42:46 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ROBOTOMYREQUESTFORM_HPP
-# define ROBOTOMYREQUESTFORM_HPP
+#ifndef PRESIDENTIALPARDONFORM_HPP
+# define PRESIDENTIALPARDONFORM_HPP
 
 #include <string>
 #include <iostream>
@@ -28,15 +28,15 @@
 #define BLUE    "\033[34m"
 #define BOLD    "\x1B[1m"
 
-class RobotomyRequestForm : public AForm {
+class PresidentialPardonForm : public AForm {
 	public:
-		RobotomyRequestForm(void);// Default (no args) constructor
-		RobotomyRequestForm(const std::string& target);// Overloaded constructor
-		RobotomyRequestForm(const RobotomyRequestForm& src);// Overloaded Copy constructor
+		PresidentialPardonForm(void);// Default (no args) constructor
+		PresidentialPardonForm(const std::string& target);// Overloaded constructor
+		PresidentialPardonForm(const PresidentialPardonForm& src);// Overloaded Copy constructor
 
 		template<typename T>
 		T& operator=(const T& rhs);// Copy assignment operator
-		virtual ~RobotomyRequestForm(void);// Destructor
+		virtual ~PresidentialPardonForm(void);// Destructor
 
 		virtual void		execute(const Bureaucrat& executor);
 
