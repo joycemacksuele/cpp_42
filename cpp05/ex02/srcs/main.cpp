@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.cpp                                           :+:    :+:            */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 20:33:34 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/11 15:42:13 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/11 19:57:57 by jfreitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 #include <RobotomyRequestForm.hpp>
 #include <PresidentialPardonForm.hpp>
 
+#ifndef FORM
 #define FORM ShrubberyCreationForm
+#endif
 
 int main(int argc, char** argv) {
 	std::cout << std::endl;
@@ -59,23 +61,23 @@ int main(int argc, char** argv) {
 			std::cout << std::endl << "----------------------------------------" << std::endl << std::endl;
 			if (std::strcmp(argv[1], "1") == 0) {
 				std::cout << "A ShrubberyCreationForm will be created, signed and/or executed..." << std::endl << std::endl;
-				ShrubberyCreationForm form  = ShrubberyCreationForm();
 			} else if (std::strcmp(argv[1], "2") == 0) {
 				std::cout << "A RobotomyRequestForm will be created, signed and/or executed..." << std::endl << std::endl;
-			} 
+			}
+
+
 
 			std::cout << "Choose a target for the form: ";
 			std::getline(std::cin, target);
 			std::cout << std::endl;
-			if (std::strcmp(argv[1], "2") == 0) {
-				#undef FORM
-				#define FORM RobotomyRequestForm
-			} else if (std::strcmp(argv[1], "3") == 0) {
-				#undef FORM
-				#define FORM PresidentialPardonForm
-			}
+			//if (std::strcmp(argv[1], "2") == 0) {
+			//	#undef FORM
+			//	#define FORM RobotomyRequestForm
+		//	} else if (std::strcmp(argv[1], "3") == 0) {
+				//#undef FORM
+				//#define FORM PresidentialPardonForm
+		//	}
 
-			PresidentialPardonForm foor = PresidentialPardonForm("joyce");
 			FORM form = FORM(target);
 
 			while (form.getIsExecuted() == false) {

@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                      +:+                     #
 #    By: jfreitas <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/18 14:10:36 by jfreitas      #+#    #+#                  #
-#    Updated: 2022/09/02 15:03:00 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/09/11 20:19:17 by jfreitas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ RESET = \033[0m
 #CC = clang++
 CC = c++
 FLAGS = -Iincludes -std=c++98 -Wall -Wextra -Werror -pedantic
+ADD = FLAGS += -D FORM=RobotomyRequestForm
+
 # -Wshadow if variables/types/typedefs/parameters... have the same name (i.e. shadows one another).
 # -Wno-shadow is the default for the compiler, determinating that no warning is issued when variables are being shadowed.
 
@@ -52,6 +54,14 @@ OBJS = $(SRCS:$(SRCPATH)/%.cpp=$(OBJPATH)/%.o)
 #https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
 
 all: mk_objdir $(NAME)
+
+	#FLAGS += -D FORM=RobotomyRequestForm
+	#FLAGS += =D FORM=PresidentialPardonForm
+robotomy:
+	@echo "\nROBOTTTT\n"
+
+presidential:
+	@echo "\nPresidentttt\n"
 
 mk_objdir:
 	@if [ ! -d $(OBJPATH) ]; then echo "\n$(RESET)$(GREEN)Generating .o objects$(RESET)"; fi
