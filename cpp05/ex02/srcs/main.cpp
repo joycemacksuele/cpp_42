@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.cpp                                           :+:    :+:            */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 20:33:34 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/11 15:42:13 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/23 10:52:00 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,24 @@
 #include <RobotomyRequestForm.hpp>
 #include <PresidentialPardonForm.hpp>
 
+#ifndef FORM
 #define FORM ShrubberyCreationForm
+#endif
 
-int main(int argc, char** argv) {
+#define VAL(str) #str
+#define FormString(F) VAL(F)
+
+int main() {
 	std::cout << std::endl;
 
-	if (argc != 2) {
+	/*if (argc != 2) {
 		std::cout << "Available arguments:" << std::endl;
 		std::cout << GREEN << "1" << RESET << " (for a ShrubberyCreationForm)." << std::endl;
 		std::cout << GREEN << "2" << RESET << " (for a RobotomyRequestForm)." << std::endl;
 		std::cout << GREEN << "3" << RESET << " (for a PresidentialPardonForm)." << std::endl;
 		std::cout << std::endl;
 		return 0;
-	}
+	}*/
 
 	std::string bureaucratName;
 	std::cout << GREEN << "Bureaucat will be created..." << RESET << std::endl;
@@ -57,25 +62,16 @@ int main(int argc, char** argv) {
 			std::string target;
 
 			std::cout << std::endl << "----------------------------------------" << std::endl << std::endl;
-			if (std::strcmp(argv[1], "1") == 0) {
-				std::cout << "A ShrubberyCreationForm will be created, signed and/or executed..." << std::endl << std::endl;
-				ShrubberyCreationForm form  = ShrubberyCreationForm();
-			} else if (std::strcmp(argv[1], "2") == 0) {
-				std::cout << "A RobotomyRequestForm will be created, signed and/or executed..." << std::endl << std::endl;
-			} 
+			//if (std::strcmp(argv[1], "1") == 0) {
+				std::cout << "A " << FormString(FORM) << " will be created, signed and/or executed..." << std::endl << std::endl;
+			//} else if (std::strcmp(argv[1], "2") == 0) {
+				//std::cout << "A RobotomyRequestForm will be created, signed and/or executed..." << std::endl << std::endl;
+			//}
 
 			std::cout << "Choose a target for the form: ";
 			std::getline(std::cin, target);
 			std::cout << std::endl;
-			if (std::strcmp(argv[1], "2") == 0) {
-				#undef FORM
-				#define FORM RobotomyRequestForm
-			} else if (std::strcmp(argv[1], "3") == 0) {
-				#undef FORM
-				#define FORM PresidentialPardonForm
-			}
 
-			PresidentialPardonForm foor = PresidentialPardonForm("joyce");
 			FORM form = FORM(target);
 
 			while (form.getIsExecuted() == false) {

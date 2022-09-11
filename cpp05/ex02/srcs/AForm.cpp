@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/28 17:03:05 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/11 13:36:21 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/23 08:44:04 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ const char* AForm::GradeTooHighException::what() const throw() {
 // Overloaded insertion («) operator
 std::ostream& operator<<(std::ostream& outputStream, const AForm& rhs) {
 	outputStream << std::endl << CYAN << \
-		"RobotomyRequestForm: " << std::endl << \
+		rhs.getFormName() << ": " << std::endl << \
 		"Grade required to sign is: " << rhs.getGradeToSign() << std::endl << \
 		"Grade required to execute is: " << rhs.getGradeToExecute() << std::endl << \
 		"Is Signed: " << std::boolalpha << rhs.getIsSigned() << std::endl << \

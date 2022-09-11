@@ -1,16 +1,16 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                      +:+                     #
 #    By: jfreitas <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/18 14:10:36 by jfreitas      #+#    #+#                  #
-#    Updated: 2022/09/02 15:03:00 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/09/23 12:10:50 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Form
+NAME = ShrubberyCreationForm
 
 ##### COLORS #####
 WHITE = \033[1;37m
@@ -24,7 +24,8 @@ RESET = \033[0m
 ##### FLAGS #####
 #CC = clang++
 CC = c++
-FLAGS = -Iincludes -std=c++98 -Wall -Wextra -Werror -pedantic
+FLAGS = -Iincludes -std=c++98 -Wall -Wextra -Werror -pedantic -D
+
 # -Wshadow if variables/types/typedefs/parameters... have the same name (i.e. shadows one another).
 # -Wno-shadow is the default for the compiler, determinating that no warning is issued when variables are being shadowed.
 
@@ -51,7 +52,33 @@ OBJS = $(SRCS:$(SRCPATH)/%.cpp=$(OBJPATH)/%.o)
 #################################### RULES ####################################
 #https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
 
-all: mk_objdir $(NAME)
+all:
+	@echo "\n$(RESET)$(YELLOW)Arguments available for make:$(GREEN)\n"
+	@echo "1 $(RESET)(for ShrubberyCreationForm)$(GREEN)"
+	@echo "2 $(RESET)(for RobotomyRequestForm)$(GREEN)"
+	@echo "3 $(RESET)(for PresidentialPardonForm)\n"
+
+# -c = Compile or assemble the source files
+1: mk_objdir $(INC_DEP)
+	$(CC) $(FLAGS) FORM=$(NAME) -c $(SRCS)
+	@mv *.o $(OBJPATH)
+	@echo "\n$(RESET)$(GREEN)Building the executable for $(NAME) from the object files$(RESET)"
+	$(CC) $(FLAGS) FORM=$(NAME) -o $(NAME) $(OBJS)
+	@echo "\n$(RESET)$(LIGHT_BLUE)$(NAME)$(GREEN) is built\n$(RESET)"
+
+2: mk_objdir $(INC_DEP)
+	$(CC) $(FLAGS) FORM=RobotomyRequestForm -c $(SRCS)
+	@mv *.o $(OBJPATH)
+	@echo "\n$(RESET)$(GREEN)Building the executable for RobotomyRequestForm from the object files$(RESET)"
+	$(CC) $(FLAGS) FORM=RobotomyRequestForm -o RobotomyRequestForm $(OBJS)
+	@echo "\n$(RESET)$(LIGHT_BLUE)RobotomyRequestForm$(GREEN) is built\n$(RESET)"
+
+3: mk_objdir $(INC_DEP)
+	$(CC) $(FLAGS) FORM=PresidentialPardonForm -c $(SRCS)
+	@mv *.o $(OBJPATH)
+	@echo "\n$(RESET)$(GREEN)Building the executable for PresidentialPardonForm from the object files$(RESET)"
+	$(CC) $(FLAGS) FORM=PresidentialPardonForm -o PresidentialPardonForm $(OBJS)
+	@echo "\n$(RESET)$(LIGHT_BLUE)PresidentialPardonForm$(GREEN) is built\n$(RESET)"
 
 mk_objdir:
 	@if [ ! -d $(OBJPATH) ]; then echo "\n$(RESET)$(GREEN)Generating .o objects$(RESET)"; fi
@@ -63,16 +90,7 @@ mk_objdir:
 # $? = All prerequisites NEWER than the target
 # https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
 $(NAME): $(OBJS) $(INC_DEP)
-	@echo "\n$(RESET)$(GREEN)Building the executable from the object files$(RESET)"
-	$(CC) $(FLAGS) -o $@ $(OBJS)
-	@echo "\n$(RESET)$(LIGHT_BLUE)$(NAME)$(GREEN) is built\n$(RESET)"
 
-# -c = Compile or assemble the source files ($<)
-#      $< for the $(SRCPATH)/%.cpp part (the first prerequisite)
-# generating an .o object file (with the use of -o) for each source file given.
-#      $@ for the $(OBJPATH)/%.o part (the target).
-$(OBJPATH)/%.o: $(SRCPATH)/%.cpp $(INC_DEP)
-	$(CC) $(FLAGS) -c $< -o $@
 
 #################################### CLEAN ####################################
 
@@ -87,6 +105,8 @@ clean:
 fclean: clean print
 	@echo "\n$(RESET)$(YELLOW)\nRemoving $(NAME) binary and form files$(RESET)"
 	rm -f $(NAME)
+	rm -f RobotomyRequestForm
+	rm -f PresidentialPardonForm
 	rm -f *_shrubbery
 	@echo "\n\c"
 

@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/28 17:03:05 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/11 15:38:22 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/23 08:37:20 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void PresidentialPardonForm::execute(const Bureaucrat& executor) {
 			std::cout << std::endl;
 			std::cout << _target << " has been pardoned by Zaphod Beeblebrox!" << std::endl;
 		} else {
-			throw std::string(getFormName() + "'s target: " + _target + "could not be pardoned");
+			throw std::string(getFormName() + "'s target: " + _target + " could not be pardoned");
 		}
 	} catch (const std::exception& e) {
 		throw ;
