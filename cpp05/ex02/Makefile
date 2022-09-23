@@ -6,7 +6,7 @@
 #    By: jfreitas <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/18 14:10:36 by jfreitas      #+#    #+#                  #
-#    Updated: 2022/09/23 15:27:46 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/09/23 15:33:00 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,6 @@ PresidentialPardonForm = 3
 # $^ = All prerequisites
 # $? = All prerequisites NEWER than the target
 # -c = Compile or assemble the source files
-
 all: args
 
 args:
