@@ -6,7 +6,7 @@
 #    By: jfreitas <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/18 14:10:36 by jfreitas      #+#    #+#                  #
-#    Updated: 2022/09/23 12:10:50 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/09/23 12:17:19 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,11 @@ OBJS = $(SRCS:$(SRCPATH)/%.cpp=$(OBJPATH)/%.o)
 
 #################################### RULES ####################################
 #https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
+# $@ = The target of the rule -> $(NAME)
+# $< = The first prerequisite
+# $^ = All prerequisites
+# $? = All prerequisites NEWER than the target
+# -c = Compile or assemble the source files
 
 all:
 	@echo "\n$(RESET)$(YELLOW)Arguments available for make:$(GREEN)\n"
@@ -58,7 +63,6 @@ all:
 	@echo "2 $(RESET)(for RobotomyRequestForm)$(GREEN)"
 	@echo "3 $(RESET)(for PresidentialPardonForm)\n"
 
-# -c = Compile or assemble the source files
 1: mk_objdir $(INC_DEP)
 	$(CC) $(FLAGS) FORM=$(NAME) -c $(SRCS)
 	@mv *.o $(OBJPATH)
@@ -83,14 +87,6 @@ all:
 mk_objdir:
 	@if [ ! -d $(OBJPATH) ]; then echo "\n$(RESET)$(GREEN)Generating .o objects$(RESET)"; fi
 	@if [ ! -d $(OBJPATH) ]; then mkdir $(OBJPATH); fi
-
-# $@ = The target of the rule -> $(NAME)
-# $< = The first prerequisite
-# $^ = All prerequisites
-# $? = All prerequisites NEWER than the target
-# https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
-$(NAME): $(OBJS) $(INC_DEP)
-
 
 #################################### CLEAN ####################################
 
