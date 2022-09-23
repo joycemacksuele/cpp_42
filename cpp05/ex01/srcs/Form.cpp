@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/28 16:56:51 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/23 12:58:47 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,6 @@ const std::string& Form::getFormName() const {
 
 bool Form::getIsSigned() const {
 	return this->_isSigned;
-}
-
-bool Form::getIsExecuted() const {
-	return this->_isExecuted;
 }
 
 const unsigned int& Form::getGradeToSign() const {

@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 20:33:34 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/23 10:52:00 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/23 12:15:23 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,6 @@
 
 int main() {
 	std::cout << std::endl;
-
-	/*if (argc != 2) {
-		std::cout << "Available arguments:" << std::endl;
-		std::cout << GREEN << "1" << RESET << " (for a ShrubberyCreationForm)." << std::endl;
-		std::cout << GREEN << "2" << RESET << " (for a RobotomyRequestForm)." << std::endl;
-		std::cout << GREEN << "3" << RESET << " (for a PresidentialPardonForm)." << std::endl;
-		std::cout << std::endl;
-		return 0;
-	}*/
 
 	std::string bureaucratName;
 	std::cout << GREEN << "Bureaucat will be created..." << RESET << std::endl;
@@ -60,13 +51,8 @@ int main() {
 			/*************************************************************************/
 
 			std::string target;
-
 			std::cout << std::endl << "----------------------------------------" << std::endl << std::endl;
-			//if (std::strcmp(argv[1], "1") == 0) {
-				std::cout << "A " << FormString(FORM) << " will be created, signed and/or executed..." << std::endl << std::endl;
-			//} else if (std::strcmp(argv[1], "2") == 0) {
-				//std::cout << "A RobotomyRequestForm will be created, signed and/or executed..." << std::endl << std::endl;
-			//}
+			std::cout << "A " << FormString(FORM) << " will be created, signed and/or executed..." << std::endl << std::endl;
 
 			std::cout << "Choose a target for the form: ";
 			std::getline(std::cin, target);

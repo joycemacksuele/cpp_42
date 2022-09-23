@@ -6,7 +6,7 @@
 #    By: jfreitas <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/18 14:10:36 by jfreitas      #+#    #+#                  #
-#    Updated: 2022/09/23 12:10:50 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/09/23 15:27:46 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,62 +44,94 @@ SRCPATH = ./srcs
 SRCS = $(wildcard $(SRCPATH)/*.cpp)
 
 ##### OBJECTS #####
-OBJPATH = $(SRCPATH)/objs
+OBJPATH_1 = $(SRCPATH)/objs1
+OBJPATH_2 = $(SRCPATH)/objs2
+OBJPATH_3 = $(SRCPATH)/objs3
+
 # OBJS = The path to each .o file
 # '%' matches any nonempty string, and the other characters match themselves.
-OBJS = $(SRCS:$(SRCPATH)/%.cpp=$(OBJPATH)/%.o)
+OBJS_1 = $(SRCS:$(SRCPATH)/%.cpp=$(OBJPATH_1)/%.o)
+OBJS_2 = $(SRCS:$(SRCPATH)/%.cpp=$(OBJPATH_2)/%.o)
+OBJS_3 = $(SRCS:$(SRCPATH)/%.cpp=$(OBJPATH_3)/%.o)
+
+ShrubberyCreationForm = 1
+RobotomyRequestForm = 2
+PresidentialPardonForm = 3
 
 #################################### RULES ####################################
 #https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
+# $@ = The target of the rule -> $(NAME)
+# $< = The first prerequisite
+# $^ = All prerequisites
+# $? = All prerequisites NEWER than the target
+# -c = Compile or assemble the source files
 
-all:
+all: args
+
+args:
 	@echo "\n$(RESET)$(YELLOW)Arguments available for make:$(GREEN)\n"
 	@echo "1 $(RESET)(for ShrubberyCreationForm)$(GREEN)"
 	@echo "2 $(RESET)(for RobotomyRequestForm)$(GREEN)"
 	@echo "3 $(RESET)(for PresidentialPardonForm)\n"
 
-# -c = Compile or assemble the source files
-1: mk_objdir $(INC_DEP)
-	$(CC) $(FLAGS) FORM=$(NAME) -c $(SRCS)
-	@mv *.o $(OBJPATH)
+####################################
+
+$(ShrubberyCreationForm): mk_objdir_1 ShrubberyCreationForm
+
+mk_objdir_1:
+	@if [ ! -d $(OBJPATH_1) ]; then echo "\n$(RESET)$(GREEN)Generating .o objects$(RESET)"; fi
+	@if [ ! -d $(OBJPATH_1) ]; then mkdir $(OBJPATH_1); fi
+
+$(OBJPATH_1)/%.o: $(SRCPATH)/%.cpp $(INC_DEP)
+	$(CC) $(FLAGS) FORM=$(NAME) -c $< -o $@
+
+ShrubberyCreationForm: $(OBJS_1) $(INC_DEP)
 	@echo "\n$(RESET)$(GREEN)Building the executable for $(NAME) from the object files$(RESET)"
-	$(CC) $(FLAGS) FORM=$(NAME) -o $(NAME) $(OBJS)
+	$(CC) $(FLAGS) FORM=$@ -o $@ $(OBJS_1)
 	@echo "\n$(RESET)$(LIGHT_BLUE)$(NAME)$(GREEN) is built\n$(RESET)"
 
-2: mk_objdir $(INC_DEP)
-	$(CC) $(FLAGS) FORM=RobotomyRequestForm -c $(SRCS)
-	@mv *.o $(OBJPATH)
+####################################
+
+$(RobotomyRequestForm): mk_objdir_2 RobotomyRequestForm
+
+mk_objdir_2:
+	@if [ ! -d $(OBJPATH_2) ]; then echo "\n$(RESET)$(GREEN)Generating .o objects$(RESET)"; fi
+	@if [ ! -d $(OBJPATH_2) ]; then mkdir $(OBJPATH_2); fi
+
+$(OBJPATH_2)/%.o: $(SRCPATH)/%.cpp $(INC_DEP)
+	$(CC) $(FLAGS) FORM=RobotomyRequestForm -c $< -o $@
+
+RobotomyRequestForm: $(OBJS_2) $(INC_DEP)
 	@echo "\n$(RESET)$(GREEN)Building the executable for RobotomyRequestForm from the object files$(RESET)"
-	$(CC) $(FLAGS) FORM=RobotomyRequestForm -o RobotomyRequestForm $(OBJS)
-	@echo "\n$(RESET)$(LIGHT_BLUE)RobotomyRequestForm$(GREEN) is built\n$(RESET)"
+	$(CC) $(FLAGS) FORM=$@ -o $@ $(OBJS_2)
+	@echo "\n$(RESET)$(LIGHT_BLUE)$@$(GREEN) is built\n$(RESET)"
 
-3: mk_objdir $(INC_DEP)
-	$(CC) $(FLAGS) FORM=PresidentialPardonForm -c $(SRCS)
-	@mv *.o $(OBJPATH)
+####################################
+
+$(PresidentialPardonForm): mk_objdir_3 PresidentialPardonForm
+
+mk_objdir_3:
+	@if [ ! -d $(OBJPATH_3) ]; then echo "\n$(RESET)$(GREEN)Generating .o objects$(RESET)"; fi
+	@if [ ! -d $(OBJPATH_3) ]; then mkdir $(OBJPATH_3); fi
+
+$(OBJPATH_3)/%.o: $(SRCPATH)/%.cpp $(INC_DEP)
+	$(CC) $(FLAGS) FORM=PresidentialPardonForm -c $< -o $@
+
+PresidentialPardonForm: $(OBJS_3) $(INC_DEP)
 	@echo "\n$(RESET)$(GREEN)Building the executable for PresidentialPardonForm from the object files$(RESET)"
-	$(CC) $(FLAGS) FORM=PresidentialPardonForm -o PresidentialPardonForm $(OBJS)
-	@echo "\n$(RESET)$(LIGHT_BLUE)PresidentialPardonForm$(GREEN) is built\n$(RESET)"
-
-mk_objdir:
-	@if [ ! -d $(OBJPATH) ]; then echo "\n$(RESET)$(GREEN)Generating .o objects$(RESET)"; fi
-	@if [ ! -d $(OBJPATH) ]; then mkdir $(OBJPATH); fi
-
-# $@ = The target of the rule -> $(NAME)
-# $< = The first prerequisite
-# $^ = All prerequisites
-# $? = All prerequisites NEWER than the target
-# https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
-$(NAME): $(OBJS) $(INC_DEP)
-
+	$(CC) $(FLAGS) FORM=$@ -o $@ $(OBJS_3)
+	@echo "\n$(RESET)$(LIGHT_BLUE)$@$(GREEN) is built\n$(RESET)"
 
 #################################### CLEAN ####################################
 
 # PHONY = Prevents make from confusing the phony target with a file name.
-.PHONY: clean fclean re print print2
+.PHONY: clean fclean re print print2 1 2 3 $(ShrubberyCreationForm)
 
 clean:
 	@echo "\n$(RESET)$(YELLOW)Removing object directory$(RESET)"
-	rm -rf $(OBJPATH)
+	rm -rf $(OBJPATH_1)
+	rm -rf $(OBJPATH_2)
+	rm -rf $(OBJPATH_3)
 	@echo "\n\c"
 
 fclean: clean print
