@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/28 17:03:05 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/27 09:46:34 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/27 15:34:31 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void PresidentialPardonForm::execute(const Bureaucrat& executor) {
 	try {
 		if (requirementsToExecute(executor)) {
 			std::cout << std::endl;
-			std::cout << _target << " has been pardoned by Zaphod Beeblebrox!" << std::endl;
+			std::cout << CYAN << _target << " has been pardoned by Zaphod Beeblebrox!" << RESET <<std::endl;
 		} else {
 			throw std::string(getFormName() + "'s target: " + _target + " could not be pardoned");
 		}
@@ -73,4 +73,17 @@ void PresidentialPardonForm::execute(const Bureaucrat& executor) {
 		throw ;
 	}
 	sleep(1);
+}
+
+/* ########################################################################## */
+// Overloaded insertion («) operator
+std::ostream& operator<<(std::ostream& outputStream, const PresidentialPardonForm& rhs) {
+	outputStream << std::endl << CYAN << \
+		rhs.getFormName() << ": " << std::endl << \
+		"Grade required to sign is: " << rhs.getGradeToSign() << std::endl << \
+		"Grade required to execute is: " << rhs.getGradeToExecute() << std::endl << \
+		"Is Signed: " << std::boolalpha << rhs.getIsSigned() << std::endl << \
+		"Is executed: " << std::boolalpha << rhs.getIsExecuted() << std::endl << RESET;
+
+	return outputStream;
 }

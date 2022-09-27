@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/28 17:03:05 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/27 09:47:03 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/27 15:33:28 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void RobotomyRequestForm::execute(const Bureaucrat& executor) {
 			std::cout << "~~ Drilling noises ~~" << std::endl;
 			std::cout << "\007";
 			std::cout.flush();
-			std::cout << _target << " has been robotomized!" << std::endl;
+			std::cout << CYAN << _target << " has been robotomized!" << RESET << std::endl;
 			std::cout << "\007";
 		} else {
 			throw std::string("Robotomy failed for " + getFormName() + "'s target: " + _target);

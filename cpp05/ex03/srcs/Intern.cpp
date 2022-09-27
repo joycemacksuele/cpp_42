@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/24 14:36:21 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/27 11:35:19 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/27 17:12:58 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,10 @@ Intern::Intern(const Intern &src) {
 	*this = src; // this will call the copy assignment operator
 }
 
-
 // Copy assignment operator
 Intern& Intern::operator=(const Intern& rhs) {
+	(void)rhs;
 	std::cout << GREEN << "Intern" << RESET << " Copy assignment operator called" << std::endl;
-	if (this != &rhs) {
-	}
 	return *this;
 }
 
@@ -56,10 +54,10 @@ AForm* Intern::makeForm(const std::string& formName, const std::string& target) 
 			form = new PresidentialPardonForm(target)
 		: NULL;
 	form == NULL ?
-		throw std::string("Wrong form name!"):
-		std::cout << CYAN << "Intern creates " << form->getFormName() << RESET << std::endl;
-	AForm* copyForm;
-	copyForm = form;
-	delete form;
-	return copyForm;
+		throw std::string("Wrong form name!") :
+		std::cout << std::endl << CYAN << "Intern creates " << form->getFormName() << RESET << std::endl;
+	//AForm* copyForm;
+	//copyForm = form;
+	//delete form;// check if leaks
+	return form;
 }

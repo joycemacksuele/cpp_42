@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:27:12 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/27 11:51:10 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/27 16:23:44 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& rhs) {
 
 // Destructor
 Bureaucrat::~Bureaucrat(void) {
-	std::cout << RED << "Bureaucrat" << RESET << " Destructor called" << std::endl;
+	std::cout << RED << "Bureaucrat" << RESET << " Destructor called" << std::endl << std::endl;
 	return ;
 }
 
