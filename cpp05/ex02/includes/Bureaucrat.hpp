@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 16:10:30 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/01 11:55:38 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/24 14:31:38 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 #include <unistd.h>
 #include <exception>
 #include <sstream>
-
-//#include <AForm.hpp>
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"

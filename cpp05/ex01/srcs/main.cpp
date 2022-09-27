@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/12 20:33:34 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/02 11:29:30 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/09/27 11:54:20 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int main() {
 					}
 					std::cout << std::endl;
 					Form form = Form(formName, formGradeToSignNumber, formGradeToExecuteNumber);
-					std::cout << formGradeToExecuteNumber << std::endl;
 					try {
 						form.beSigned(bureaucrat);
 						if (form.getIsSigned() == true) {
