@@ -56,8 +56,5 @@ AForm* Intern::makeForm(const std::string& formName, const std::string& target) 
 	form == NULL ?
 		throw std::string("Wrong form name!") :
 		std::cout << std::endl << CYAN << "Intern creates " << form->getFormName() << RESET << std::endl;
-	//AForm* copyForm;
-	//copyForm = form;
-	//delete form;// check if leaks
 	return form;
 }

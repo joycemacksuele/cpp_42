@@ -160,7 +160,7 @@ int main() {
 					break ;
 				}
 			}
-			//delete form;
+			delete form;
 			if (form->getIsExecuted()) {
 				break ;
 			}
@@ -183,6 +183,6 @@ int main() {
 
 		break ;
 	}
-	system("leaks FormByIntern");
+    //Leaks --atExit -- ./FormByIntern and/or try lldb or gdb
 	return 0;
 }
