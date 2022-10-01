@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/28 17:03:05 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/23 08:37:20 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/10/01 11:30:12 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ PresidentialPardonForm::PresidentialPardonForm(void)
 	setGradeToSign(25);
 	setGradeToExecute(5);
 	return ;
-	}
+}
 
 // Overloaded constructor
 PresidentialPardonForm::PresidentialPardonForm(const std::string& target)
@@ -31,10 +31,10 @@ PresidentialPardonForm::PresidentialPardonForm(const std::string& target)
 	std::cout << GREEN << "PresidentialPardonForm" << RESET << " Overloaded constructor called" << std::endl;
 	setFormName("PresidentialPardonForm");
 	setHighestGrade(1);
-	setGradeToSign(145);
-	setGradeToExecute(137);
+	setGradeToSign(25);
+	setGradeToExecute(5);
 	return ;
-	}
+}
 
 // Copy constructor
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &src) {

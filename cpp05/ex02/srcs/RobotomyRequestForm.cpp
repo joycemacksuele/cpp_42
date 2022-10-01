@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/28 17:03:05 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/11 15:38:35 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/10/01 11:30:55 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ RobotomyRequestForm::RobotomyRequestForm(void)
 	setGradeToSign(72);
 	setGradeToExecute(45);
 	return ;
-	}
+}
 
 // Overloaded constructor
 RobotomyRequestForm::RobotomyRequestForm(const std::string& target)
@@ -36,10 +36,10 @@ RobotomyRequestForm::RobotomyRequestForm(const std::string& target)
 	std::cout << GREEN << "RobotomyRequestForm" << RESET << " Overloaded constructor called" << std::endl;
 	setFormName("RobotomyRequestForm");
 	setHighestGrade(1);
-	setGradeToSign(145);
-	setGradeToExecute(137);
+	setGradeToSign(72);
+	setGradeToExecute(45);
 	return ;
-	}
+}
 
 // Copy constructor
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &src) {

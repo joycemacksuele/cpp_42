@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/28 17:03:05 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/09/27 09:48:35 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/10/01 11:26:35 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 
 // Destructor
 ShrubberyCreationForm::~ShrubberyCreationForm(void) {
-	std::cout << std::endl << RED << "ShrubberyCreationForm" << RESET << " Destructor called" << std::endl;
+	std::cout << RED << "ShrubberyCreationForm" << RESET << " Destructor called" << std::endl;
 	return ;
 }
 
