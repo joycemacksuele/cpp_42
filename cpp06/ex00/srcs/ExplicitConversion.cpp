@@ -6,20 +6,21 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/21 11:35:56 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/21 14:21:37 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/10/01 13:57:36 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ExplicitConversion.hpp>
 
-ConvertTo FindTypeToConvert(std::string argv) {
+
+/*	
 	if (argv.size() == 1) {
 		return ConvertTo::CHAR;
 	} else if (argv.find('f') != std::string::npos) {
 		return ConvertTo::FLOAT;
 	}
 	for (auto it = argv.begin(); it != argv.end(); it++) {
-		if (std::isdigit(*it) || *it == '-' || *it == '.') {
+		if (std::isdigit(*it) || *it == '-' || *it == '.' || *it == 'f') {
 			if (*it == '.') {
 				return ConvertTo::DOUBLE;
 			} else {
@@ -27,30 +28,14 @@ ConvertTo FindTypeToConvert(std::string argv) {
 			}
 		}
 	}
-	ConvertTo::UNKNOWN;
-}
+	return ConvertTo::UNKNOWN;
+}*/
 
-char charConversion(std::string argv) {
-}
 
-charConversion <
-int main(int argc, char **argv) {
-	if (argc == 2) {
-		std::string toBeConverted;
-		
-		std::cout << "char: " << charConversion(argv[1]) << std::endl;
-		//std::cout << "int: " << intConversion(argv[1]) << std::endl;
-		//std::cout << "float: " << floatConversion(argv[1]) << std::endl;
-		//std::cout << "double: " << doubleConversion(argv[1]) << std::endl;
-	}
-	return 0
-}
-
-// C-style Casting: (data_type)expression;
-
-// Function-style Casting: data_type(expression);
-
-/* Type Conversion operators: example_cast<new_type>(expression)
+/* C-style Casting:         (data_type)expression;
+ * Function-style Casting:  data_type(expression);
+ *
+ * Type Conversion operators: example_cast<new_type>(expression)
  *
  * static_cast
  *   - Performs all conversions allowed implicitly.
@@ -85,6 +70,3 @@ int main(int argc, char **argv) {
  *     Neither the content pointed nor the pointer type itself is checked.
  *   - It can also cast pointers to or from integer types.
  */
-
-// typeid: typeid (expression)
-// typeid allows to check the type of an expression

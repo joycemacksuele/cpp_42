@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/21 11:37:43 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/08/21 14:03:07 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/10/01 13:55:39 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ enum ConvertTo {
 	CHAR = 0,
 	INT = 1,
 	FLOAT = 2,
-	DOUBLE = 3
-};
+	DOUBLE = 3,
+	UNKNOWN = 4
+};// It is ordered from lower to higher data type
 
-/*class ExplicitConversion {
+class ExplicitConversion {
 	public:
 		ExplicitConversion(void);// Default (no args) constructor
 		ExplicitConversion(const std::string& name, const unsigned int& grade);// Overloaded constructor
@@ -44,7 +45,6 @@ enum ConvertTo {
 			virtual const char* what() const throw();
 		};
 
-
 		// getters and setters
 		const unsigned int&	getGrade() const;
 		void				setGrade(const unsigned int& grade);
@@ -54,6 +54,6 @@ enum ConvertTo {
 		const std::string	_name;
 };
 
-std::ostream& operator<<(std::ostream& outputStream, const ExplicitConversion& rhs);*/
+std::ostream& operator<<(std::ostream& outputStream, const ExplicitConversion& rhs);
 
 #endif
