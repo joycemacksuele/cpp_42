@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/21 11:37:43 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/10/23 11:06:26 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/10/23 16:55:58 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,18 @@
 #define CYAN    "\033[36m"
 #define BOLD    "\x1B[1m"
 
-enum ConvertTo {
-	CHAR = 0,
-	INT = 1,
-	FLOAT = 2,
-	DOUBLE = 3,
-	UNKNOWN = 4
-};// It is ordered from lower to higher data type
-
 class ExplicitConversion {
 	public:
-
 		ExplicitConversion(void);// Default (no args) constructor
 		ExplicitConversion(const std::string& literal, const bool verbose);// Overloaded constructor
 		ExplicitConversion(const ExplicitConversion& src);// Overloaded Copy constructor
 		ExplicitConversion& operator=(const ExplicitConversion& rhs);// Copy assignment operator
 		virtual ~ExplicitConversion(void);// Destructor
 
+		// It is ordered from lower to higher data type
+		enum ConvertTo {
+			CHAR, INT, FLOAT, DOUBLE, UNKNOWN
+		};
 
 		// getters and setters
 		const std::string& getLiteral() const;
@@ -60,17 +55,17 @@ class ExplicitConversion {
 		//void				setVerbose(const bool& verbose);
 
 		// class member methods
+		ConvertTo assignLiteralToTypes();
 		void assignLiteral();
 		bool isVerbose() const;
 		void hasSign(const int& sign);
 		void wrongInput(const bool& input);
 		bool inputIsWrong() const;
-		bool checkInput();
 
-		const std::string isChar();
-		const std::string isInt();
-		const std::string isFloat();
-		const std::string isDouble();
+		const std::string toChar();
+		const std::string toInt();
+		const std::string toFloat();
+		const std::string toDouble();
 
 
 		// Exceptions
@@ -81,12 +76,11 @@ class ExplicitConversion {
 			virtual const char* what() const throw();
 		};
 
-		//const std::string& charException() const;
-
 	private:
 		bool _verbose;
 		int _hasSign;
-		bool _wrongInput;
+		bool _wrongInput;// todo delete
+		ConvertTo _literalType;
 		std::string _literal;
 		std::string _char;
 		std::string _int;

@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/21 11:35:56 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/10/23 11:14:02 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/10/23 17:48:44 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@
 
 // Default constructor
 ExplicitConversion::ExplicitConversion(void)
-	: _verbose(false), _hasSign(0), _wrongInput(false), _literal(""), _char(""), _int(""), _float(""), _double("") {
+	: _verbose(false),
+	_hasSign(0),
+	_wrongInput(false),
+	_literal(""),
+	_char(""), _int(""), _float(""), _double("") {
 	if (isVerbose()) {
 		std::cout << GREEN << "ExplicitConversion" << RESET << " Default constructor called" << std::endl;
 	}
@@ -25,7 +29,11 @@ ExplicitConversion::ExplicitConversion(void)
 
 // Overloaded constructor
 ExplicitConversion::ExplicitConversion(const std::string& literal, const bool verbose)
-	: _verbose(verbose), _hasSign(0), _wrongInput(false), _literal(literal), _char(""), _int(""), _float(""), _double("") {
+	: _verbose(verbose),
+	_hasSign(0),
+	_wrongInput(false),
+	_literal(literal),
+	_char(""), _int(""), _float(""), _double("") {
 	if (isVerbose()) {
 		std::cout << GREEN << "ExplicitConversion" << RESET << " Overloaded constructor called" << std::endl;
 	}
@@ -118,106 +126,172 @@ void ExplicitConversion::hasSign(const int& sign) {
 	this->_hasSign = sign;
 }
 
-void ExplicitConversion::wrongInput(const bool& input) {
+void ExplicitConversion::wrongInput(const bool& input) {// todo delete
 	this->_wrongInput = input;
 }
 
 bool ExplicitConversion::inputIsWrong() const {
-	return _wrongInput;;
+	return _wrongInput;
 }
 
 
 /* ########################################################################## */
 //Class member methods
 void ExplicitConversion::assignLiteral() {
+	std::cout << RED << "literal = " << _literal << RESET << std::endl;
+	_literalType = assignLiteralToTypes();
+	std::cout << RED << "literal type = " << _literalType << RESET << std::endl;
 	try {
-		_char = isChar();
+		_char = toChar();
 	} catch (const std::exception& e) {
 		_char = e.what();
 	}
 
-	try {
+	/*try {
 		checkInput();
 	} catch (const std::exception& e) {
-
 		_int = e.what();
 		_float = e.what();
 		_double = e.what();
-
 		return ;
-	}
+	}*/
 
 	try {
-		_int = isInt();
+		_int = toInt();
 	} catch (const std::exception& e) {
 		_int = e.what();
 	}
 
 	try {
-		_float = isFloat();
+		_float = toFloat();
 	} catch (const std::exception& e) {
 		_float = e.what();
 	}
 
 	try {
-		_double = isDouble();
+		_double = toDouble();
 	} catch (const std::exception& e) {
 		_double = e.what();
 	}
 }
 
-const std::string ExplicitConversion::isChar() {
-	if (_literal.size() == 1) {
-		//std::cout << RED << std::isdigit(static_cast<unsigned char>(_literal.at(0))) << RESET <<std::endl;
-		// if the input (as a char) is not from 0 to 9 (digits) and they are
-		// ascii printable then it can be converted to a char
-		if (std::isprint(static_cast<unsigned char>(_literal.at(0))) != 0 &&
-				std::isdigit(static_cast<unsigned char>(_literal.at(0))) == 0) {
-			return std::to_string(_literal[0]);
-		} else {
-			// if the input (as a char) is from 0 to 9, its not displayable
-			if (std::isdigit(static_cast<unsigned char>(_literal.at(0))) != 0) {
+const std::string ExplicitConversion::toChar() {
+	switch(_literalType) {
+		case CHAR:
+			return std::string(1, _literal.at(0));
+		case INT:
+			try {
+				// if possible, the int literal can be coverted to its printable ascii element
+				int literalAsInt = stoi(_literal);
+				if (std::isprint(static_cast<unsigned char>(literalAsInt)) != 0) {
+					std::ostringstream intString;
+					intString << static_cast<char>(literalAsInt);
+					return intString.str();
+				} else {
+					throw ExplicitConversion::NotDisplayableException();
+				}
+			} catch (...) {
 				throw ExplicitConversion::NotDisplayableException();
-			} else {
+			}
+		case FLOAT:
+			try {
+				// if possible, the float literal can be coverted to int and then
+				// to its printable ascii element
+				int literalAsInt = stoi(_literal);
+				if (std::isprint(static_cast<unsigned char>(literalAsInt)) != 0) {
+					std::ostringstream intString;
+					intString << static_cast<char>(literalAsInt);
+					return intString.str();
+				} else {
+					throw ExplicitConversion::NotDisplayableException();
+				}
+			} catch (...) {
+				throw ExplicitConversion::NotDisplayableException();
+			}
+		case DOUBLE:
+			throw ExplicitConversion::ImpossibleException();
+		case UNKNOWN:
+			throw ExplicitConversion::ImpossibleException();
+	}
+
+			// if the input (as a char) is from 0 to 9, its not displayable
+		//throw ExplicitConversion::NotDisplayableException();
+		//throw ExplicitConversion::ImpossibleException();
+}
+
+const std::string ExplicitConversion::toInt() {
+	switch(_literalType) {
+		case CHAR:
+			// if the literal input is a char, it can print its ascii number:o
+			// int(_literal.at(0))
+			return std::to_string(static_cast<int>(_literal.at(0)));
+		case INT:
+			try {
+				return std::to_string(std::stoi(_literal));
+			} catch (...) {
 				throw ExplicitConversion::ImpossibleException();
 			}
-		}
-	} else {
-		throw ExplicitConversion::ImpossibleException();
-	}
-}
-
-const std::string ExplicitConversion::isInt() {
-	try {
-		if (_literal.back() != 'f' && std::strcmp(_literal.c_str(), "nan") != 0
-			&& _literal.find('.') == std::string::npos) {
-			return std::to_string(std::stoi(_literal));
-		}
-	} catch (...) {
-		throw ExplicitConversion::ImpossibleException();
-		//std::cout << "not INT - exception- CONTINUE" << std::endl;
-	}
-	throw ExplicitConversion::ImpossibleException();
-}
-
-const std::string ExplicitConversion::isFloat() {
-	std::ostringstream floatString;
-	floatString.setf(std::ios::fixed);
-	floatString.precision(1);
-	try {
-		std::cout << YELLOW << _literal << RESET << std::endl;
-		if (/*_literal.back() == 'f' &&*/checkInput()) {
-			floatString << std::stof(_literal);
-			return floatString.str();
-		}
-	} catch (...) {
-		throw ExplicitConversion::ImpossibleException();
-		//std::cout << "UNKNOWN FLOAT" << std::endl;
+		case FLOAT:
+			try {
+				return std::to_string(std::stoi(_literal));
+			} catch (...) {
+				throw ExplicitConversion::ImpossibleException();
+			}
+		case DOUBLE:
+			try {
+				std::ostringstream doubleString;
+				doubleString.setf(std::ios::fixed);
+				doubleString.precision(1);
+				doubleString << std::stod(_literal);
+				return doubleString.str();
+			} catch (...) {
+				throw ExplicitConversion::ImpossibleException();
+			}
+		case UNKNOWN:
+			throw ExplicitConversion::ImpossibleException();
 	}
 	throw ExplicitConversion::ImpossibleException();
 }
 
-const std::string ExplicitConversion::isDouble() {
+const std::string ExplicitConversion::toFloat() {
+	switch(_literalType) {
+		case CHAR:
+			// if the literal input is a char, it can print its ascii number:o
+			// int(_literal.at(0))
+			return std::to_string(static_cast<int>(_literal.at(0)));
+		case INT:
+			try {
+				return std::to_string(std::stoi(_literal));
+			} catch (...) {
+				throw ExplicitConversion::ImpossibleException();
+			}
+		case FLOAT:
+			try {
+				std::ostringstream floatString;
+				floatString.setf(std::ios::fixed);
+				floatString.precision(1);
+				floatString << std::stof(_literal) << 'f';
+				return floatString.str();
+			} catch (...) {
+				throw ExplicitConversion::ImpossibleException();
+			}
+		case DOUBLE:
+			try {
+				std::ostringstream doubleString;
+				doubleString.setf(std::ios::fixed);
+				doubleString.precision(1);
+				doubleString << std::stod(_literal);
+				return doubleString.str();
+			} catch (...) {
+				throw ExplicitConversion::ImpossibleException();
+			}
+		case UNKNOWN:
+			throw ExplicitConversion::ImpossibleException();
+	}
+	throw ExplicitConversion::ImpossibleException();
+}
+
+const std::string ExplicitConversion::toDouble() {
 	std::ostringstream doubleString;
 	doubleString.setf(std::ios::fixed);
 	doubleString.precision(1);
@@ -226,41 +300,60 @@ const std::string ExplicitConversion::isDouble() {
 		return doubleString.str();
 	} catch (...) {
 		throw ExplicitConversion::ImpossibleException();
-		//std::cout << "UNKNOWN DOUBLE" << std::endl;
 	}
 }
 
-bool ExplicitConversion::checkInput() {
+ExplicitConversion::ConvertTo ExplicitConversion::assignLiteralToTypes() {
 	unsigned long literal_size = _literal.size();
 
 	if (_literal.front() == '-' || _literal.front() == '+') {
 		hasSign(1);
 	}
-	// checking if literal with no sign equals any pseudo literal
+	// checking if literal with no sign equals any pseudo literal:
 	if (_literal.compare(_hasSign, literal_size, "inff") == 0 ||
-			_literal.compare(_hasSign, literal_size,"nanf") == 0 ||
-			_literal.compare(_hasSign, literal_size, "inf") == 0 ||
+			_literal.compare(_hasSign, literal_size,"nanf") == 0) {
+		return FLOAT;
+	}
+	if (_literal.compare(_hasSign, literal_size, "inf") == 0 ||
 			_literal.compare(_hasSign, literal_size, "nan") == 0) {
-		return true;// it is pseudo float or double
+		return DOUBLE;
 	}
 
-	for (unsigned long i = 0; i < literal_size; i++) {
-		if (std::isdigit(static_cast<unsigned char>(_literal[i]))) {//needed?
-			continue ;// it is an int (number/digit)
-		} else if (i != literal_size - 1 && _literal[i] != '.') {
-			// if index is not at the end of string but is also not a '.'
-			wrongInput(true);
-			throw ExplicitConversion::ImpossibleException();
-		}
-		// if index is at the end of string and it finds a 'f'
-		if (i == literal_size -1 && _literal.back() != 'f') {// todo != f?? or  ==
-			break ;// it is not a float
-		}
-
+	// if literal has 1 digit, this digit is printable and not a number/digit:
+	if (literal_size == 1 &&
+			std::isprint(static_cast<unsigned char>(_literal.at(0))) != 0 &&
+			std::isdigit(static_cast<unsigned char>(_literal.at(0))) == 0) {
+		return CHAR;
 	}
-	return true;
+
+	unsigned long i = _hasSign;
+	for (i = 0; i < literal_size; i++) {
+		// check if the index is not a digit or '.':
+		if (std::isdigit(static_cast<unsigned char>(_literal.at(i))) == 0 &&
+				_literal[i] != '.') {
+			break ;
+		}
+	}
+
+	std::cout << YELLOW << "i: " << i << " | size: " << literal_size << RESET << std::endl;
+	// if literal is at the end of the string by now and does not end with 'f':
+	if (i == literal_size && _literal.back() != 'f') {
+		// if literali has NO '.':
+		if (_literal.find('.') == std::string::npos) {
+			return INT;
+		} else if (_literal.find('.') != std::string::npos) {// TODO find a better way???
+			// if it did not return INT, it means it does not end with 'f' and has a '.':
+			return DOUBLE;
+		}
+	}
+	// if literal is at its penultimate index and it ends with 'f':
+	if (i == (literal_size - 1) && _literal.back() == 'f') {
+		return FLOAT;
+	}
+		return UNKNOWN;
+			//wrongInput(true);
+			//throw ExplicitConversion::ImpossibleException();
 }
-
 
 /* ########################################################################## */
 // Exception handling
@@ -272,18 +365,10 @@ const char* ExplicitConversion::ImpossibleException::what() const throw() {
 	return "Impossible";
 }
 
-/*const std::string& ExplicitConversion::charException() const {
-
-}*/
-
-/* ########################################################################## */
 /* ########################################################################## */
 // Overloaded insertion («) operator
 std::ostream& operator<<(std::ostream& outputStream, const ExplicitConversion& rhs) {
-
-
 	outputStream << "char: " << rhs.getChar() << std::endl;
-
 	if (rhs.inputIsWrong()) {
 		outputStream << "int: " << rhs.getInt() << std::endl;
 		outputStream << "float: " << rhs.getFloat() << std::endl;
@@ -291,7 +376,7 @@ std::ostream& operator<<(std::ostream& outputStream, const ExplicitConversion& r
 		return outputStream;
 	}
 	outputStream << "int: " << rhs.getInt() << std::endl;
-	outputStream << "float: " << rhs.getFloat() << 'f' << std::endl;
+	outputStream << "float: " << rhs.getFloat() << std::endl;
 	outputStream << "double: " << rhs.getDouble() << std::endl;
 
 	return outputStream;

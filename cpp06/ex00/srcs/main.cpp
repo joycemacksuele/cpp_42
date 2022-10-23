@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/01 12:27:48 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/10/22 17:24:26 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/10/23 14:30:49 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ bool inputIsPseudo(const std::string& argv) {
 	return true;
 }
 
-ConvertTo checkInput(std::string argv) {
+ExplicitConversion::ConvertTo checkInput(std::string argv) {
 	if (inputIsChar(argv)) {
-		return ::CHAR;
+		return ExplicitConversion::CHAR;
 	}
 
 	if (argv.front() == '-' || argv.front() == '+') {
@@ -98,18 +98,18 @@ ConvertTo checkInput(std::string argv) {
 	}
 
 	if (inputIsPseudo(argv) == false) {
-		return ::UNKNOWN;
+		return ExplicitConversion::UNKNOWN;
 	}
 	if (inputIsInt(argv)) {
-		return ::INT;
+		return ExplicitConversion::INT;
 	}
 	if (inputIsFloat(argv)) {
-		return ::FLOAT;
+		return ExplicitConversion::FLOAT;
 	}
 	if (inputIsDouble(argv)) {
-		return ::DOUBLE;
+		return ExplicitConversion::DOUBLE;
 	}
-	return ::UNKNOWN;
+	return ExplicitConversion::UNKNOWN;
 }
 
 
