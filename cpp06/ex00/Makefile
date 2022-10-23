@@ -6,13 +6,13 @@
 #    By: jfreitas <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/18 14:10:36 by jfreitas      #+#    #+#                  #
-#    Updated: 2022/08/21 13:27:59 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/10/21 10:22:02 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = convert
 
-##### COLORS #####
+##### COLORS and ACTIONS #####
 WHITE = \033[1;37m
 GREY = \033[1;30m
 RED = \033[1;31m
@@ -20,11 +20,13 @@ GREEN = \033[1;32m
 YELLOW = \033[1;33m
 LIGHT_BLUE = \033[1;36m
 RESET = \033[0m
+UP = \033[A
+CUT = \033[K
 
 ##### FLAGS #####
 #CC = clang++
 CC = c++
-FLAGS = -Iincludes -std=c++98 -Wall -Wextra -Werror -pedantic
+FLAGS = -Iincludes -std=c++98 -Wall -Wextra -Werror -pedantic-errors
 # -Wshadow if variables/types/typedefs/parameters... have the same name (i.e. shadows one another).
 # -Wno-shadow is the default for the compiler, determinating that no warning is issued when variables are being shadowed.
 
@@ -82,10 +84,10 @@ $(OBJPATH)/%.o: $(SRCPATH)/%.cpp $(INC_DEP)
 clean:
 	@echo "\n$(RESET)$(YELLOW)Removing object directory$(RESET)"
 	rm -rf $(OBJPATH)
-	@echo "\n\c"
+	echo "$(UP)$(CUT)"
 
 fclean: clean print
-	@echo "\n$(RESET)$(YELLOW)\nRemoving $(NAME) binary$(RESET)"
+	@echo "\n\n$(RESET)$(YELLOW)Removing $(NAME) binary$(RESET)"
 	rm -f $(NAME)
 	@echo "\n\c"
 
