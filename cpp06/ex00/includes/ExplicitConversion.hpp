@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/21 11:37:43 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/10/23 16:55:58 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/10/30 14:47:57 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,14 @@ class ExplicitConversion {
 		};
 
 		// getters and setters
-		const std::string& getLiteral() const;
-		void setLiteral(const std::string& literal);
 		const std::string& getChar() const;
-		//void				setChar(const char& charLiteral);
 		const std::string& getInt() const;
-		//void				setInt(const int& intLiteral);
 		const std::string& getFloat() const;
-		//void				setFloat(const float& floatLiteral);
 		const std::string& getDouble() const;
-		//void				setDouble(const double& doubleLiteral);
-		//void				setVerbose(const bool& verbose);
 
 		// class member methods
 		ConvertTo assignLiteralToTypes();
+		int checkPrecision();
 		void assignLiteral();
 		bool isVerbose() const;
 		void hasSign(const int& sign);
@@ -67,7 +61,6 @@ class ExplicitConversion {
 		const std::string toFloat();
 		const std::string toDouble();
 
-
 		// Exceptions
 		class NotDisplayableException : public std::exception {
 			virtual const char* what() const throw();
@@ -77,15 +70,15 @@ class ExplicitConversion {
 		};
 
 	private:
-		bool _verbose;
-		int _hasSign;
-		bool _wrongInput;// todo delete
-		ConvertTo _literalType;
 		std::string _literal;
 		std::string _char;
 		std::string _int;
 		std::string _float;
 		std::string _double;
+		ConvertTo _literalType;
+		int _hasSign;
+		int _precision;
+		bool _verbose;
 };
 
 std::ostream& operator<<(std::ostream& outputStream, const ExplicitConversion& rhs);

@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/21 11:35:56 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/10/23 17:48:44 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/10/30 14:57:02 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,22 @@
 
 // Default constructor
 ExplicitConversion::ExplicitConversion(void)
-	: _verbose(false),
-	_hasSign(0),
-	_wrongInput(false),
-	_literal(""),
-	_char(""), _int(""), _float(""), _double("") {
+	:_literal(""), _char(""), _int(""), _float(""), _double(""),
+	_hasSign(0), _precision(1), _verbose(false) {
 	if (isVerbose()) {
-		std::cout << GREEN << "ExplicitConversion" << RESET << " Default constructor called" << std::endl;
+		std::cout << GREEN << "ExplicitConversion" << RESET;
+		std::cout << " Default constructor called" << std::endl;
 	}
 	return ;
 }
 
 // Overloaded constructor
 ExplicitConversion::ExplicitConversion(const std::string& literal, const bool verbose)
-	: _verbose(verbose),
-	_hasSign(0),
-	_wrongInput(false),
-	_literal(literal),
-	_char(""), _int(""), _float(""), _double("") {
+	: _literal(literal), _char(""), _int(""), _float(""), _double(""),
+	_hasSign(0), _precision(1), _verbose(verbose) {
 	if (isVerbose()) {
-		std::cout << GREEN << "ExplicitConversion" << RESET << " Overloaded constructor called" << std::endl;
+		std::cout << GREEN << std::endl << "ExplicitConversion" << RESET;
+		std::cout << " Overloaded constructor called" << std::endl;
 	}
 	return ;
 }
@@ -43,7 +39,8 @@ ExplicitConversion::ExplicitConversion(const std::string& literal, const bool ve
 // Copy constructor
 ExplicitConversion::ExplicitConversion(const ExplicitConversion &src) {
 	if (isVerbose()) {
-		std::cout << GREEN << "ExplicitConversion" << RESET << " Copy constructor called" << std::endl;
+		std::cout << GREEN << "ExplicitConversion" << RESET;
+		std::cout << " Copy constructor called" << std::endl;
 	}
 	*this = src; // this will call the copy assignment operator
 }
@@ -51,14 +48,19 @@ ExplicitConversion::ExplicitConversion(const ExplicitConversion &src) {
 // Copy assignment operator
 ExplicitConversion& ExplicitConversion::operator=(const ExplicitConversion& rhs) {
 	if (isVerbose()) {
-		std::cout << GREEN << "ExplicitConversion" << RESET << " Copy assignment operator called" << std::endl;
+		std::cout << GREEN << "ExplicitConversion" << RESET ;
+		std::cout << " Copy assignment operator called" << std::endl;
 	}
 	if (this != &rhs) {
-		this->_literal = rhs.getLiteral();
-		this->_char = rhs.getChar();
-		this->_int = rhs.getInt();
-		this->_float = rhs.getFloat();
-		this->_double = rhs.getDouble();
+		this->_literal = rhs._literal;
+		this->_char = rhs._char;
+		this->_int = rhs._int;
+		this->_float = rhs._float;
+		this->_double = rhs._double;
+		this->_literalType = rhs._literalType;
+		this->_hasSign = rhs._hasSign;
+		this->_precision = rhs._precision;
+		this->_verbose = rhs._verbose;
 	}
 	return *this;
 }
@@ -66,7 +68,8 @@ ExplicitConversion& ExplicitConversion::operator=(const ExplicitConversion& rhs)
 // Destructor
 ExplicitConversion::~ExplicitConversion(void) {
 	if (isVerbose()) {
-		std::cout << RED << "ExplicitConversion" << RESET << " Destructor called" << std::endl << std::endl;
+		std::cout << RED << "ExplicitConversion" << RESET;
+		std::cout << " Destructor called" << std::endl << std::endl;
 	}
 	return ;
 }
@@ -74,237 +77,35 @@ ExplicitConversion::~ExplicitConversion(void) {
 /* ########################################################################## */
 // getters and setters
 
-const std::string& ExplicitConversion::getLiteral() const {
-	return this->_literal;
-}
-
-//void ExplicitConversion::setLiteral(const std::string& literal) {
-//	this->_literal = literal;
-//}
-
 const std::string& ExplicitConversion::getChar() const {
 	return this->_char;
 }
-
-//void ExplicitConversion::setChar(const char& charLiteral) {
-//	this->_char = charLiteral;
-//}
 
 const std::string& ExplicitConversion::getInt() const {
 	return this->_int;
 }
 
-//void ExplicitConversion::setInt(const int& intLiteral) {
-//	this->_int = intLiteral;
-//}
-
 const std::string& ExplicitConversion::getFloat() const {
 	return this->_float;
 }
-
-//void ExplicitConversion::setFloat(const float& floatLiteral) {
-//	this->_float = floatLiteral;
-//}
 
 const std::string& ExplicitConversion::getDouble() const {
 	return this->_double;
 }
 
-//void ExplicitConversion::setDouble(const double& doubleLiteral) {
-//	this->_double = doubleLiteral;
-//}
-
 bool ExplicitConversion::isVerbose() const {
 	return _verbose;
 }
-
-//void ExplicitConversion::setVerbose(const bool& verbose) {
-//	this->_verbose = verbose;
-//}
 
 void ExplicitConversion::hasSign(const int& sign) {
 	this->_hasSign = sign;
 }
 
-void ExplicitConversion::wrongInput(const bool& input) {// todo delete
-	this->_wrongInput = input;
-}
-
-bool ExplicitConversion::inputIsWrong() const {
-	return _wrongInput;
-}
-
-
 /* ########################################################################## */
 //Class member methods
-void ExplicitConversion::assignLiteral() {
-	std::cout << RED << "literal = " << _literal << RESET << std::endl;
-	_literalType = assignLiteralToTypes();
-	std::cout << RED << "literal type = " << _literalType << RESET << std::endl;
-	try {
-		_char = toChar();
-	} catch (const std::exception& e) {
-		_char = e.what();
-	}
-
-	/*try {
-		checkInput();
-	} catch (const std::exception& e) {
-		_int = e.what();
-		_float = e.what();
-		_double = e.what();
-		return ;
-	}*/
-
-	try {
-		_int = toInt();
-	} catch (const std::exception& e) {
-		_int = e.what();
-	}
-
-	try {
-		_float = toFloat();
-	} catch (const std::exception& e) {
-		_float = e.what();
-	}
-
-	try {
-		_double = toDouble();
-	} catch (const std::exception& e) {
-		_double = e.what();
-	}
-}
-
-const std::string ExplicitConversion::toChar() {
-	switch(_literalType) {
-		case CHAR:
-			return std::string(1, _literal.at(0));
-		case INT:
-			try {
-				// if possible, the int literal can be coverted to its printable ascii element
-				int literalAsInt = stoi(_literal);
-				if (std::isprint(static_cast<unsigned char>(literalAsInt)) != 0) {
-					std::ostringstream intString;
-					intString << static_cast<char>(literalAsInt);
-					return intString.str();
-				} else {
-					throw ExplicitConversion::NotDisplayableException();
-				}
-			} catch (...) {
-				throw ExplicitConversion::NotDisplayableException();
-			}
-		case FLOAT:
-			try {
-				// if possible, the float literal can be coverted to int and then
-				// to its printable ascii element
-				int literalAsInt = stoi(_literal);
-				if (std::isprint(static_cast<unsigned char>(literalAsInt)) != 0) {
-					std::ostringstream intString;
-					intString << static_cast<char>(literalAsInt);
-					return intString.str();
-				} else {
-					throw ExplicitConversion::NotDisplayableException();
-				}
-			} catch (...) {
-				throw ExplicitConversion::NotDisplayableException();
-			}
-		case DOUBLE:
-			throw ExplicitConversion::ImpossibleException();
-		case UNKNOWN:
-			throw ExplicitConversion::ImpossibleException();
-	}
-
-			// if the input (as a char) is from 0 to 9, its not displayable
-		//throw ExplicitConversion::NotDisplayableException();
-		//throw ExplicitConversion::ImpossibleException();
-}
-
-const std::string ExplicitConversion::toInt() {
-	switch(_literalType) {
-		case CHAR:
-			// if the literal input is a char, it can print its ascii number:o
-			// int(_literal.at(0))
-			return std::to_string(static_cast<int>(_literal.at(0)));
-		case INT:
-			try {
-				return std::to_string(std::stoi(_literal));
-			} catch (...) {
-				throw ExplicitConversion::ImpossibleException();
-			}
-		case FLOAT:
-			try {
-				return std::to_string(std::stoi(_literal));
-			} catch (...) {
-				throw ExplicitConversion::ImpossibleException();
-			}
-		case DOUBLE:
-			try {
-				std::ostringstream doubleString;
-				doubleString.setf(std::ios::fixed);
-				doubleString.precision(1);
-				doubleString << std::stod(_literal);
-				return doubleString.str();
-			} catch (...) {
-				throw ExplicitConversion::ImpossibleException();
-			}
-		case UNKNOWN:
-			throw ExplicitConversion::ImpossibleException();
-	}
-	throw ExplicitConversion::ImpossibleException();
-}
-
-const std::string ExplicitConversion::toFloat() {
-	switch(_literalType) {
-		case CHAR:
-			// if the literal input is a char, it can print its ascii number:o
-			// int(_literal.at(0))
-			return std::to_string(static_cast<int>(_literal.at(0)));
-		case INT:
-			try {
-				return std::to_string(std::stoi(_literal));
-			} catch (...) {
-				throw ExplicitConversion::ImpossibleException();
-			}
-		case FLOAT:
-			try {
-				std::ostringstream floatString;
-				floatString.setf(std::ios::fixed);
-				floatString.precision(1);
-				floatString << std::stof(_literal) << 'f';
-				return floatString.str();
-			} catch (...) {
-				throw ExplicitConversion::ImpossibleException();
-			}
-		case DOUBLE:
-			try {
-				std::ostringstream doubleString;
-				doubleString.setf(std::ios::fixed);
-				doubleString.precision(1);
-				doubleString << std::stod(_literal);
-				return doubleString.str();
-			} catch (...) {
-				throw ExplicitConversion::ImpossibleException();
-			}
-		case UNKNOWN:
-			throw ExplicitConversion::ImpossibleException();
-	}
-	throw ExplicitConversion::ImpossibleException();
-}
-
-const std::string ExplicitConversion::toDouble() {
-	std::ostringstream doubleString;
-	doubleString.setf(std::ios::fixed);
-	doubleString.precision(1);
-	try {
-		doubleString << std::stod(_literal);
-		return doubleString.str();
-	} catch (...) {
-		throw ExplicitConversion::ImpossibleException();
-	}
-}
 
 ExplicitConversion::ConvertTo ExplicitConversion::assignLiteralToTypes() {
-	unsigned long literal_size = _literal.size();
+	unsigned long literal_size = _literal.size();// size_t is unsigned long
 
 	if (_literal.front() == '-' || _literal.front() == '+') {
 		hasSign(1);
@@ -326,33 +127,246 @@ ExplicitConversion::ConvertTo ExplicitConversion::assignLiteralToTypes() {
 		return CHAR;
 	}
 
-	unsigned long i = _hasSign;
-	for (i = 0; i < literal_size; i++) {
-		// check if the index is not a digit or '.':
+	unsigned long i = 0;
+	int hasMoreDots = 0;
+
+	// Checking the _literal string starting after its sign:
+	for (i = _hasSign; i < literal_size; i++) {
+		// If the index is not a digit neither a '.', it will break to check
+		// ater if its a float:
 		if (std::isdigit(static_cast<unsigned char>(_literal.at(i))) == 0 &&
-				_literal[i] != '.') {
+				_literal.at(i) != '.') {
 			break ;
+		}
+		if (_literal.at(i) == '.') {
+			if (++hasMoreDots > 1) {
+				std::cout << CYAN << "hasMoreDots = " << hasMoreDots << RESET << std::endl;
+				return UNKNOWN;
+			}
 		}
 	}
 
-	std::cout << YELLOW << "i: " << i << " | size: " << literal_size << RESET << std::endl;
 	// if literal is at the end of the string by now and does not end with 'f':
+	_precision = checkPrecision();
+	//std::cout << YELLOW << "i: " << i << " | size: "  << literal_size << "| precision: " << _precision << RESET << std::endl;
 	if (i == literal_size && _literal.back() != 'f') {
-		// if literali has NO '.':
-		if (_literal.find('.') == std::string::npos) {
-			return INT;
-		} else if (_literal.find('.') != std::string::npos) {// TODO find a better way???
-			// if it did not return INT, it means it does not end with 'f' and has a '.':
-			return DOUBLE;
-		}
+		return _literal.find('.') == std::string::npos ? INT : DOUBLE;
 	}
 	// if literal is at its penultimate index and it ends with 'f':
 	if (i == (literal_size - 1) && _literal.back() == 'f') {
 		return FLOAT;
 	}
-		return UNKNOWN;
-			//wrongInput(true);
-			//throw ExplicitConversion::ImpossibleException();
+	return UNKNOWN;
+}
+
+int ExplicitConversion::checkPrecision() {
+	unsigned long index = _literal.find(".");
+	if (index == std::string::npos) {
+		return 1;
+	}
+	unsigned long literalSize = _literal.size();
+	if (_literal.back() == 'f') {
+		literalSize--;
+		std::cout << CYAN << "size without f: " << literalSize << std::endl;
+	}
+	int precision = 0;
+	// starting from the next index in which '.' is
+	while (index + 1 < literalSize) {
+		index++;
+		precision++;
+	}
+	return precision == 0 ? 1 : precision;
+}
+
+void ExplicitConversion::assignLiteral() {
+	_literalType = assignLiteralToTypes();
+	//std::cout << YELLOW << "literal type = " << _literalType << RESET << std::endl;
+	try {
+		_char = toChar();
+	} catch (const std::exception& e) {
+		_char = e.what();
+	}
+
+	try {
+		_int = toInt();
+	} catch (const std::exception& e) {
+		_int = e.what();
+	}
+
+	try {
+		_float = toFloat();
+	} catch (const std::exception& e) {
+		_float = e.what();
+	}
+
+	try {
+		_double = toDouble();
+	} catch (const std::exception& e) {
+		_double = e.what();
+	}
+}
+
+const std::string ExplicitConversion::toChar() {
+	std::ostringstream outString;
+	outString.setf(std::ios::fixed);
+	outString.precision(_precision);
+	switch (_literalType) {
+		case CHAR:
+			return std::string(1, _literal.at(0));
+		case INT:
+			try {
+				// if possible, the int literal can be coverted to its
+				// printable ascii element
+				int literalAsInt = std::stoi(_literal);
+				if (std::isprint(static_cast<unsigned char>(literalAsInt)) != 0) {
+					outString << static_cast<char>(literalAsInt);
+					return outString.str();
+				} else {
+					break ;
+				}
+			} catch (...) {
+				throw ExplicitConversion::ImpossibleException();
+			}
+			break;
+		case FLOAT:
+			try {
+				// if possible, the float literal can be coverted to int and then
+				// to its printable ascii element
+				int literalAsInt = std::stoi(_literal);// static_cast<int>(literalAsFloat);
+				if (std::isprint(static_cast<unsigned char>(literalAsInt)) != 0) {
+					outString << static_cast<char>(literalAsInt);
+					return outString.str();
+				} else {
+					break ;
+				}
+			} catch (...) {
+				throw ExplicitConversion::ImpossibleException();
+			}
+			break;
+		case DOUBLE:
+			try {
+				// if possible, the double literal can be coverted to int and
+				// then to its printable ascii element
+				int literalAsInt = std::stoi(_literal);
+				if (std::isprint(static_cast<unsigned char>(literalAsInt)) != 0) {
+					outString << static_cast<char>(literalAsInt);
+					return outString.str();
+				} else {
+					break ;
+				}
+			} catch (...) {
+				throw ExplicitConversion::ImpossibleException();
+			}
+			break;
+		case UNKNOWN:
+			throw ExplicitConversion::ImpossibleException();
+			break;
+	}
+	throw ExplicitConversion::NotDisplayableException();
+}
+
+const std::string ExplicitConversion::toInt() {
+	switch (_literalType) {
+		case CHAR:
+			// if the literal input is a char, it can print its ascii number
+			// int(_literal.at(0))
+			return std::to_string(static_cast<int>(_literal.at(0)));
+		case INT:
+			return _literal;
+		case FLOAT:
+			try {
+				//std::cout << CYAN << "literal as int= " << std::stoi(_literal) << RESET << std::endl;
+				return std::to_string(std::stoi(_literal));
+			} catch (...) {
+				throw ExplicitConversion::ImpossibleException();
+			}
+			break;
+		case DOUBLE:
+			try {
+				return std::to_string(std::stoi(_literal));
+			} catch (...) {
+				throw ExplicitConversion::ImpossibleException();
+			}
+			break;
+		case UNKNOWN:
+			throw ExplicitConversion::ImpossibleException();
+			break;
+	}
+}
+
+const std::string ExplicitConversion::toFloat() {
+	std::ostringstream outString;
+	outString.setf(std::ios::fixed);
+	outString.precision(_precision);
+	switch (_literalType) {
+		case CHAR:
+			// if the literal input is a char, it can print its ascii number:
+			// int(_literal.at(0))
+			try {
+				int literalAsInt = static_cast<int>(_literal.at(0));
+				outString << std::stof(std::to_string(literalAsInt)) << 'f';
+				return outString.str();
+			} catch (...) {
+				throw ExplicitConversion::ImpossibleException();
+			}
+			break;
+		case INT:
+			try {
+				outString << std::stof(_literal) << 'f';
+				return outString.str();
+			} catch (...) {
+				throw ExplicitConversion::ImpossibleException();
+			}
+			break;
+		case FLOAT:
+			try {
+				return _literal;
+			} catch (...) {
+				throw ExplicitConversion::ImpossibleException();
+			}
+			break;
+		case DOUBLE:
+			try {
+				outString << std::stof(_literal) << 'f';
+				return outString.str();
+			} catch (...) {
+				throw ExplicitConversion::ImpossibleException();
+			}
+			break;
+		case UNKNOWN:
+			throw ExplicitConversion::ImpossibleException();
+			break;
+		//default:
+	}
+}
+
+const std::string ExplicitConversion::toDouble() {
+	std::ostringstream doubleString;
+	doubleString.setf(std::ios::fixed);
+	doubleString.precision(_precision);
+	try {
+		switch (_literalType) {
+			case CHAR: {
+				// if the literal input is a char, it can print its ascii number:
+				// int(_literal.at(0))
+				int literalAsInt = static_cast<int>(_literal.at(0));
+				doubleString << std::stod(std::to_string(literalAsInt));
+				return doubleString.str();
+			}
+			case INT:
+				doubleString << std::stod(_literal);
+				return doubleString.str();
+			case FLOAT:
+				doubleString << std::stod(_literal);
+				return doubleString.str();
+			case DOUBLE:
+				return _literal;
+			case UNKNOWN:
+				throw ;
+		}
+	} catch (...) {
+		throw ExplicitConversion::ImpossibleException();
+	}
 }
 
 /* ########################################################################## */
@@ -368,21 +382,21 @@ const char* ExplicitConversion::ImpossibleException::what() const throw() {
 /* ########################################################################## */
 // Overloaded insertion («) operator
 std::ostream& operator<<(std::ostream& outputStream, const ExplicitConversion& rhs) {
+	outputStream << std::endl;
 	outputStream << "char: " << rhs.getChar() << std::endl;
-	if (rhs.inputIsWrong()) {
-		outputStream << "int: " << rhs.getInt() << std::endl;
-		outputStream << "float: " << rhs.getFloat() << std::endl;
-		outputStream << "double: " << rhs.getDouble() << std::endl;
-		return outputStream;
-	}
 	outputStream << "int: " << rhs.getInt() << std::endl;
 	outputStream << "float: " << rhs.getFloat() << std::endl;
 	outputStream << "double: " << rhs.getDouble() << std::endl;
-
+	outputStream << std::endl;
 	return outputStream;
 }
 
-/* C-style Casting:         (data_type)expression;
+/* ########################################################################## */
+/* ########################################################################## */
+
+/* About casting:
+ *
+ * C-style Casting:         (data_type)expression;
  * Function-style Casting:  data_type(expression);
  *
  * Type Conversion operators: example_cast<new_type>(expression)
