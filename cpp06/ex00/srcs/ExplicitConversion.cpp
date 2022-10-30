@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/21 11:35:56 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/10/30 14:57:02 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/10/30 15:19:08 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -394,12 +394,28 @@ std::ostream& operator<<(std::ostream& outputStream, const ExplicitConversion& r
 /* ########################################################################## */
 /* ########################################################################## */
 
-/* About casting:
+/* About Type Conversion
  *
- * C-style Casting:         (data_type)expression;
- * Function-style Casting:  data_type(expression);
+ * There are 2 types of type conversion in C++:
  *
- * Type Conversion operators: example_cast<new_type>(expression)
+ * 1. Implicit Conversion (also known as automatic conversion)
+ * - Is done automatically done by the compiler, and data loss can happen
+ * when data of a larger type is converted to data of a smaller type.
+ *    E.g.:
+ *        int num_int;
+ *        double num_double = 9.99;
+ *        num_int = num_double;
+ *       // here num_int will be 9, so data loss occurred.
+ *
+ * 2. Explicit Conversion (also known as Type Casting)
+ * - Is done manually and there are 3 major ways to do so in c++:
+ *    1. C-style Type Casting:         (data_type)expression;
+ *    2 .Function-style Type Casting:  data_type(expression);
+ *    3. Type Conversion operators:    example_cast<new_type>(expression)
+ *
+ * ------
+ *
+ * There are 4 Type Conversion operators::
  *
  * static_cast
  *   - Performs all conversions allowed implicitly.
@@ -429,6 +445,7 @@ std::ostream& operator<<(std::ostream& outputStream, const ExplicitConversion& r
  *   a pointer, either to be set or to be removed.
  *   - Obs: Removing the constness of a pointed object to actually write to it
  *   causes undefined behavior.
+ *
  * reinterpret_cast
  *   - Converts any pointer type to other pointer type, even of unrelated classes.
  *     Neither the content pointed nor the pointer type itself is checked.
