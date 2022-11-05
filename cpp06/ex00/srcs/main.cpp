@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/01 12:27:48 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/05 17:09:27 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/05 17:41:40 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,14 @@ int main(int argc, char **argv) {
 		std::cout << std::endl;
 		std::cout << "Max int: " << std::numeric_limits<int>::max() << std::endl;
 		std::cout << "Min int: " << std::numeric_limits<int>::min() << std::endl;
+		std::cout << "Inf int: " << std::numeric_limits<int>::infinity() << std::endl;
 		std::cout << "Max float: " << std::numeric_limits<float>::max() << std::endl;
 		std::cout << "Min float: " << std::numeric_limits<float>::lowest() << std::endl;
+		std::cout << "Inf float: " << std::numeric_limits<float>::infinity() << std::endl;
 		std::cout << "Mantissa (decimal part) float: " << std::numeric_limits<float>::max_digits10 - 2 << std::endl;// -2 that are used to convert from decimal to binary
 		std::cout << "Max double: " << std::numeric_limits<double>::max() << std::endl;
 		std::cout << "Min double: " << std::numeric_limits<double>::lowest() << std::endl;
+		std::cout << "Inf double: " << std::numeric_limits<double>::infinity() << std::endl;
 		std::cout << "Mantissa (decimal part) double: " << std::numeric_limits<double>::max_digits10 - 3 << std::endl;// -2 that are used to convert from decimal to binary
 		std::cout << std::endl;
 		return 0;

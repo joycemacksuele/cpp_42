@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/21 11:37:43 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/05 12:46:33 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/05 19:39:15 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ class ExplicitConversion {
 		bool inputIsWrong() const;
 
 		const std::string toChar();
+		const std::string numberToChar();
 		const std::string toInt();
 		const std::string toFloat();
 		const std::string toDouble();
@@ -71,6 +72,9 @@ class ExplicitConversion {
 		class Overflow : public std::exception {
 			virtual const char* what() const throw();
 		};
+		class NotANumber : public std::exception {
+			virtual const char* what() const throw();
+		};
 
 	private:
 		std::string _literal;
@@ -80,8 +84,8 @@ class ExplicitConversion {
 		std::string _double;
 		ConvertTo _literalType;
 		int _hasSign;
-		int _precision;
 		bool _verbose;
+		std::ostringstream _outString;
 };
 
 std::ostream& operator<<(std::ostream& outputStream, const ExplicitConversion& rhs);

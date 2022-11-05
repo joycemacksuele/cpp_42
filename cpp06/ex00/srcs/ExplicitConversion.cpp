@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/21 11:35:56 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/05 16:48:33 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/05 19:45:42 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,24 @@
 // Default constructor
 ExplicitConversion::ExplicitConversion(void)
 	:_literal(""), _char(""), _int(""), _float(""), _double(""),
-	_hasSign(0), _precision(1), _verbose(false) {
+	_literalType(UNKNOWN), _hasSign(0), _verbose(false) {
 	if (isVerbose()) {
 		std::cout << GREEN << "ExplicitConversion" << RESET;
 		std::cout << " Default constructor called" << std::endl;
 	}
+	_outString.setf(std::ios::fixed);
 	return ;
 }
 
 // Overloaded constructor
 ExplicitConversion::ExplicitConversion(const std::string& literal, const bool verbose)
 	: _literal(literal), _char(""), _int(""), _float(""), _double(""),
-	_hasSign(0), _precision(1), _verbose(verbose) {
+	_literalType(UNKNOWN), _hasSign(0), _verbose(verbose) {
 	if (isVerbose()) {
 		std::cout << GREEN << std::endl << "ExplicitConversion" << RESET;
 		std::cout << " Overloaded constructor called" << std::endl;
 	}
+	_outString.setf(std::ios::fixed);
 	return ;
 }
 
@@ -59,7 +61,6 @@ ExplicitConversion& ExplicitConversion::operator=(const ExplicitConversion& rhs)
 		this->_double = rhs._double;
 		this->_literalType = rhs._literalType;
 		this->_hasSign = rhs._hasSign;
-		this->_precision = rhs._precision;
 		this->_verbose = rhs._verbose;
 	}
 	return *this;
@@ -105,9 +106,12 @@ void ExplicitConversion::hasSign(const int& sign) {
 //Class member methods
 
 ExplicitConversion::ConvertTo ExplicitConversion::assignLiteralToTypes() {
-	//Here I am not chekcing the limits of the numbers since the stoi/f/d will
-	//trhow exceptions if it is "out of range".
+	// Here I am not chekcing the limits of the numbers since the stoi/f/d will
+	// trhow exceptions if it is "out of range".
 	unsigned long literal_size = _literal.size();// size_t is unsigned long
+
+	// setting the presition of the float and double
+	_outString.precision(checkPrecision());
 
 	if (_literal.front() == '-' || _literal.front() == '+') {
 		hasSign(1);
@@ -122,7 +126,7 @@ ExplicitConversion::ConvertTo ExplicitConversion::assignLiteralToTypes() {
 		return DOUBLE;
 	}
 
-	// if literal has 1 digit, this digit is printable and not a number/digit:
+	// if literal has 1 digit that is printable and not a number:
 	if (literal_size == 1 &&
 			std::isprint(static_cast<unsigned char>(_literal.at(0))) != 0 &&
 			std::isdigit(static_cast<unsigned char>(_literal.at(0))) == 0) {
@@ -141,18 +145,18 @@ ExplicitConversion::ConvertTo ExplicitConversion::assignLiteralToTypes() {
 			break ;
 		}
 		if (_literal.at(i) == '.') {
+			// if it has nore than 1 '.':
 			if (++hasMoreDots > 1) {
-				std::cout << CYAN << "hasMoreDots = " << hasMoreDots << RESET << std::endl;
 				return UNKNOWN;
 			}
 		}
 	}
 
 	// if literal is at the end of the string by now and does not end with 'f':
-	_precision = checkPrecision();
 	if (i == literal_size && _literal.back() != 'f') {
 		return _literal.find('.') == std::string::npos ? INT : DOUBLE;
 	}
+
 	// if literal is at its penultimate index and it ends with 'f':
 	if (i == (literal_size - 1) && _literal.back() == 'f') {
 		// Example of first converting the literal string to its type (this
@@ -185,7 +189,8 @@ int ExplicitConversion::checkPrecision() {
 
 void ExplicitConversion::assignLiteral() {
 	_literalType = assignLiteralToTypes();
-	//std::cout << YELLOW << "literal type =  "  << _literalType << " | literal = " << _literal << RESET << std::endl;
+	std::cout << YELLOW << "literal type =  "  << _literalType << std::endl;
+	std::cout << "literal = " << _literal << RESET << std::endl;
 	try {
 		_char = toChar();
 	} catch (const std::exception& e) {
@@ -208,66 +213,49 @@ void ExplicitConversion::assignLiteral() {
 	}
 }
 
+/* -------------------------------------------------------------------------- */
+
 const std::string ExplicitConversion::toChar() {
-	std::ostringstream outString;
-	outString.setf(std::ios::fixed);
-	outString.precision(_precision);
+	_outString.str("");
 	try {
 		switch (_literalType) {
 			case CHAR:
-				return std::string(1, _literal.at(0));
-			case INT: {
-				// if possible, the int literal can be coverted to its
-				// printable ascii element
-				int literalAsInt = std::stoi(_literal);
-				if (literalAsInt < 32 || literalAsInt == 127) {
-					throw ExplicitConversion::NotDisplayableException();
-				}
-				if (std::isprint(literalAsInt) != 0) {
-					outString << static_cast<char>(literalAsInt);
-					return outString.str();
-				}
-				throw ExplicitConversion::ImpossibleException();
-			}
-			case FLOAT: {
-				// if possible, the float literal can be coverted to int and then
-				// to its printable ascii element
-				int literalAsInt = std::stoi(_literal);
-				if (literalAsInt < 32 || literalAsInt == 127) {
-					throw ExplicitConversion::NotDisplayableException();
-				}
-				if (std::isprint(literalAsInt) != 0) {
-					outString << static_cast<char>(literalAsInt);
-					return outString.str();
-				}
-				throw ExplicitConversion::ImpossibleException();
-			}
-			case DOUBLE: {
-				// if possible, the double literal can be coverted to int and
-				// then to its printable ascii element
-				int literalAsInt = std::stoi(_literal);
-				if (literalAsInt < 32 || literalAsInt == 127) {
-					throw ExplicitConversion::NotDisplayableException();
-				}
-				if (std::isprint(literalAsInt) != 0) {
-					outString << static_cast<char>(literalAsInt);
-					return outString.str();
-				}
-				throw ExplicitConversion::ImpossibleException();
-			}
+				_outString << '\'' << _literal.at(0) << '\'';
+				return _outString.str();
+				//return std::string(1, _literal.at(0));
+			case INT:
+				return numberToChar();
+			case FLOAT:
+				return numberToChar();
+			case DOUBLE:
+				return numberToChar();
 			case UNKNOWN:
 				throw ExplicitConversion::ImpossibleException();
 		}
 	} catch (ExplicitConversion::NotDisplayableException const& ex) {
 		throw ExplicitConversion::NotDisplayableException();
-	} catch (std::out_of_range const& ex) {
-		throw ExplicitConversion::Overflow();
 	} catch (...) {
 		throw ExplicitConversion::ImpossibleException();
 	}
+	throw ExplicitConversion::ImpossibleException();
+}
+
+const std::string ExplicitConversion::numberToChar() {
+	// if possible, the int, floar or double literal can be coverted
+	// to int and then to its printable ascii element
+	int literalAsInt = std::stoi(_literal);
+	if (literalAsInt < 32 || literalAsInt == 127) {
+		throw ExplicitConversion::NotDisplayableException();
+	}
+	if (std::isprint(literalAsInt) != 0) {
+		_outString << '\'' << static_cast<char>(literalAsInt) << '\'';
+		return _outString.str();
+	}
+	throw ExplicitConversion::ImpossibleException();
 }
 
 const std::string ExplicitConversion::toInt() {
+	_outString.str("");
 	try {
 		switch (_literalType) {
 			case INT:
@@ -277,91 +265,96 @@ const std::string ExplicitConversion::toInt() {
 			// int(_literal.at(0))
 				return std::to_string(static_cast<int>(_literal.at(0)));
 			case FLOAT:
-				//example of getting the input value already converted from
-				//string to its data type, and now explicitily casted to the
-				//type requested on the method (int since the method is toInd())
+				// example of getting the input value already converted from
+				// string to its data type, and now explicitily casted to the
+				// type requested on the method (int since the method is toInd())
 				//return std::to_string(static_cast<int>(_literalAsFloat));
 				return std::to_string(std::stoi(_literal));
 			case DOUBLE:
 				return std::to_string(std::stoi(_literal));
 			case UNKNOWN:
-				throw ExplicitConversion::ImpossibleException();
+				throw ExplicitConversion::NotANumber();
 		}
 	} catch (std::out_of_range const& ex) {
 		throw ExplicitConversion::Overflow();
+	} catch (ExplicitConversion::NotANumber const& ex) {
+		throw ExplicitConversion::NotANumber();
 	} catch (...) {
 		throw ExplicitConversion::ImpossibleException();
 	}
+	throw ExplicitConversion::ImpossibleException();
 }
 
 const std::string ExplicitConversion::toFloat() {
-	std::ostringstream outString;
-	outString.setf(std::ios::fixed);
-	outString.precision(_precision);
+	_outString.str("");
 	try {
 		switch (_literalType) {
 			case FLOAT:
-				outString <<  std::stof(_literal) << 'f';
-				return outString.str();
+				_outString << std::stof(_literal) << 'f';
+				return _outString.str();
 			case CHAR: {
 			// if the literal input is a char, it can print2147483647 its ascii number:
 			// int(_literal.at(0))
 				int literalAsInt = static_cast<int>(_literal.at(0));
-				outString << std::stof(std::to_string(literalAsInt)) << 'f';
-				return outString.str();
+				_outString << std::stof(std::to_string(literalAsInt)) << 'f';
+				return _outString.str();
 			}
 			case INT:
-			//A 4-byte float uses 23 bits to store the mantissa and 9 to store
-			//the sign and exponent. This means that storing the largest 32-bit
-			//integers (2147483648) cannot be done completely accurately.
-			//https://stackoverflow.com/questions/23420783/convert-int-max-to-float-and-then-back-to-integer
-			//calculator: https://baseconvert.com/ieee-754-floating-point
-				outString << std::stof(_literal) << 'f';
-				return outString.str();
+				// A 4-byte float uses 23 bits to store the mantissa and 9 to
+				// store the sign and exponent. This means that storing the
+				// largest 32-bit integers (2147483648) cannot be done
+				// completely accurately.
+				// https://stackoverflow.com/questions/23420783/convert-int-max-to-float-and-then-back-to-integer
+				// calculator: https://baseconvert.com/ieee-754-floating-point
+				_outString << std::stof(_literal) << 'f';
+				return _outString.str();
 			case DOUBLE:
-				outString << std::stof(_literal) << 'f';
-				return outString.str();
+				_outString << std::stof(_literal) << 'f';
+				return _outString.str();
 			case UNKNOWN:
-				throw ExplicitConversion::ImpossibleException();
-			//default:
+				throw ExplicitConversion::NotANumber();
 		}
 	} catch (std::out_of_range const& ex) {
 		throw ExplicitConversion::Overflow();
+	} catch (ExplicitConversion::NotANumber const& ex) {
+		throw ExplicitConversion::NotANumber();
 	} catch (...) {
 		throw ExplicitConversion::ImpossibleException();
 	}
+	throw ExplicitConversion::ImpossibleException();
 }
 
 const std::string ExplicitConversion::toDouble() {
-	std::ostringstream outString;
-	outString.setf(std::ios::fixed);
-	outString.precision(_precision);
+	_outString.str("");;
 	try {
 		switch (_literalType) {
 			case DOUBLE:
-				outString << std::stod(_literal);
-				return outString.str();
+				_outString << std::stod(_literal);
+				return _outString.str();
 			case CHAR: {
 				// if the literal input is a char, it can print its ascii number:
 				// int(_literal.at(0))
 				int literalAsInt = static_cast<int>(_literal.at(0));
-				outString << std::stod(std::to_string(literalAsInt));
-				return outString.str();
+				_outString << std::stod(std::to_string(literalAsInt));
+				return _outString.str();
 			}
 			case INT:
-				outString << std::stod(_literal);
-				return outString.str();
+				_outString << std::stod(_literal);
+				return _outString.str();
 			case FLOAT:
-				outString << std::stod(_literal);
-				return outString.str();
+				_outString << std::stod(_literal);
+				return _outString.str();
 			case UNKNOWN:
-				throw ExplicitConversion::ImpossibleException();
+				throw ExplicitConversion::NotANumber();
 		}
 	} catch (std::out_of_range const& ex) {
 		throw ExplicitConversion::Overflow();
+	} catch (ExplicitConversion::NotANumber const& ex) {
+		throw ExplicitConversion::NotANumber();
 	} catch (...) {
 		throw ExplicitConversion::ImpossibleException();
 	}
+	throw ExplicitConversion::ImpossibleException();
 
 }
 
@@ -379,6 +372,9 @@ const char* ExplicitConversion::Overflow::what() const throw() {
 	return "Overflowed";
 }
 
+const char* ExplicitConversion::NotANumber::what() const throw() {
+	return "NaN";
+}
 
 /* ########################################################################## */
 // Overloaded insertion («) operator
