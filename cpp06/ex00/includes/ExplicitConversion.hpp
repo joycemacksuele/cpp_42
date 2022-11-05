@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/21 11:37:43 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/10/30 14:47:57 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/05 12:46:33 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ class ExplicitConversion {
 			virtual const char* what() const throw();
 		};
 		class ImpossibleException : public std::exception {
+			virtual const char* what() const throw();
+		};
+		class Overflow : public std::exception {
 			virtual const char* what() const throw();
 		};
 
