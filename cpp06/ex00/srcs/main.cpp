@@ -6,15 +6,12 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/01 12:27:48 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/07 12:56:02 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/07 16:17:37 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ExplicitConversion.hpp>
 
-//#include <typeinfo>
-// typeid: typeid (expression)
-// typeid allows to check the type of an expression
 // https://en.cppreference.com/w/cpp/types/numeric_limits
 
 int main(int argc, char **argv) {
