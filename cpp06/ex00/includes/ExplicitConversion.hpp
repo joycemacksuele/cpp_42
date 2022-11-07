@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/21 11:37:43 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/05 19:39:15 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/07 14:24:32 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ class ExplicitConversion {
 		ExplicitConversion(const std::string& literal, const bool verbose);// Overloaded constructor
 		ExplicitConversion(const ExplicitConversion& src);// Overloaded Copy constructor
 		ExplicitConversion& operator=(const ExplicitConversion& rhs);// Copy assignment operator
-		virtual ~ExplicitConversion(void);// Destructor
+		~ExplicitConversion(void);// Destructor
 
 		// It is ordered from lower to higher data type
 		enum ConvertTo {
