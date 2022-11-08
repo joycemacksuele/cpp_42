@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreita@student.codam.nl>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/07 13:16:41 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/08 15:06:21 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/08 16:15:02 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int main() {
 	Base& abcREF = *abcPTR;
 
 	std::cout << std::endl;
+	std::cout << GREEN << "Test 1:" << RESET << std::endl;
 	std::cout << "identify(*) Class type: ";
 	identify(abcPTR);// Even though its a pointer, it's passed by value. (to change it pass by reference (Base*& p)).
 	std::cout << "identify(&) Class type: ";
@@ -91,6 +92,7 @@ int main() {
 
 	delete abcPTR;
 
+	std::cout << GREEN << "Test 2:" << RESET << std::endl;
 	std::cout << "Testing dynamic_cast with reference: ";
 	try {
 		D& d = dynamic_cast<D&>(abcREF);
