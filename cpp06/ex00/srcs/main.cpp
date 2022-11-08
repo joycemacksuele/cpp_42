@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/01 12:27:48 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/07 16:17:37 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/08 11:46:53 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ int main(int argc, char **argv) {
 	/**************************************************************************/
 
 	if (argc == 2 || (argc == 3 && std::strcmp(argv[1], "-v") == 0)) {
-		ExplicitConversion explicitConversion = ExplicitConversion();
+		ExplicitConversion explicitConversion = ExplicitConversion();// Default Constructor, will also call its destructor when it exits this scope
 		if (argc == 3 && std::strcmp(argv[1], "-v") == 0) {
 			explicitConversion = ExplicitConversion(argv[2], true);
 		} else {
 			explicitConversion = ExplicitConversion(argv[1], false);
 		}
 		explicitConversion.assignLiteral();
-		std::cout << explicitConversion;// outputs the convertions
+		std::cout << explicitConversion;// ostream/insertion operator that outputs the convertions
 	} else {
 		std::cout << "\nUsage: \v./convert [-v | -l] <literal>" << std::endl;
 		std::cout << "\n[-v]: verbose\n[-l]: limits" << std::endl;

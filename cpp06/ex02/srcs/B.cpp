@@ -6,11 +6,10 @@
 /*   By: jfreitas <jfreita@student.codam.nl>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/07 13:08:54 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/07 20:36:19 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/08 12:02:59 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <Base.hpp>
 #include <B.hpp>
 
 // Destructor

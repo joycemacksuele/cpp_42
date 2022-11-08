@@ -6,7 +6,7 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/21 11:35:56 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/07 14:24:36 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/08 11:55:24 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,8 +189,8 @@ int ExplicitConversion::checkPrecision() {
 
 void ExplicitConversion::assignLiteral() {
 	_literalType = assignLiteralToTypes();
-	std::cout << YELLOW << "literal type =  "  << _literalType << std::endl;
-	std::cout << "literal = " << _literal << RESET << std::endl;
+	//std::cout << YELLOW << "literal type =  "  << _literalType << std::endl;
+	//std::cout << "literal = " << _literal << RESET << std::endl;
 	try {
 		_char = toChar();
 	} catch (const std::exception& e) {

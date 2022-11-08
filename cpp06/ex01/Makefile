@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreita@student.codam.nl>          +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/28 15:19:00 by jfreitas      #+#    #+#                  #
-#    Updated: 2022/11/07 15:44:19 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/11/08 11:51:58 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,7 +113,7 @@ all: $(NAME)
 $(NAME): $(OBJS) $(INC_DEP)
 	@echo "\n$(RESET)$(GREEN)Building the executable from the object files$(RESET)"
 	$(CXX) $(FLAGS) -o $@ $(OBJS)
-	@echo "\n$(RESET)$(LIGHT_BLUE)$(NAME)$(GREEN) is built\n$(RESET)"
+	@echo "\n$(RESET)$(LIGHT_BLUE)$(NAME)$(GREEN) is built (-v option is available)\n$(RESET)"
 # $@ = The target of the rule -> $(NAME)
 # $< = The first prerequisite
 # $^ = All prerequisites

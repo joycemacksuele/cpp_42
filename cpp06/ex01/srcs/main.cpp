@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreita@student.codam.nl>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/07 13:16:41 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/07 15:49:53 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/08 11:50:28 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int main(int ac, char** av) {
 	Data* deserializedDataAddress = deserialize(serializedDataAddress);
 
 	// Ensure the return value of deserialize() is equal to the original pointer:
-	std::cout << "Real test:" << std::endl;
+	std::cout << BOLD << "Real test:" << std::endl;
 	std::cout << "The deserialized address of the struct Data is: " << deserializedDataAddress << std::endl;
 	std::cout << "The address of the original Data struct is:     " << &dataStruct << std::endl;
 	std::cout << std::endl;
