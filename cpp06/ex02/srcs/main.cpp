@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreita@student.codam.nl>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/07 13:16:41 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/08 12:03:47 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/08 15:06:21 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <A.hpp>
 #include <B.hpp>
 #include <C.hpp>
+#include <D.hpp>
 
 //#include <typeinfo> FORBIDEN
 // typeid: typeid(expression)
@@ -65,18 +66,18 @@ void identify(Base* p) {
 // It prints the actual type of the object pointed to by p: "A", "B" or "C".
 // Using a pointer inside this function is forbidden.
 void identify(Base& p) {
-	identify(&p);
+	try {
+		identify(&p);
+	} catch (std::bad_cast const& ex) {
+		// If the dynamic_cast is used on pointers, the null pointer value of
+		// type new-type is returned. If it was used on references, the
+		// exception std::bad_cast is thrown since there is no such thing as a
+		// zero/null reference.
+		std::cout << RED <<ex.what() << std::endl;
+	}
 }
 
-int main(int ac, char** av) {
-	bool verbose = false;
-
-	if (ac == 2) {
-		std::string arg = av[1];
-		if (arg.compare("-v") == 0) {
-			verbose = true;
-		}
-	}
+int main() {
 
 	Base* abcPTR = generate();
 	Base& abcREF = *abcPTR;
@@ -89,6 +90,19 @@ int main(int ac, char** av) {
 	std::cout << std::endl;
 
 	delete abcPTR;
+
+	std::cout << "Testing dynamic_cast with reference: ";
+	try {
+		D& d = dynamic_cast<D&>(abcREF);
+		std::cout << "D: " << &d << std::endl;// just fr the sake of using d
+	} catch (std::bad_cast const& ex) {
+		// If the dynamic_cast is used on pointers, the null pointer value of
+		// type new-type is returned. If it was used on references, the
+		// exception std::bad_cast is thrown since there is no such thing as a
+		// zero/null reference.
+		std::cout << RED << ex.what() << std::endl;
+	}
+
 	atexit(checkleaks);
 	return 0;
 }

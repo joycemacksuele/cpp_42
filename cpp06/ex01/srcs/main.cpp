@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreita@student.codam.nl>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/07 13:16:41 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/08 11:50:28 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/08 15:00:06 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,7 @@ int main(int ac, char** av) {
  * reinterpret_cast
  *   - Converts any pointer type to other pointer type, even of unrelated classes.
  *     Neither the content pointed nor the pointer type itself is checked.
+ *     - Usage: https://stackoverflow.com/questions/573294/when-to-use-reinterpret-cast
+ *       Check the vendor APIs opaque data types example.
  *   - It can also cast pointers to or from integer types.
  */
