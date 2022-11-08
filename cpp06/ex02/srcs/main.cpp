@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreita@student.codam.nl>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/07 13:16:41 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/07 21:08:10 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/08 11:37:11 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 // typeid allows to check the type of an expression
 // typeid(exprssion).data()
 
+void	checkleaks(void)
+{
+	system("echo '\033[1;36m'");
+	system("leaks -q ft_typeid");
+}
+
 // It randomly instanciates A, B or C and returns the instance as a Base pointer.
 // Feel free to use anything you like for the random choice implementation.
 Base* generate(void) {
@@ -27,15 +33,19 @@ Base* generate(void) {
 	// we need 3 options for the randomization.
 	srand(time(NULL));
 	int randomInt = std::rand() % 10;// any number module 10 is from 0 to 9
+
+	Base *abc = NULL;
 	if (randomInt < 3) {
 		//std::cout << "A" << " | randomInt: " << randomInt << std::endl;
-		return new A();// TODO TRY DO DO NOT ALLOCATING
+		abc = new A();
 	} else if (randomInt < 6) {
 		//std::cout << "B" << " | randomInt: " << randomInt << std::endl;
-		return new B();
+		abc = new B();
+	} else {
+		//std::cout << "C" << " | randomInt: " << randomInt << std::endl;
+		abc = new C();
 	}
-	//std::cout << "C" << " | randomInt: " << randomInt << std::endl;
-	return new C();
+	return abc;
 }
 
 // It prints the actual type of the object pointed to by p: "A", "B" or "C".
@@ -73,13 +83,13 @@ int main(int ac, char** av) {
 
 	std::cout << std::endl;
 	std::cout << "identify(*) Class type: ";
-	identify(abcPTR);
+	identify(abcPTR);// Even though its a pointer, it's passed by value. (to change it pass by reference (Base*& p)).
 	std::cout << "identify(&) Class type: ";
-	identify(abcREF);
+	identify(abcREF);// Passed by reference.
 	std::cout << std::endl;
 
 	delete abcPTR;
-
+	atexit(checkleaks);
 	return 0;
 }
 

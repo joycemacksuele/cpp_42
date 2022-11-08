@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreita@student.codam.nl>          +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/28 15:19:00 by jfreitas      #+#    #+#                  #
-#    Updated: 2022/11/07 16:19:12 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/11/08 11:29:22 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,8 @@ JUMP_ONE_LINE := \033[1B
 
 ##### FLAGS #####
 # CC := c++
-FLAGS := -Iincludes -Wall -Wextra -Werror -pedantic -std=c++98
+FLAGS := -Iincludes -Wall -Wextra -Werror -Wshadow -pedantic -std=c++98
+# -fsanitize=address -g3
 # -pedantic -> Issue all the warnings demanded by strict ISO, it follows the
 #  version of the ISO standard specified by any -std option.
 # -Wshadow -> if variables, types, typedefs and/or parameters... have the same
