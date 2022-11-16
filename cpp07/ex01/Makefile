@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreita@student.codam.nl>          +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/28 15:19:00 by jfreitas      #+#    #+#                  #
-#    Updated: 2022/11/16 14:08:09 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/11/16 16:28:56 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -149,6 +149,9 @@ clean:
 fclean: clean print
 	@echo "\n\n$(RESET)$(YELLOW)Removing $(NAME) binary$(RESET)"
 	$(RM) $(NAME)
+	$(RM) *\~
+	$(RM) ./include/*\~
+	$(RM) ./src/*\~
 	@echo "\n\c"
 
 re: fclean print2 all
