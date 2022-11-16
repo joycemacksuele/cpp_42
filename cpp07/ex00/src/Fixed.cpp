@@ -6,11 +6,11 @@
 /*   By: jfreitas <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 16:36:11 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/09 15:48:26 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/16 13:18:43 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Fixed.hpp"
+#include "../include/Fixed.hpp"
 
 /* Good to know: The decimal point is called binary point or radix in binary notation, but
  * it's not explicitly stored, so it's kept in a fixed position (which we have to know).

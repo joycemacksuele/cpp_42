@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreita@student.codam.nl>          +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/28 15:19:00 by jfreitas      #+#    #+#                  #
-#    Updated: 2022/11/16 13:22:14 by jfreitas      ########   odam.nl          #
+#    Updated: 2022/11/16 14:08:09 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@
 #
 # ?= only sets variables if they have not yet been set
 
-NAME := templates
+NAME := iter
 
 ##### COLORS and ACTIONS #####
 # web.archive.org/web/20190624214929/http://www.termsys.demon.co.uk/vtansi.htm
