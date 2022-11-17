@@ -6,39 +6,23 @@
 /*   By: jfreitas <jfreita@student.codam.nl>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 17:23:39 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/17 15:59:55 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/17 16:02:57 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iter.hpp>
-#include <ctype.h>
-
-template<typename T>
-T plusOne(T c) {
-	return c + 1;
-}
+#include <Array.hpp>
 
 int main() {
 	std::cout << CLEAR_SCREEN;
 
 	std::cout << BOLD << BLUE << "---------------- Test with std::string array:\n" << RESET << std::endl;
-	std::string array = "abcdef";
-	size_t len = 4;
-	std::cout << "Array before iter: " << array << std::endl;
-	::iter<std::string&, int, int>(array, len, toupper);// Explicit instanciation
-	std::cout << "Array after iter (touper): " << array << std::endl << std::endl;
-
-	std::cout << BOLD << BLUE << "---------------- Test with int array and function template as third parameter:\n" << RESET << std::endl;
-	int arrayInt[6] = {0,1,2,3,4,5};
-	std::cout << "Array before iter: ";
-	for (size_t i = 0; i < 6; i++) {
-		std::cout << arrayInt[i];
-	}
-	std::cout << std::endl;
-	::iter(arrayInt, 6, plusOne<int>);// Implicit instanciation
-	std::cout << "Array after iter (plusOne): ";
-	for (size_t i = 0; i < 6; i++) {
-		std::cout << arrayInt[i];
+	int * a = new int();
+	std::cout << "Array before: " << *a << std::endl;
+	// It is compulsory to specify the type when declaring objects of class templates. Otherwise, the compiler will produce an error.
+	a = Array<int>(8);// Explicit instanciation
+	std::cout << "Array after: " ;
+	for (size_t i = 0; i < 8; i++) {
+		std::cout << a[i];
 	}
 	std::cout << std::endl << std::endl;
 

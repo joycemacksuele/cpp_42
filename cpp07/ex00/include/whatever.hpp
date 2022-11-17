@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreita@student.codam.nl>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 17:21:27 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/16 15:49:19 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/17 15:59:02 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ T const &max(T const &arg1, T const &arg2) {
 }
 
 /* Templates:
+ *
+ * typename or class keywords can be used (they are the same).
  *
  *** Why can templates only be implemented in the header file?
  *   Templates are often used in headers because the compiler needs to instantiate 
