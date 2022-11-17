@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreita@student.codam.nl>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 17:21:27 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/16 17:00:34 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/17 14:03:49 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@
  *   fcnPtr(5);//some older compilers do not support the implicit dereference
  *               method, but all modern compilers should.
  */
-template <typename T, typename R>
-void iter(T *&array, size_t const &length, R (* const func)(int)) {
+template <typename T, typename R, typename A>
+void iter(T array, size_t const &length, R (* func)(A)) {
 	for (unsigned int i = 0; i < length; i++) {
-		func(static_cast<unsigned char>(array[i]));
+		array[i] = func(array[i]);
 	}
 }
 
