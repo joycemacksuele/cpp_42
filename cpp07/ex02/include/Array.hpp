@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreita@student.codam.nl>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 15:17:58 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/17 21:58:31 by jfreitas         ###   ########.fr       */
+/*   Updated: 2022/11/18 18:18:36 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,10 @@ class Array {
 			std::cout << " Overloaded constructor called" << std::endl;
 			_elementSize = n;
 			_element = new T[n];
-			for (unsigned int i = 0; i <= n; i++) {
-				_element[i] = 0;
-			}
+			// the one down below would not be initializatin by default
+			//for (unsigned int i = 0; i < n; i++) {
+			//	_element[i] = 0;
+			//}
 		}
 
 		// Copy constructor
@@ -72,6 +73,7 @@ class Array {
 		// Assignment operator
 		// Obs.: modifying the original array or its copy after copying musn’t affect the other array.
 		Array& operator=(Array const &rhs) {
+			//delete [] _element;
 			std::cout << GREEN << "Array" << RESET;
 			std::cout << " Copy assignment operator called" << std::endl;
 			if (this != &rhs) {
@@ -82,7 +84,7 @@ class Array {
 				unsigned int size = rhs.size();
 				if (size >= 0) {
 					this->_element = new T[size];
-					for (unsigned int i = 0; i <= size; i++)
+					for (unsigned int i = 0; i < size; i++)
 						this->_element[i] = rhs._element[i];
 				}
 				//this->_element = rhs._element;
@@ -115,15 +117,20 @@ class Array {
 		unsigned int size() const {
 			//std::cout << GREEN << "Array" << RESET;
 			//std::cout << " size() method called" << std::endl << std::endl;
-			T* elementCopy;
-			for (elementCopy = _element; *elementCopy; elementCopy++);
-			//std::cout << "elementCopy = " << std::dec << (long)elementCopy << std::endl;
-			//std::cout << "_element = " << std::dec << (long)_element << std::endl;
+			/*T* elementCopy;
+			 * for (elementCopy = _element; *elementCopy; elementCopy++);
 			//std::cout << "elementCopy - _element = " << std::dec << (long)(elementCopy - _element) << std::endl;
-			return elementCopy - _element;// computation with addresses
-			//unsigned int elementSize;
-			//for (elementSize = 0; _element[elementSize]; elementSize++);
-			//return elementSize;
+			* return elementCopy - _element;// computation with addresses
+			*/
+			/*unsigned int elementSize;
+			* for (elementSize = 0; this->_element[elementSize]; elementSize++);
+			* return elementSize;
+			*/
+			//can't use those 2 ways abaove since the initiaization os the array
+			//is by default (i.e.: has memory garbage), and the value on it can
+			//happen to be 0 so the *elementCopy or this->_element[elementSize]
+			//won't exist
+			return _elementSize;
 		}
 
 		class InvalidIndexException : public std::exception {
