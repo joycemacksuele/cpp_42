@@ -40,54 +40,69 @@
 
 template <class T>
 class Array {
+	private:
+		T* _element;
+		unsigned int _elementSize;
+
 	public:
+        /* Constructing:
+         * If you have not explicitly added any other constructor call for a member
+         * variable into the initialization list, the default constructor of that
+         * member will be invoked (for any member having a default constructor).
+         */
 
 		// Construction with no parameter: Creates an empty array.
-		Array(void) {
-			_element = new T;
-			_elementSize = 0;
+		Array(void)
+		: _element(new T[0]), _elementSize(0) {
 			std::cout << GREEN << "Array" << RESET;
 			std::cout << " Default constructor called" << std::endl;
 		}
 
 		// Parametized construction: Creates an array of n elements initialized by default.
-		Array(unsigned int n) {
+		Array(unsigned int n) 
+        : _element(new T[n]), _elementSize(n) {
 			std::cout << GREEN << "Array" << RESET;
 			std::cout << " Overloaded constructor called" << std::endl;
-			_elementSize = n;
-			_element = new T[n];
 			// the one down below would not be initializatin by default
-			//for (unsigned int i = 0; i < n; i++) {
-			//	_element[i] = 0;
-			//}
+			/*
+             for (unsigned int i = 0; i < n; i++) {
+			 	_element[i] = 0;
+             }
+             */
 		}
+
+        /* OBS.:
+         * - In C++, assignment and copy construction are different because the
+         * copy constructor initializes uninitialized memory, whereas assignment
+         * starts with an existing initialized object.
+         * - In general, copy ctors should invoke the copy ctors of their members.
+         *
+         */
 
 		// Copy constructor
 		// Obs.: modifying the original array or its copy after copying musn’t affect the other array.
-		Array(Array const &src) {
+		Array(Array const &rhs)
+        : _element(new T[rhs._elementSize]), _elementSize(rhs._elementSize) {
 			std::cout << GREEN << "Array" << RESET;
 			std::cout << " Copy constructor called" << std::endl;
-			*this = src; // this will call the copy assignment operator
 		}
 
 		// Assignment operator
 		// Obs.: modifying the original array or its copy after copying musn’t affect the other array.
 		Array& operator=(Array const &rhs) {
-			//delete [] _element;
 			std::cout << GREEN << "Array" << RESET;
-			std::cout << " Copy assignment operator called" << std::endl;
-			if (this != &rhs) {
-				this->_elementSize = rhs._elementSize;
+			std::cout << " Assignment operator called" << std::endl;
+			if (this != &rhs && this->_elementSize >= 0) {
+			    delete [] this->_element;
 				/* getting the size of the rhs element and if that size is >=
-				* 0, then a new array with that size can be allocated and
-				* assigned to each index of the rhs element. */
-				unsigned int size = rhs.size();
-				if (size >= 0) {
-					this->_element = new T[size];
-					for (unsigned int i = 0; i < size; i++)
-						this->_element[i] = rhs._element[i];
-				}
-				//this->_element = rhs._element;
+			    * 0, then a new array with that size can be allocated and
+			    * assigned to each index of the rhs element.
+                */
+				this->_elementSize = rhs.size();
+			    this->_element = new T[this->_elementSize];
+			    for (unsigned int i = 0; i < this->_elementSize; i++) {
+				    this->_element[i] = rhs._element[i];
+                }
 			}
 			return *this;
 		}
@@ -97,10 +112,7 @@ class Array {
 		T& operator[](unsigned int index) {
 			//std::cout << GREEN << "Array" << RESET;
 			//std::cout << " Subscript operator called" << std::endl;
-			// Using _elementSize rather than  size() here since for the just
-			// constructed empty array, the size() metohod would return 0:
-			//std::cout << "size() = "<< this->size() << std::endl;
-			if (index > _elementSize || index < 0) {
+			if (index >= _elementSize || index < 0) {
 				throw Array::InvalidIndexException();
 			}
 			return _element[index];
@@ -110,26 +122,33 @@ class Array {
 		~Array(void) {
 			std::cout << GREEN << "Array" << RESET;
 			std::cout << " Destructor called" << std::endl;
-			delete _element;
+			delete [] this->_element;
 		}
 
 		// Returns the number of elements in the array and musn’t modify the current instance.
 		unsigned int size() const {
-			//std::cout << GREEN << "Array" << RESET;
-			//std::cout << " size() method called" << std::endl << std::endl;
-			/*T* elementCopy;
-			 * for (elementCopy = _element; *elementCopy; elementCopy++);
+			std::cout << GREEN << "Array" << RESET;
+			std::cout << " size() method called" << std::endl;
+
+			/*
+            T* elementCopy;
+			for (elementCopy = _element; *elementCopy; elementCopy++);
 			//std::cout << "elementCopy - _element = " << std::dec << (long)(elementCopy - _element) << std::endl;
-			* return elementCopy - _element;// computation with addresses
+			return elementCopy - _element;// computation with addresses
 			*/
-			/*unsigned int elementSize;
-			* for (elementSize = 0; this->_element[elementSize]; elementSize++);
-			* return elementSize;
+
+		    /*	
+            unsigned int elementSize;
+			for (elementSize = 0; this->_element[elementSize]; elementSize++);
+			return elementSize;
 			*/
-			//can't use those 2 ways abaove since the initiaization os the array
-			//is by default (i.e.: has memory garbage), and the value on it can
-			//happen to be 0 so the *elementCopy or this->_element[elementSize]
-			//won't exist
+
+			/* can't use those 2 ways above since the initiaization of the array
+             * is by default (i.e.: has memory garbage), and the value on it can
+             * happen to be 0 so the *elementCopy or this->_element[elementSize]
+             * won't exist. 
+             */
+
 			return _elementSize;
 		}
 
@@ -139,10 +158,6 @@ class Array {
 					return "Array::InvalidIndexException";
 				}
 		};
-
-	private:
-		T* _element;
-		unsigned int _elementSize;
 };
 
 #endif

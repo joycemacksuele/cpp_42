@@ -29,6 +29,7 @@ int main(int, char**)
 	{
 		// It is compulsory to specify the type when declaring objects of class templates.
 		// Otherwise, the compiler will produce an error.
+        std::cout << "(array) -> ";
 		Array<int> array(8);// Explicit instanciation
 		//std::cout << "n = " << 8 << std::endl;
 		std::cout << std::endl;
@@ -57,9 +58,10 @@ int main(int, char**)
 
 	// creating an array of ints with the Array class but also just as int* to
 	// compare them later:
+    std::cout << "(numbers) -> ";
 	Array<int> numbers(MAX_VAL);
 	std::cout << std::endl;
-	std::cout << BLUE << "numbers constructed with parametized contructor and initialized by default:" << RESET << std::endl;
+	std::cout << BLUE << "'numbers' object constructed with parametized contructor and initialized by default:" << RESET << std::endl;
 	for (int i = 0; i < MAX_VAL; i++) {
 		std::cout << "numbers[" << i << "] = " << numbers[i] << std::endl;
 	}
@@ -74,7 +76,7 @@ int main(int, char**)
 		mirror[i] = value;
 	}
 
-	std::cout << BLUE << "comparing rand numbers to the mirror ones:" << RESET << std::endl;
+	std::cout << BLUE << "Initializing 'numbers' and 'mirror' objects to rand numbers and comparing them:" << RESET << std::endl;
 	for (int i = 0; i < MAX_VAL; i++)
 	{
 		if (mirror[i] != numbers[i])
@@ -86,40 +88,43 @@ int main(int, char**)
 			std::cout << " mirror[" << i << "] = " << numbers[i] << std::endl;
 		}
 	}
-	std::cout << GREEN << "result: OK!" << std::endl;
+	std::cout << MAGENTA << "result: OK!" << std::endl;
 
 	//SCOPE
-	std::cout << std::endl << BLUE << "Beginning of new scope " << RESET << std::endl;
+	std::cout << std::endl << BLUE << "Beginning of new scope" << RESET << std::endl;
 	{
-		Array<int> tmp = numbers;
-		Array<int> tmp2;
-		tmp2 = Array<int>();
-		Array<int> test(tmp);
+        std::cout << "(tmp = numbers) -> tmp is allocated:" << std::endl;
+		Array<int> tmp = numbers;// copy constructor (memory allocated = 1)
+        
+        std::cout << std::endl << "(tmp2) -> tmp2 is allocated:" << std::endl;
+		Array<std::string> tmp2;// default constructor (memory allocated = 2)
+        
+        std::cout << std::endl << "(tmp2 = Array<int>()) -> Array is allocated, tmp2 is deleted and allocated again:" << std::endl;
+		tmp2 = Array<std::string>();// default constructor for Array<>() (memory allocated = 3) + assignment operator where memmory is deleted for tmp2 (memory allocated = 2) and then allocated again with new Array values(memory allocated = 3)
+
+        std::cout << std::endl << "(test(tmp)) -> test is allocated:" << std::endl;
+		Array<int> test(tmp);// copy constructor (memory allocated = 4)
 	}
 	std::cout << BLUE << "End of new scope " << RESET << std::endl << std::endl;
 
 	int index = -2;
-	try
-	{
+	try {
 		numbers[index] = 0;
+	} catch(const std::exception& e) {
+		std::cerr << RED << "Error: " << RESET << e.what() << ": " << index << "\n\n";
 	}
-	catch(const std::exception& e)
-	{
-		std::cerr << RED << e.what() << RESET << ": " << index << "\n\n";
-	}
-	try
-	{
-		numbers[MAX_VAL] = 0;
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << RED << e.what() << RESET << ": " << MAX_VAL << "\n\n";
+	try {
+        numbers[MAX_VAL - 1] = 0;// valid index
+		numbers[MAX_VAL] = 0;// invalid index
+	} catch(const std::exception& e) {
+		std::cerr << RED << "Error: " << RESET << e.what() << ": " << MAX_VAL << "\n\n";
 	}
 
-	for (int i = 0; i < MAX_VAL; i++)
-	{
+	for (int i = 0; i < MAX_VAL; i++) {
 		numbers[i] = rand();
+        std::cout << "new rand numbers[" << i << "] = " << numbers[i] << std::endl;
 	}
+	std::cout << std::endl;
 
 	delete [] mirror;
 	atexit(checkleaks);
