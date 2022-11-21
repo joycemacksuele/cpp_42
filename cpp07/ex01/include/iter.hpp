@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreita@student.codam.nl>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 15:18:31 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/17 15:18:32 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/21 15:31:07 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@
  *               method, but all modern compilers should.
  */
 template <typename T, typename R, typename A>
-void iter(T array, size_t const &length, R (* func)(A)) {
+void iter(T& array, unsigned int const &length, R (* func)(A&)) {
 	for (unsigned int i = 0; i < length; i++) {
-		array[i] = func(array[i]);
+		func(array[i]);
 	}
 }
 
