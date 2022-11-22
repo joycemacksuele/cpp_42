@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreita@student.codam.nl>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 17:23:39 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/21 15:30:59 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/22 15:30:30 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ T plusOne(T& c) {
 	c = c + 1;
 	return c;
 }
+
 void ft_toupper(char& c) {
 	c = c - 32;
 }
