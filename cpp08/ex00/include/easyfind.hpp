@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   whatever.hpp                                       :+:    :+:            */
+/*   easyfind.hpp                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jfreitas <jfreita@student.codam.nl>          +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/08 17:21:27 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/22 17:09:20 by jfreitas      ########   odam.nl         */
+/*   Created: 2022/11/23 11:41:17 by jfreitas      #+#    #+#                 */
+/*   Updated: 2022/11/23 15:45:28 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WHATEVER_HPP
-# define WHATEVER_HPP
+#ifndef EASYFIND_HPP
+# define EASYFIND_HPP
 
 #include <string>
 #include <iostream>
@@ -32,29 +32,41 @@
 #define ERASE_LINE    "\033[2K"
 #define JUMP_ONE_LINE "\033[1B"
 
-/* Can Lamda expression be downgrade to C++ 98?
- * No they cannot. Prior C++11 standards have no notion of lambda syntax.
- * Though there are surrogates available like boost::lambda (can't be used here).
+/* Why typename keyword is being used on the return type?
+ * A name used in a template declaration or definition and that is dependent on
+ * a template-parameter is assumed not to name a type unless the applicable name
+ * lookup finds a type name or the name is qualified by the keyword typename.
  *
- * You can provide functor style classes, overriding the call operator
- * (<return_type> operator()(<args>);), to provide the same effect, as mentioned
- * in the other answer.
+ * lookup:
+ * Some names denote types or templates. In general, whenever a name is
+ * encountered it is necessary to determine whether that name denotes one of
+ * these entities before continuing to parse the program that contains it.
+ * The process that determines this is called name lookup.
+ *
+ * Check first answer of:
+ * https://stackoverflow.com/questions/610245/where-and-why-do-i-have-to-put-the-template-and-typename-keywords
  */
 
 template <typename T>
-struct firstOccurrence {
-	void operator()(T const &each) {
-		
+typename T::iterator const easyfind(T & arg1, int const& toFind) {
+	/* Container adaptors (stack, queue, priority_queue) don't have the begin
+	 * or end iterators, to parse one of them, the arg1 would have to be
+	 * passed by value because there is no way to traverse them without erasing
+	 * their elements (so a copy is needed).
+	 */
+	typename T::iterator containerIter = std::find(arg1.begin(), arg1.end(), toFind);
+	if (containerIter == arg1.end()) {
+		throw std::runtime_error("does not exist on the container");
 	}
-};
+	return containerIter;
 
-template <typename T>
-T const& easyfind(T arg1, int const& arg2) {
-	// arg1 is passed by value because there is no way to traverse
-    // priority_queue's content without erasing the queue so a copy is needed..
-	if (arg1.size() == 0) {
-	}
-	/* Third parameter of for_each:
+	/* std::for_each could be used? 
+	 * - for_each s a built-in function under the header <algorithm>.
+	 * Response: No since the third param receives only one parameter, each
+	 * element of the container passed to it (so it could not compare itself
+	 * to arg2 (unless arg2 was global but lets not go there/do it).
+	 *
+	 * Third parameter of for_each:
 	 * A function object. To be applied to the result of dereferencing every
 	 * iterator in the range [first, last]
 	 * The signature of the function should be equivalent to the following:
@@ -62,15 +74,17 @@ T const& easyfind(T arg1, int const& arg2) {
 	 * - The signature does not need to have const &.
 	 * - The type Type must be such that an object of type InputIt can be
 	 * dereferenced and then implicitly converted to Type.
+	 *
+	 * Syntax:
+	 * std::for_each(arg1.begin(), arg1.end(), firstOccurrence) {...}
 	 */
-	for_each(arg1.begin(), arg1.end(), firstOccurrence(arg2)); {
-		if (arg1.top() == arg2) {
-		
-		}
-	}
 }
 
-/*** Sequence containers:
+
+/* ****************************************************************************
+ * Containers:
+ *
+ *** Sequence containers:
  * Sequence containers implement data structures which can be accessed
  * sequentially.
  *     array: static contiguous array
@@ -91,7 +105,8 @@ T const& easyfind(T arg1, int const& arg2) {
  * Unordered associative containers implement unsorted (hashed) data structures
  * that can be quickly searched (O(1) amortized, O(n) worst-case complexity).
  *     unordered_set: collection of unique keys, hashed by keys
- *     unordered_map: collection of key-value pairs, hashed by keys, keys are unique
+ *     unordered_map: collection of key-value pairs, hashed by keys, keys are
+ *                    unique
  *     unordered_multiset: collection of keys, hashed by keys
  *     unordered_multimap: collection of key-value pairs, hashed by keys
  *
@@ -100,13 +115,18 @@ T const& easyfind(T arg1, int const& arg2) {
  *    stack: adapts a container to provide stack (LIFO data structure)
  *    queue: adapts a container to provide queue (FIFO data structure)
  *    priority_queue: adapts a container to provide priority queue
- *    flat_set: adapts a container to provide a collection of unique keys, sorted by keys
- *    flat_map: adapts a container to provide a collection of key-value pairs, sorted by unique keys
- *    flat_multiset: adapts a container to provide a collection of keys, sorted by keys
- *    flat_multimap: adapts a container to provide a collection of key-value pairs, sorted by keys
+ *    flat_set: adapts a container to provide a collection of unique keys,
+ *              sorted by keys
+ *    flat_map: adapts a container to provide a collection of key-value pairs,
+ *              sorted by unique keys
+ *    flat_multiset: adapts a container to provide a collection of keys,
+ *                   sorted by keys
+ *    flat_multimap: adapts a container to provide a collection of key-value
+ *                   pairs, sorted by keys
  */
 
-/* Templates:
+/* ****************************************************************************
+ * Templates:
  *
  * typename or class keywords can be used (they are the same).
  *
@@ -127,4 +147,23 @@ T const& easyfind(T arg1, int const& arg2) {
  *   instantiating the template can be compiled.
  *
  */
+
+/* ****************************************************************************
+ * Can Lamda expression be downgrade to C++ 98?
+ * No they cannot. Prior C++11 standards have no notion of lambda syntax.
+ * Though there are surrogates available like boost::lambda (can't be used here).
+ *
+ * You can provide functor style classes, overriding the call operator
+ * (<return_type> operator()(<args>);), to provide the same effect, as mentioned
+ * in the other answer.
+ *
+ * Functor (function object type):
+ *    struct firstOccurrence {
+ *        void operator()(T const &each) {
+ *        ...
+ *        }
+ *    };
+ */
+
+
 #endif
