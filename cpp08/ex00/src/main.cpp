@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreita@student.codam.nl>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 17:23:39 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/24 10:50:17 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/24 17:35:58 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <deque>// double-ended queue
 #include <forward_list>// singly-linked list
 #include <list>// doubly-linked list
+
 
 template <typename T>
 static std::string const containerToStr(T & element) {
