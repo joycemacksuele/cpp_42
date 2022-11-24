@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreita@student.codam.nl>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/23 11:41:17 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/23 15:45:28 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/24 17:34:20 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,5 @@ typename T::iterator const easyfind(T & arg1, int const& toFind) {
  *        }
  *    };
  */
-
 
 #endif
