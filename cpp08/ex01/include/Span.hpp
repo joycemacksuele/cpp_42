@@ -6,7 +6,7 @@
 /*   By: jfreitas <jfreita@student.codam.nl>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 15:17:58 by jfreitas      #+#    #+#                 */
-/*   Updated: 2022/11/24 17:22:25 by jfreitas      ########   odam.nl         */
+/*   Updated: 2022/11/25 14:39:09 by jfreitas      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <exception>
+#include <numeric>
 #include <sstream>
 #include <iomanip>
 #include <vector>
@@ -44,6 +45,7 @@ class Span {
 		Span(Span const & rhs);// Overloaded Copy constructor
 		Span& operator=(Span const & rhs);// Assignment operator
 		~Span(void);// Destructor
+		int& operator[](unsigned int index);// Subscript operator
 
 		/************************ getters and setters *************************/
 		unsigned int const & getSpanSize() const;
@@ -55,6 +57,8 @@ class Span {
 		void addNumber(int const & toAdd);
 		int shortestSpan() const;
 		int longestSpan() const;
+		void addNumbers(int const & value);
+		void addIntVectorToSpan(std::vector<int> const & intVecToAdd);
 
 		/************************* member variables ***************************/
 		static bool verbose;
