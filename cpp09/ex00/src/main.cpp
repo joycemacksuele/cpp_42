@@ -18,7 +18,5 @@ int main (int argc, char **argv) {
         return -1;
     }
     BitcoinExchange bitcoinExchange;
-    bitcoinExchange.bitcoinValuePerDay(argv[1]);
-//    bitcoinExchange.print();
-    return 0;
+    return bitcoinExchange.bitcoinValuePerDay(argv[1]);
 }

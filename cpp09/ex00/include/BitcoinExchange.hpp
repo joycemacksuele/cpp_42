@@ -32,6 +32,8 @@
 #define ERASE_LINE    "\033[2K"
 #define JUMP_ONE_LINE "\033[1B"
 
+#define LEAP_YEAR(x) (((x % 4 == 0) && (x % 100 != 0)) || (x % 400 == 0)) ? 29 : 28
+
 class BitcoinExchange {
 public:
     BitcoinExchange();
@@ -42,21 +44,33 @@ public:
     /************************ getters and setters *************************/
 
     /************************** member methods ****************************/
-    void bitcoinValuePerDay(char *file);
+    short bitcoinValuePerDay(const char *file);
 
     /************************* member variables ***************************/
     static bool verbose;
 
 private:
-    std::string _data;
     std::map<std::string, double> _map_data;
 
     /************************** member methods ****************************/
-    std::map<std::string, double> readData();
-    double findRate(std::string date, std::map<std::string, double> data);
-    std::string moveDateBackOneDay(const std::string& date);
-    bool ifValidDate(const std::string& date);
-    bool ifValidValue(const std::string& value);
+    bool handleDataBaseFile();
+    double findRate(std::string date);
+    std::string getClosestDate(std::string const& date);
+    std::string formatDate(unsigned short possible_prev_year, unsigned short possible_prev_month, unsigned short prev_day);
+    bool checkInput(std::ifstream & input_file);
+    bool checkDate(std::string const& date);
+
+    template<class FUNC>
+    std::pair<long, bool> checkValue(const char* value, FUNC func) {
+        try {
+            long ret = func(value);
+            //std::cerr << BLUE << "ret => " << ret << RESET << std::endl;
+            return std::make_pair(ret, true);
+        } catch (...) {
+            std::cout << YELLOW << "string to float/int/long failed" << RESET << std::endl;
+            return std::make_pair(0, false);
+        }
+    }
 };
 
 #endif
