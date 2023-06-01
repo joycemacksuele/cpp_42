@@ -5,8 +5,8 @@
 #                                                      +:+                     #
 #    By: jfreitas <jfreita@student.codam.nl>          +#+                      #
 #                                                    +#+                       #
-#    Created: 2022/10/28 15:19:00 by jfreitas      #+#    #+#                  #
-#    Updated: 2022/11/24 10:52:38 by jfreitas      ########   odam.nl          #
+#    Created: 2023/05/30 15:19:00 by jfreitas      #+#    #+#                  #
+#    Updated: 2023/06/02 10:52:38 by jfreitas      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@
 #
 # ?= only sets variables if they have not yet been set
 
-NAME := btc
+NAME := RPN
 
 ##### COLORS and ACTIONS #####
 # web.archive.org/web/20190624214929/http://www.termsys.demon.co.uk/vtansi.htm
