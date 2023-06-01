@@ -60,10 +60,10 @@ private:
     bool checkInput(std::ifstream & input_file);
     bool checkDate(std::string const& date);
 
-    template<class FUNC>
-    std::pair<long, bool> checkValue(const char* value, FUNC func) {
+    template<typename T, class FUNC>
+    std::pair<T, bool> checkValue(const char* value, FUNC func) {
         try {
-            long ret = func(value);
+            T ret = func(value);
             //std::cerr << BLUE << "ret => " << ret << RESET << std::endl;
             return std::make_pair(ret, true);
         } catch (...) {

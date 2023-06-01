@@ -113,19 +113,16 @@ short BitcoinExchange::bitcoinValuePerDay(const char *file) {
         // Separator here is a '|'
         char seperator;
         iss >> date >> seperator >> value;
-        //std::cerr << YELLOW << "date: " << date << RESET << std::endl;
-        //std::cerr << YELLOW << "seperator: " << seperator << RESET << std::endl;
-        //std::cerr << YELLOW << "value: " << value << RESET << std::endl;
 
-        if (not iss.fail() && seperator == '|' && checkDate(date) && checkValue(value.c_str(), atof).second) {
-            if(checkValue(value.c_str(), atol).first < 0) {
+        if (not iss.fail() && seperator == '|' && checkDate(date) && checkValue<float>(value.c_str(), atof).second) {
+            if(checkValue<float>(value.c_str(), atof).first < 0) {
                 std::cerr << RED << "Error: not a positive number." << RESET << std::endl;
-            } else if(checkValue(value.c_str(), atol).first > INT_MAX) {
+            } else if(checkValue<long>(value.c_str(), atol).first > INT_MAX) {
                 std::cerr << RED << "Error: too large a number." << RESET << std::endl;
-            } else if (checkValue(value.c_str(), atol).first > 0 && checkValue(value.c_str(), atol).first < INT_MAX) {
+            } else if (checkValue<float>(value.c_str(), atof).first > 0 && checkValue<float>(value.c_str(), atof).first < INT_MAX) {
                 // Your program should display on the standard output the result of the value
                 // multiplied by the exchange rate according to the date indicated in your database:
-                double mult = atol(value.c_str()) * findRate(date);
+                float mult = atof(value.c_str()) * findRate(date);
                 std::cout << date << " => " << value << " = " << std::setprecision(2) << mult << std::endl;
             }
         } else {
