@@ -53,8 +53,10 @@ int64_t RPN::handleSigns(std::string const& operand_or_operator) {
         throw std::invalid_argument("Error: Insufficient operands for " + operand_or_operator + " operator.");
     }
     int64_t operand_2 = _numbers.top();
+    // Popping out of the stack, the second number/operand that will be used to compute
     _numbers.pop();
     int64_t operand_1 = _numbers.top();
+    // Popping out of the stack, the first number/operand that will be used to compute
     _numbers.pop();
 
     int64_t result;
@@ -82,20 +84,29 @@ int64_t RPN::calculate(std::string const& arg) {
         throw std::invalid_argument("Error: String Stream failed ");
     }
 
+    if (verbose) {
+        std::cout << BLUE << "stack:\n-----\n" << RESET;
+    }
+
     std::string operand_or_operator;
     while (ss >> operand_or_operator) {
-        // std::cout << BLUE << "operand_or_operator: " << operand_or_operator << RESET << std::endl;
         try {
             // If it is a number from 0 to 9:
             if (operand_or_operator.at(0) && operand_or_operator.at(0) >= '0' && operand_or_operator.at(0) <= '9') {
                 int64_t nb = atoll(operand_or_operator.c_str());
                 _numbers.push(nb);
+                if (verbose) {
+                    std::cout << _numbers.top() << std::endl;
+                }
 
             }
             // If it is a sign (+-*/):
             else if (operand_or_operator == "+" || operand_or_operator == "-" || operand_or_operator == "*" || operand_or_operator == "/") {
                 int64_t result = handleSigns(operand_or_operator);
                 _numbers.push(result);
+                if (verbose) {
+                    std::cout << GREEN << _numbers.top() << RESET << std::endl;
+                }
             }
             // Else, the input exists, but it is not allowed:
             else {
@@ -114,5 +125,8 @@ int64_t RPN::calculate(std::string const& arg) {
         throw std::invalid_argument("Error: Invalid input expression. Try again.");
     }
 
+    if (verbose) {
+        std::cout << BLUE << "-----\nresult: " << RESET;
+    }
     return _numbers.top();
 }
