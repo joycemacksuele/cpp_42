@@ -41,7 +41,7 @@ public:
     ~RPN();
 
     /************************** member methods ****************************/
-    int calculate(std::string const& arg);
+    int64_t calculate(std::string const& arg);
 
     /************************* member variables ***************************/
     static bool verbose;
@@ -49,11 +49,15 @@ public:
 private:
     // stack is the perfect data type for a postfix notation (aka reversed polish notation)
     // first comes operands, then operators (all in order - of importance for operators too)
-    // ex: 123*+ (on stack in this order) =>
-    std::stack<int> _numbers;
+    // ex: 123*+ (operands on stack in this order, and operators will be used (also in this order)
+    // to compute using the operands just stored on the stack)
+    // pop 3 and 2 => 3*2 = 6 (push 6 back to stack)
+    // pop 1 and 6 => 1+6 = 7 (pish 7 to stack)
+    // At the end stack will have the result of the computation
+    std::stack<int64_t> _numbers;
 
     /************************** member methods ****************************/
-    int handleSigns(std::string const& sign_or_number);
+    int64_t handleSigns(std::string const& operand_or_operator);
 };
 
 #endif

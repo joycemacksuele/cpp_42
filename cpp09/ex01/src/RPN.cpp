@@ -36,7 +36,7 @@ RPN& RPN::operator=(RPN const & rhs) {
         std::cout << " Assignment operator called" << std::endl;
     }
     if (this != &rhs) {
-        this->_numbers = std::stack<int>(rhs._numbers);
+        this->_numbers = std::stack<int64_t>(rhs._numbers);
     }
     return *this;
 }
@@ -48,66 +48,71 @@ RPN::~RPN() {
     }
 }
 
-int RPN::handleSigns(std::string const& sign_or_number) {
+int64_t RPN::handleSigns(std::string const& operand_or_operator) {
     if (_numbers.size() < 2) {
-        std::cout << RED << "Error: Insufficient operands for " << sign_or_number << " operator." << RESET << std::endl;
-        throw std::invalid_argument("Error: Insufficient operands for " + sign_or_number + " operator.");
+        throw std::invalid_argument("Error: Insufficient operands for " + operand_or_operator + " operator.");
     }
-    int n2 = _numbers.top();
+    int64_t operand_2 = _numbers.top();
     _numbers.pop();
-    int n1 = _numbers.top();
+    int64_t operand_1 = _numbers.top();
     _numbers.pop();
 
-    int result;
-    if (sign_or_number == "+") {
-        result = n1 + n2;
+    int64_t result;
+    if (operand_or_operator == "+") {
+        result = operand_1 + operand_2;
     }
-    if (sign_or_number == "-") {
-        result = n1 - n2;
+    if (operand_or_operator == "-") {
+        result = operand_1 - operand_2;
     }
-    if (sign_or_number == "*") {
-        result = n1 * n2;
+    if (operand_or_operator == "*") {
+        result = operand_1 * operand_2;
     }
-    if (sign_or_number == "/") {
-        if (n2 == 0) {
-            std::cout << RED << "Error: Division by zero." << RESET << std::endl;
+    if (operand_or_operator == "/") {
+        if (operand_2 == 0) {
             throw std::logic_error("Error: Division by zero.");
         }
-        result = n1 / n2;
+        result = operand_1 / operand_2;
     }
     return result;
 }
 
-int RPN::calculate(std::string const& arg) {
+int64_t RPN::calculate(std::string const& arg) {
     std::istringstream ss(arg);
     if (ss.fail()) {
         throw std::invalid_argument("Error: String Stream failed ");
     }
 
-    std::string sign_or_number;
-    while (ss >> sign_or_number) {
-        // std::cout << BLUE << "sign_or_number: " << sign_or_number << RESET << std::endl;
+    std::string operand_or_operator;
+    while (ss >> operand_or_operator) {
+        // std::cout << BLUE << "operand_or_operator: " << operand_or_operator << RESET << std::endl;
         try {
-            if (sign_or_number.at(0) && sign_or_number.at(0) >= '0' && sign_or_number.at(0) <= '9') {
-                int nb = atoi(sign_or_number.c_str());
+            // If it is a number from 0 to 9:
+            if (operand_or_operator.at(0) && operand_or_operator.at(0) >= '0' && operand_or_operator.at(0) <= '9') {
+                int64_t nb = atoll(operand_or_operator.c_str());
                 _numbers.push(nb);
 
-            } else if (sign_or_number == "+" || sign_or_number == "-" || sign_or_number == "*" || sign_or_number == "/") {
-                int result = handleSigns(sign_or_number);
+            }
+            // If it is a sign (+-*/):
+            else if (operand_or_operator == "+" || operand_or_operator == "-" || operand_or_operator == "*" || operand_or_operator == "/") {
+                int64_t result = handleSigns(operand_or_operator);
                 _numbers.push(result);
-            } else {
-                std::cout << RED << "Error: Invalid input expression." << RESET << std::endl;
+            }
+            // Else, the input exists, but it is not allowed:
+            else {
                 throw std::invalid_argument("Error: Invalid input expression.");
             }
-        } catch (std::exception const& ex) {
+        } catch (std::logic_error const& ex) {
+            throw ex;
+        } catch (std::invalid_argument const& ex) {
             throw ex;
         }
     }
+
+    // _numbers has to have 1 item, the result of the computation.
+    // Otherwise, the input exists, but it is empty (since _numbers was not filled up):
     if (_numbers.size() != 1) {
-        std::cout << RED << "Error: Invalid input expression." << RESET << std::endl;
-        throw std::invalid_argument("Error: Invalid input expression.");
+        throw std::invalid_argument("Error: Invalid input expression. Try again.");
     }
 
-    std::cout << GREEN << _numbers.top() << RESET << std::endl;
     return _numbers.top();
 }
