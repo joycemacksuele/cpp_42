@@ -14,7 +14,7 @@
 
 int main (int argc, char **argv) {
     if (argc != 2) {
-        std::cout << "Error: missing second argument"<< std::endl;
+        std::cout << RED << "Error: missing second argument"<< RESET << std::endl;
         return -1;
     }
     BitcoinExchange bitcoinExchange;
