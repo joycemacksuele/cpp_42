@@ -36,7 +36,7 @@
 #
 # ?= only sets variables if they have not yet been set
 
-NAME := btc
+NAME := PmergeMe
 
 ##### COLORS and ACTIONS #####
 # web.archive.org/web/20190624214929/http://www.termsys.demon.co.uk/vtansi.htm

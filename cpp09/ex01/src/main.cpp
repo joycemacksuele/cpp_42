@@ -21,7 +21,7 @@ int main (int argc, char **argv) {
     }
 
     RPN rpn;
-:    // rpn.verbose = true;
+    // rpn.verbose = true;
     try {
         int64_t result = rpn.calculate(std::string(argv[1]));
         std::cout << GREEN << result << RESET << std::endl;
